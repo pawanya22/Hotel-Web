@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxe Wellness Club | 3D‑effect background</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --bg-dark: #0a0a0a;
+      --text-light: #fdfbf7;
+      --bg-light: #fcfbf9; /* warm pastel white */
+      --text-dark: #121212;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      cursor: none; /* custom cursor */
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative; /* for pseudo‑element */
+    }
+
+    /* --- MODERN LUXURY 3D PATTERN – now behind all content, visible only on white background --- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1; /* behind everything */
+      opacity: 0.5;  /* clearly visible on white, but not overpowering */
+      
+      /* Multi‑layer 3D illusion: bevels + micro dimples */
+      background-image: 
+        /* dark shadows */
+        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 12px),
+        repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0px, rgba(0, 0, 0, 0.08) 2px, transparent 2px, transparent 12px),
+        /* bright highlights */
+        repeating-linear-gradient(225deg, rgba(255, 255, 255, 0.25) 0px, rgba(255, 255, 255, 0.25) 2px, transparent 2px, transparent 12px),
+        repeating-linear-gradient(315deg, rgba(255, 255, 255, 0.22) 0px, rgba(255, 255, 255, 0.22) 2px, transparent 2px, transparent 12px),
+        /* micro dimples (tiny spheres) */
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
+      
+      background-size: 
+        40px 40px,   /* dark 45deg */
+        40px 40px,   /* dark 135deg */
+        40px 40px,   /* light 225deg */
+        40px 40px,   /* light 315deg */
+        60px 60px,   /* white dimple grid */
+        60px 60px;   /* black dimple grid */
+      
+      background-position: 
+        0px 0px,
+        0px 0px,
+        20px 20px,   /* offset light layers to create bevel illusion */
+        20px 20px,
+        0px 0px,
+        15px 15px;   /* offset dark dimples */
+      
+      mix-blend-mode: overlay; /* gives a subtle embossed look on white */
+    }
+
+    /* --- CINEMATIC NOISE (now sits above the pattern but still behind text if needed) --- */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.02;  /* very light, just a hint of grain */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .ambient-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(252,251,249,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* --- CUSTOM CURSOR --- */
+    #cursor {
+      position: fixed;
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: width 0.3s, height 0.3s, background 0.3s;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-blur {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      backdrop-filter: blur(2px);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s;
+      transform: translate(-50%, -50%);
+    }
+    .hover-active #cursor-blur {
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,0.1);
+      border-color: transparent;
+      mix-blend-mode: exclusion;
+    }
+
+    /* --- NAVIGATION (glassmorphism) --- */
+    nav {
+      position: fixed;
+      top: 30px; left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1400px;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 100px;
+      z-index: 1000;
+      transition: transform 0.4s ease, background 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.8);
+      border-color: rgba(255,255,255,0.05);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      letter-spacing: 5px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0.7;
+      transition: all 0.4s ease;
+      font-weight: 400;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+      background: var(--gold); transition: width 0.4s ease;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-right { display: flex; gap: 30px; align-items: center; }
+    .nav-right a { color: #fff; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.8;}
+    .nav-right a:hover { opacity: 1; }
+
+    .btn-circle {
+      position: relative;
+      width: 110px; height: 44px;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      background: transparent;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-circle::before {
+      content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 100%;
+      background: var(--gold); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
+      border-radius: 50% 50% 0 0;
+    }
+    .btn-circle:hover::before { top: 0; border-radius: 0; }
+    .btn-circle:hover { color: #000; border-color: var(--gold); letter-spacing: 3px; }
+
+    /* --- HERO --- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      transform: scale(1.05);
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.8) 100%);
+      z-index: -1;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 7.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      overflow: hidden;
+      color: white;
+      max-width: 1200px;
+      margin-bottom: 30px;
+    }
+    .hero h1 span {
+      display: block;
+      transform: translateY(110%) rotate(2deg);
+      transform-origin: left;
+      opacity: 0;
+    }
+    .hero p {
+      font-size: 0.8rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      opacity: 0;
+      font-weight: 300;
+      border-top: 1px solid rgba(212,175,55,0.4);
+      border-bottom: 1px solid rgba(212,175,55,0.4);
+      padding: 15px 0;
+      transform: translateY(20px);
+    }
+
+    /* --- LIGHT SECTIONS (background remains white, pattern shows through) --- */
+    .light-section {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      padding: 120px 0;
+      position: relative;
+      /* pattern visible behind content */
+    }
+    .light-section .gold-line {
+      background: var(--gold);
+      width: 60px; height: 1px;
+      margin-bottom: 40px;
+      transform-origin: left;
+    }
+    .light-section .btn-circle {
+      border-color: rgba(0,0,0,0.2);
+      color: var(--text-dark);
+    }
+    .light-section .btn-circle::before { background: var(--text-dark); }
+    .light-section .btn-circle:hover { color: var(--bg-light); border-color: var(--text-dark); }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    /* rest of your styles (unchanged) – they all sit above the pattern */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 50px;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 40px;
+      text-align: center;
+    }
+    .feature-item {
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.7); /* slightly more opaque to keep text readable */
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.03);
+      border-radius: 8px;
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    .feature-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.08);
+    }
+    .feature-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 20px 0 15px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .feature-item p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--gold);
+      display: inline-block;
+      transition: transform 0.5s ease;
+    }
+    .feature-item:hover .feature-icon { transform: rotate(15deg) scale(1.1); }
+
+    .horizontal-scroll-container { overflow: hidden; }
+    .horizontal-scroll {
+      display: flex;
+      gap: 60px;
+      padding: 0 10vw;
+      width: fit-content;
+    }
+    .gallery-item {
+      width: 45vw;
+      max-width: 700px;
+      height: 60vh;
+      min-height: 450px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+    .img-wrapper {
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9) contrast(1.05);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s;
+      transform: scale(1.1);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.02);
+      filter: brightness(0.7) contrast(1.1);
+    }
+    .gallery-item .item-text {
+      position: absolute;
+      bottom: 0; left: 0; width: 100%;
+      padding: 40px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      text-align: left;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-item:hover .item-text { transform: translateY(0); opacity: 1; }
+    .gallery-item .item-text h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+    }
+    .gallery-item .item-text p {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 8px;
+    }
+
+    .split-content {
+      display: flex;
+      gap: 100px;
+      align-items: center;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .reveal-box {
+      overflow: hidden;
+      position: relative;
+      flex: 1.2;
+      border-radius: 4px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    }
+    .luxury-img {
+      width: 100%;
+      height: 700px;
+      object-fit: cover;
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+    .text-block { flex: 1; }
+    .text-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin: 0 0 30px;
+      font-weight: 400;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .text-block p {
+      opacity: 0.7; font-weight: 300; margin-bottom: 50px; font-size: 1rem; line-height: 1.9;
+    }
+
+    .four-col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1300px;
+      margin: 100px auto 0;
+      padding: 0 40px;
+    }
+    .four-col-card {
+      cursor: none;
+    }
+    .four-col-card .img-container {
+      overflow: hidden;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      aspect-ratio: 4/5;
+    }
+    .four-col-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .four-col-card:hover img { transform: scale(1.08); }
+    .four-col-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+    .four-col-card p {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .video-banner {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      margin: 100px 0;
+      overflow: hidden;
+    }
+    .video-banner::before {
+      content: '';
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+    .video-content {
+      position: relative;
+      z-index: 2;
+    }
+    .play-btn {
+      width: 90px; height: 90px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      font-size: 1.2rem;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(5px);
+    }
+    .play-btn:hover { background: #fff; color: #000; transform: scale(1.1); border-color: #fff; }
+    .video-content h3 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; }
+    .video-content p { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); }
+
+    .restaurant-row {
+      display: flex;
+      gap: 80px;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 40px;
+      align-items: flex-start;
+    }
+    .restaurant-text { flex: 1; position: sticky; top: 150px; }
+    .restaurant-grid {
+      flex: 1.5;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .res-card .img-container {
+      overflow: hidden;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      aspect-ratio: 1/1.2;
+    }
+    .res-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+    .res-card:hover img { transform: scale(1.05); }
+    .res-card h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; }
+
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1300px;
+      margin: 60px auto 0;
+      padding: 0 40px;
+    }
+    .dest-card {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .dest-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dest-card:hover img { transform: scale(1.08); }
+    .dest-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 40px 30px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: white;
+    }
+    .dest-overlay h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .dest-overlay p {
+       font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold);
+    }
+
+    .press-logos {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      align-items: center;
+      padding: 60px 0;
+      opacity: 0.5;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      filter: grayscale(100%);
+      transition: opacity 0.4s ease;
+    }
+    .press-logos:hover { opacity: 0.8; }
+    .press-logos span { transition: transform 0.4s ease; }
+    .press-logos span:hover { transform: scale(1.05); color: var(--gold); }
+
+    .dark-section {
+      background: var(--bg-dark);
+      color: white;
+      text-align: center;
+      padding: 120px 60px;
+      max-width: 1100px;
+      margin: 80px auto;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    }
+    .dark-section::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(10,10,10,0) 60%);
+      pointer-events: none;
+    }
+    .dark-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 400;
+      letter-spacing: 3px;
+    }
+    .dark-section p {
+      font-size: 1.1rem;
+      line-height: 2;
+      opacity: 0.8;
+      font-weight: 300;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    footer {
+      padding: 100px 60px 40px;
+      background: var(--bg-dark);
+      color: white;
+      position: relative;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1300px;
+      margin: 0 auto 80px;
+      flex-wrap: wrap;
+      gap: 50px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      color: var(--gold);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 15px; }
+    .footer-col ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    .footer-col ul li a:hover { opacity: 1; color: var(--text-light); transform: translateX(5px); display: inline-block; }
+    .newsletter-form {
+      display: flex; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; margin-top: 20px;
+      transition: border-color 0.3s ease;
+    }
+    .newsletter-form:focus-within { border-color: var(--gold); }
+    .newsletter-form input {
+      background: transparent; border: none; color: white; outline: none; flex: 1; font-family: 'Inter'; font-size: 0.9rem;
+    }
+    .newsletter-form button {
+      background: transparent; border: none; color: white; font-family:'Inter'; text-transform:uppercase; font-size:0.75rem; letter-spacing: 2px; transition: color 0.3s;
+    }
+    .newsletter-form button:hover { color: var(--gold); }
+    
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 50px;
+      opacity: 0.5;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      letter-spacing: 8px;
+      display: block;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .split-content, .restaurant-row { flex-direction: column; gap: 60px; }
+      .destinations-grid, .features-grid { grid-template-columns: 1fr; }
+      .four-col-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      nav { padding: 15px 25px; width: 95%; }
+      .hero h1 { font-size: 3.5rem; }
+      .press-logos { flex-direction: column; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- film grain noise (very subtle) -->
+  <div class="noise-overlay"></div>
+  
+  <!-- custom cursor elements -->
+  <div id="cursor"></div>
+  <div id="cursor-blur"></div>
+
+  <nav id="navbar">
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <a href="#" class="logo">LUXE WELLNESS CLUB</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">RETREATS</a></li>
+      <li><a href="#">MAGAZINE</a></li>
+      <li><a href="#">ABOUT</a></li>
+      <li><a href="#">CONTACT</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#">EN</a>
+      <a href="#" class="btn-circle" style="width: 90px;">LOGIN</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="hotel video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <h1>
+      <span class="reveal">BOOK THE WORLD'S</span> 
+      <span class="reveal">BEST WELLNESS RETREATS</span>
+    </h1>
+    <p class="reveal-fade">VOTED "BEST SPA IN THE WORLD" 2024</p>
+  </section>
+
+  <section class="light-section" style="padding-bottom: 60px;">
+    <div class="ambient-glow" style="top: -10%; left: -10%;"></div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">✧</div>
+        <h3>NO DEPOSIT REQUIRED</h3>
+        <p>Book securely today, pay later upon arrival. Enjoy complete flexibility for your peace of mind.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⟡</div>
+        <h3>UNBIASED EXPERTISE</h3>
+        <p>Independent selection of the world's most outstanding retreats based strictly on quality.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✦</div>
+        <h3>BEST RATE GUARANTEE</h3>
+        <p>We match any valid lower price found online and offer exclusive VIP perks to our members.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="favorites-section" class="light-section" style="padding: 80px 0;">
+    <h2 class="section-title">CURRENT FAVORITES</h2>
+    <div class="horizontal-scroll-container">
+      <div class="horizontal-scroll" id="scrollGallery">
+        <div class="gallery-item">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1920" alt="Resort"></div>
+          <div class="item-text">
+            <h4>Chenot Palace Weggis</h4>
+            <p>Switzerland</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="img-wrapper"><img src="nuvara eliya.jpg" alt="Lanserhof"></div>
+          <div class="item-text">
+            <h4>Lanserhof Tegernsee</h4>
+            <p>Germany</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1920" alt="SHA Wellness"></div>
+          <div class="item-text">
+            <h4>SHA Wellness Clinic</h4>
+            <p>Spain</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="img-wrapper"><img src="Joali Being Maldives.jpg" alt="Joali"></div>
+          <div class="item-text">
+            <h4>Joali Being</h4>
+            <p>Maldives</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section" style="padding-top: 60px;">
+    <div class="ambient-glow" style="bottom: 10%; right: -5%;"></div>
+    <div class="split-content">
+      <div class="text-block">
+        <div class="gold-line"></div>
+        <h2 class="split-text-reveal">We Tested<br>For You</h2>
+        <p>Luxe Wellness Club travels the world tracking down the ultimate wellness experiences. We personally test the treatments, taste the detox menus, and evaluate the medical expertise to guarantee unparalleled quality for your next retreat.</p>
+        <a href="#" class="btn-circle" style="width:150px;">READ MORE</a>
+      </div>
+      <div class="reveal-box">
+        <img src="https://images.unsplash.com/photo-1548509925-0e78112bc55e?q=80&w=2000" class="luxury-img" id="parallaxImg" alt="Snowy wellness landscape">
+      </div>
+    </div>
+
+    <div class="four-col-grid">
+      <div class="four-col-card">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=1000" alt="Tested 1"></div>
+        <h4>Chenot Palace Weggis</h4>
+        <p>SWITZERLAND</p>
+      </div>
+      <div class="four-col-card">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1519643381401-22c77e60520e?q=80&w=1000" alt="Tested 2"></div>
+        <h4>The Ranch Malibu</h4>
+        <p>ITALY</p>
+      </div>
+      <div class="four-col-card">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1589335036282-631b9f82dabc?q=80&w=1000" alt="Tested 3"></div>
+        <h4>Clinique La Prairie</h4>
+        <p>SWITZERLAND</p>
+      </div>
+      <div class="four-col-card">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1515362778563-6a8d0e44bc0b?q=80&w=1000" alt="Tested 4"></div>
+        <h4>Euphoria Retreat</h4>
+        <p>GREECE</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-banner">
+    <video class="hero-video parallax-video" autoplay muted loop playsinline>
+      <source src="Beach_Beds.mp4" type="video/mp4">
+    </video>
+    <div class="video-content">
+      <a href="#" class="play-btn">▶</a>
+      <h3>Chenot Palace Weggis</h3>
+      <p>OUR FAVORITE RETREAT</p>
+    </div>
+  </section>
+
+  <section class="light-section" style="padding-top: 60px;">
+    <div class="restaurant-row">
+      <div class="restaurant-text">
+        <div class="gold-line"></div>
+        <h2 style="font-family: 'Playfair Display'; font-size:3rem; margin-bottom: 25px; text-transform: uppercase;">Retreats<br>of the Day</h2>
+        <p style="opacity:0.7; margin-bottom:40px; line-height: 1.9; font-weight: 300;">Discover our hand-picked selection of transformative wellness destinations. From advanced medical spas in the Swiss Alps to holistic Ayurvedic sanctuaries in the Himalayas.</p>
+        <a href="#" class="btn-circle" style="width:150px;">VIEW ALL</a>
+      </div>
+      <div class="restaurant-grid">
+        <div class="res-card">
+          <div class="img-container"><img src="https://images.unsplash.com/photo-1540555700392-6f5b9c0bd01d?q=80&w=1000" alt="Retreat 1"></div>
+          <h4>VIVAMAYR Maria Wörth</h4>
+        </div>
+        <div class="res-card" style="margin-top: 50px;">
+          <div class="img-container"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1000" alt="Retreat 2"></div>
+          <h4>Palazzo Fiuggi</h4>
+        </div>
+        <div class="res-card">
+          <div class="img-container"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=1000" alt="Retreat 3"></div>
+          <h4>Chiva-Som</h4>
+        </div>
+        <div class="res-card" style="margin-top: 50px;">
+          <div class="img-container"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000" alt="Retreat 4"></div>
+          <h4>Kamalaya Koh Samui</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section" style="padding-top: 40px;">
+    <div style="max-width:1300px; margin:0 auto; padding:0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+      <div>
+        <h2 style="font-family: 'Playfair Display'; font-size:3rem; text-transform: uppercase;">Magazine</h2>
+        <div class="gold-line" style="margin-top: 20px; width: 80px;"></div>
+      </div>
+      <a href="#" class="btn-circle" style="width:140px; margin-bottom: 20px;">ALL ARTICLES</a>
+    </div>
+    
+    <div class="destinations-grid">
+      <div class="dest-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000" alt="Magazine 1">
+        <div class="dest-overlay">
+          <p>AWARDS</p>
+          <h3>The Best Medispas in the World in 2024</h3>
+        </div>
+      </div>
+      <div class="dest-card">
+        <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1000" alt="Magazine 2">
+        <div class="dest-overlay">
+          <p>SCIENCE</p>
+          <h3>Chenot Method: A Scientific Approach to Wellness</h3>
+        </div>
+      </div>
+      <div class="dest-card">
+        <img src="https://images.unsplash.com/photo-1551501419-41ed46c10eb3?q=80&w=1000" alt="Magazine 3">
+        <div class="dest-overlay">
+          <p>INTERVIEW</p>
+          <h3>Interview: Dr. George Gaitanos</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light-section" style="padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.05);">
+    <h4 style="text-align: center; letter-spacing: 5px; font-size: 0.85rem; text-transform: uppercase; color: var(--gold);">They Talk About Us</h4>
+    <div class="press-logos">
+      <span>Capital</span>
+      <span>Forbes</span>
+      <span style="font-style: italic;">L'Express</span>
+    </div>
+  </section>
+
+  <section class="light-section" style="padding-top: 0;">
+    <div class="dark-section">
+      <h3>OUR MISSION</h3>
+      <p>Luxe Wellness Club is the leading luxury wellness travel agency. We help you book the world's most exceptional wellness retreats, health clinics, and medi-spas. Elevate your physical and mental wellbeing with our expert guidance and exclusive VIP benefits.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="#">All Retreats</a></li>
+          <li><a href="#">Destinations</a></li>
+          <li><a href="#">The Magazine</a></li>
+          <li><a href="#">Awards 2024</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About Us</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Our Expertise</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" style="max-width: 320px;">
+        <h4>Newsletter</h4>
+        <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 15px; line-height: 1.6;">Subscribe to receive exclusive offers and wellness inspiration.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button>Send</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <p>BOOK THE WORLD'S BEST WELLNESS RETREATS</p>
+      <p style="margin-top: 25px; opacity: 0.5;">© 2026 LUXE WELLNESS CLUB. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- CUSTOM CURSOR INTERACTIVITY ---
+    const cursor = document.getElementById('cursor');
+    const blur = document.getElementById('cursor-blur');
+    
+    document.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
+      gsap.to(blur, { x: e.clientX, y: e.clientY, duration: 0.8, ease: "power3.out" });
+    });
+
+    const interactables = document.querySelectorAll('a, button, .feature-item, .gallery-item, .dest-card');
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+    });
+
+    // --- GSAP SETUP ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Navbar glassy effect on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Cinematic Hero text reveal
+    const tl = gsap.timeline();
+    tl.to('.reveal', {
+      y: 0,
+      opacity: 1,
+      rotation: 0,
+      duration: 1.8,
+      stagger: 0.15,
+      ease: "power4.out",
+      delay: 0.3
+    })
+    .to('.reveal-fade', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=1");
+
+    gsap.to('.hero-video:not(.parallax-video)', {
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      },
+      scale: 1.15,
+      y: 100,
+      opacity: 0.3
+    });
+
+    gsap.from('.reveal-box', {
+      scrollTrigger: {
+        trigger: '.split-content',
+        start: "top 80%",
+      },
+      clipPath: "inset(100% 0 0 0)",
+      duration: 1.5,
+      ease: "power4.inOut"
+    });
+
+    gsap.to('#parallaxImg', {
+      scrollTrigger: {
+        trigger: '.split-content',
+        start: "top bottom",
+        scrub: 1
+      },
+      y: -80,
+      scale: 1.05
+    });
+
+    gsap.to("#scrollGallery", {
+      xPercent: -50,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#favorites-section",
+        pin: true,
+        scrub: 1.5,
+        end: "+=2500"
+      }
+    });
+
+    const fadeElements = gsap.utils.toArray('.dest-card, .feature-item, .res-card, .four-col-card');
+    fadeElements.forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 60,
+        duration: 1.2,
+        ease: "power3.out"
+      });
+    });
+
+    gsap.from('.split-text-reveal', {
+      scrollTrigger: {
+        trigger: '.text-block',
+        start: "top 80%",
+      },
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: "power2.out"
+    });
+  </script>
+</body>
+</html>

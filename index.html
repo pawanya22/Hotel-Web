@@ -7,14 +7,14 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --gold: #d4af37;
+      --gold: #c9a84c;
       --gold-light: #f3e5ab;
       --bg-dark: #0a0a0a;
       --text-light: #fdfbf7;
@@ -33,7 +33,7 @@
     body {
       background-color: var(--bg-light);
       color: var(--text-dark);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Jost', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -79,7 +79,7 @@
     .ambient-glow {
       position: absolute;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(252,251,249,0) 70%);
+      background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, rgba(252,251,249,0) 70%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
@@ -88,18 +88,18 @@
     /* --- NAVIGATION (glassmorphism) --- */
     nav {
       position: fixed;
-      top: 30px; left: 50%;
+      top: 24px; left: 50%;
       transform: translateX(-50%);
       width: 90%;
       max-width: 1400px;
-      padding: 15px 40px;
+      padding: 14px 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
+      background: rgba(10,8,6,0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       border-radius: 100px;
       z-index: 1000;
@@ -107,25 +107,26 @@
     }
 
     nav.scrolled {
-      background: rgba(10, 10, 10, 0.8);
+      background: rgba(10,8,6,0.92);
       border-color: rgba(255,255,255,0.05);
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      letter-spacing: 5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 6px;
       text-decoration: none;
       color: #fff;
-      font-weight: 600;
+      font-weight: 500;
       text-transform: uppercase;
+      cursor: pointer;
     }
 
-    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       text-decoration: none;
-      color: #fff;
-      font-size: 0.7rem;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 3px;
       opacity: 0.7;
@@ -137,16 +138,16 @@
       content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
       background: var(--gold); transition: width 0.4s ease;
     }
-    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
     .nav-links a:hover::after { width: 100%; }
 
     .nav-right { display: flex; gap: 30px; align-items: center; }
-    .nav-right a { color: #fff; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.8;}
+    .nav-right a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.8;}
     .nav-right a:hover { opacity: 1; }
 
     .btn-circle {
       position: relative;
-      width: 110px; height: 44px;
+      width: 90px; height: 44px;
       border-radius: 40px;
       border: 1px solid rgba(255,255,255,0.3);
       display: flex;
@@ -198,7 +199,7 @@
       z-index: -1;
     }
     .hero h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3rem, 7vw, 7.5rem);
       font-weight: 400;
       line-height: 1.05;
@@ -219,8 +220,8 @@
       text-transform: uppercase;
       opacity: 0;
       font-weight: 300;
-      border-top: 1px solid rgba(212,175,55,0.4);
-      border-bottom: 1px solid rgba(212,175,55,0.4);
+      border-top: 1px solid rgba(201,168,76,0.4);
+      border-bottom: 1px solid rgba(201,168,76,0.4);
       padding: 15px 0;
       transform: translateY(20px);
     }
@@ -246,7 +247,7 @@
     .light-section .btn-circle:hover { color: var(--bg-light); border-color: var(--text-dark); }
     
     .section-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 3rem;
       font-weight: 400;
       text-transform: uppercase;
@@ -278,7 +279,7 @@
       box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.08);
     }
     .feature-item h3 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       margin: 20px 0 15px;
       font-weight: 500;
@@ -344,7 +345,7 @@
     }
     .gallery-item:hover .item-text { transform: translateY(0); opacity: 1; }
     .gallery-item .item-text h4 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
       font-weight: 400;
     }
@@ -380,7 +381,7 @@
     }
     .text-block { flex: 1; }
     .text-block h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 3.5rem;
       margin: 0 0 30px;
       font-weight: 400;
@@ -414,7 +415,7 @@
     }
     .four-col-card:hover img { transform: scale(1.08); }
     .four-col-card h4 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       font-weight: 400;
     }
@@ -462,7 +463,7 @@
       backdrop-filter: blur(5px);
     }
     .play-btn:hover { background: #fff; color: #000; transform: scale(1.1); border-color: #fff; }
-    .video-content h3 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; }
+    .video-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; }
     .video-content p { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); }
 
     .restaurant-row {
@@ -493,7 +494,7 @@
       transition: transform 1s ease;
     }
     .res-card:hover img { transform: scale(1.05); }
-    .res-card h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; }
+    .res-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; }
 
     .destinations-grid {
       display: grid;
@@ -524,7 +525,7 @@
       color: white;
     }
     .dest-overlay h3 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.6rem;
       font-weight: 400;
       margin-bottom: 10px;
@@ -541,7 +542,7 @@
       align-items: center;
       padding: 60px 0;
       opacity: 0.5;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       font-weight: 600;
       filter: grayscale(100%);
@@ -566,11 +567,11 @@
     .dark-section::before {
       content: '';
       position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(10,10,10,0) 60%);
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, rgba(10,10,10,0) 60%);
       pointer-events: none;
     }
     .dark-section h3 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 2.5rem;
       margin-bottom: 30px;
       font-weight: 400;
@@ -622,10 +623,10 @@
     }
     .newsletter-form:focus-within { border-color: var(--gold); }
     .newsletter-form input {
-      background: transparent; border: none; color: white; outline: none; flex: 1; font-family: 'Inter'; font-size: 0.9rem;
+      background: transparent; border: none; color: white; outline: none; flex: 1; font-family: 'Jost'; font-size: 0.9rem;
     }
     .newsletter-form button {
-      background: transparent; border: none; color: white; font-family:'Inter'; text-transform:uppercase; font-size:0.75rem; letter-spacing: 2px; transition: color 0.3s;
+      background: transparent; border: none; color: white; font-family:'Jost'; text-transform:uppercase; font-size:0.75rem; letter-spacing: 2px; transition: color 0.3s;
     }
     .newsletter-form button:hover { color: var(--gold); }
     
@@ -638,7 +639,7 @@
       letter-spacing: 1px;
     }
     .footer-logo {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       letter-spacing: 8px;
       display: block;
@@ -663,9 +664,10 @@
 
   <nav id="navbar">
     <div style="display: flex; align-items: center; gap: 20px;">
-      <a href="#" class="logo">LUXE WELLNESS CLUB</a>
+      <a href="index.html" class="logo">LUXE WELLNESS CLUB</a>
     </div>
     <ul class="nav-links">
+      <li><a href="index.html" class="active">HOME</a></li>
       <li><a href="hotel.html">HOTELS</a></li>
       <li><a href="#">MAGAZINE</a></li>
       <li><a href="#">ABOUT</a></li>
@@ -673,7 +675,7 @@
     </ul>
     <div class="nav-right">
       <a href="#">EN</a>
-      <a href="#" class="btn-circle" style="width: 90px;">LOGIN</a>
+      <a href="#" class="btn-circle">LOGIN</a>
     </div>
   </nav>
 
@@ -799,7 +801,7 @@
     <div class="restaurant-row">
       <div class="restaurant-text">
         <div class="gold-line"></div>
-        <h2 style="font-family: 'Playfair Display'; font-size:3rem; margin-bottom: 25px; text-transform: uppercase;">Retreats<br>of the Day</h2>
+        <h2 style="font-family: 'Cormorant Garamond'; font-size:3rem; margin-bottom: 25px; text-transform: uppercase;">Retreats<br>of the Day</h2>
         <p style="opacity:0.7; margin-bottom:40px; line-height: 1.9; font-weight: 300;">Discover our hand-picked selection of transformative wellness destinations. From advanced medical spas in the Swiss Alps to holistic Ayurvedic sanctuaries in the Himalayas.</p>
         <a href="#" class="btn-circle" style="width:150px;">VIEW ALL</a>
       </div>
@@ -827,7 +829,7 @@
   <section class="light-section" style="padding-top: 40px;">
     <div style="max-width:1300px; margin:0 auto; padding:0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
       <div>
-        <h2 style="font-family: 'Playfair Display'; font-size:3rem; text-transform: uppercase;">Magazine</h2>
+        <h2 style="font-family: 'Cormorant Garamond'; font-size:3rem; text-transform: uppercase;">Magazine</h2>
         <div class="gold-line" style="margin-top: 20px; width: 80px;"></div>
       </div>
       <a href="#" class="btn-circle" style="width:140px; margin-bottom: 20px;">ALL ARTICLES</a>

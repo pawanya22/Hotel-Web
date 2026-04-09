@@ -6,635 +6,921 @@
   <title>Luxe Hotels | Curated Collection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --bg-dark: #0a0a0a;
-      --text-light: #fdfbf7;
-      --bg-light: #fcfbf9;
-      --text-dark: #121212;
-      --glass-bg: rgba(0, 0, 0, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+      --gold: #c9a84c;
+      --gold-pale: rgba(201,168,76,0.08);
+      --border-gold: rgba(201,168,76,0.28);
+      --bg: #f8f6f1;
+      --bg-card: #ffffff;
+      --text: #1a1714;
+      --text-mid: #4a4540;
+      --text-light: #8a8178;
+      --border: rgba(0,0,0,0.08);
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+      --shadow-hover: 0 20px 50px rgba(0,0,0,0.13);
     }
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      cursor: default;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
-      position: relative;
     }
-    /* 3D pattern overlay */
     body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.5;
-      background-image: 
-        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 12px),
-        repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0px, rgba(0, 0, 0, 0.08) 2px, transparent 2px, transparent 12px),
-        repeating-linear-gradient(225deg, rgba(255, 255, 255, 0.25) 0px, rgba(255, 255, 255, 0.25) 2px, transparent 2px, transparent 12px),
-        repeating-linear-gradient(315deg, rgba(255, 255, 255, 0.22) 0px, rgba(255, 255, 255, 0.22) 2px, transparent 2px, transparent 12px),
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px),
-        radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
-      background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px, 60px 60px, 60px 60px;
-      background-position: 0px 0px, 0px 0px, 20px 20px, 20px 20px, 0px 0px, 15px 15px;
-      mix-blend-mode: overlay;
+      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+      pointer-events:none; z-index:-1;
+      background: radial-gradient(ellipse at 80% 10%, rgba(201,168,76,0.045) 0%, transparent 55%),
+                  radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.03) 0%, transparent 50%);
     }
-    .noise-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 9998;
-      opacity: 0.02;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
+
+    /* NAV */
     nav {
-      position: fixed;
-      top: 30px; left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 1400px;
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      border-radius: 100px;
-      z-index: 1000;
-      transition: background 0.4s ease;
+      position:fixed; top:24px; left:50%; transform:translateX(-50%);
+      width:90%; max-width:1400px; padding:14px 36px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:rgba(10,8,6,0.65); backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,0.12); border-radius:100px;
+      z-index:1000; transition:background 0.4s;
     }
-    nav.scrolled {
-      background: rgba(10, 10, 10, 0.9);
-    }
+    nav.scrolled { background:rgba(10,8,6,0.92); }
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      letter-spacing: 5px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      text-transform: uppercase;
-      cursor: pointer;
+      font-family:'Cormorant Garamond',serif; font-size:1.15rem;
+      letter-spacing:6px; color:#fff; font-weight:500;
+      text-transform:uppercase; text-decoration:none; cursor:pointer;
     }
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
+    .nav-links { display:flex; gap:36px; list-style:none; }
     .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      opacity: 0.8;
-      transition: all 0.4s ease;
-      font-weight: 400;
-      position: relative;
+      color:rgba(255,255,255,0.72); font-size:0.65rem; letter-spacing:3px;
+      text-transform:uppercase; text-decoration:none; transition:color 0.3s;
+      position:relative;
     }
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      transition: width 0.4s ease;
+      content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px;
+      background:var(--gold); transition:width 0.4s ease;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--gold);
+    .nav-links a:hover,.nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-right { display:flex; gap:30px; align-items:center; }
+    .nav-right a { color:rgba(255,255,255,0.7); font-size:0.65rem; letter-spacing:2px; text-decoration:none; text-transform:uppercase; }
+
+    /* VIEWS */
+    .view { display:none; width:100%; }
+    .view.active-view { display:block; }
+
+    /* CARD GRID */
+    .list-header { max-width:1300px; margin:148px auto 0; padding:0 40px 48px; text-align:center; }
+    .list-header h2 {
+      font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:400;
+      letter-spacing:4px; margin-bottom:12px;
     }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    .nav-right {
-      display: flex;
-      gap: 30px;
-      align-items: center;
-    }
-    .nav-right a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: 0.3s;
-      opacity: 0.8;
-      cursor: pointer;
-    }
-    .nav-right a:hover {
-      opacity: 1;
-    }
-    .btn-circle {
-      position: relative;
-      width: 110px;
-      height: 44px;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.4);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      background: transparent;
-      overflow: hidden;
-      z-index: 1;
-      cursor: pointer;
-    }
-    .btn-circle::before {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--gold);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: -1;
-      border-radius: 50% 50% 0 0;
-    }
-    .btn-circle:hover::before {
-      top: 0;
-      border-radius: 0;
-    }
-    .btn-circle:hover {
-      color: #000;
-      border-color: var(--gold);
-      letter-spacing: 3px;
-    }
-    .view {
-      display: none;
-      width: 100%;
-    }
-    .view.active-view {
-      display: block;
-    }
+    .list-header p { font-size:0.68rem; letter-spacing:3px; color:var(--text-light); text-transform:uppercase; }
     .hotels-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 40px;
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:32px; max-width:1300px; margin:0 auto; padding:0 40px 80px;
     }
     .hotel-card {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.5s, box-shadow 0.5s;
-      cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.05);
+      background:var(--bg-card); border-radius:20px; overflow:hidden;
+      border:1px solid var(--border); box-shadow:var(--shadow);
+      cursor:pointer; transition:transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.45s;
     }
-    .hotel-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
-    }
-    .hotel-card-img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      transition: transform 1s ease;
-    }
-    .hotel-card:hover .hotel-card-img {
-      transform: scale(1.05);
-    }
-    .hotel-card-info {
-      padding: 20px;
-    }
-    .hotel-card-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .hotel-card-info p {
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-    }
-    .hotel-location {
-      font-size: 0.7rem;
-      margin-top: 6px;
-      opacity: 0.7;
-    }
-    .detail-container {
-      max-width: 1300px;
-      margin: 140px auto 80px;
-      padding: 0 40px;
-    }
-    .back-bar {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 40px;
-      align-items: center;
-    }
+    .hotel-card:hover { transform:translateY(-10px); box-shadow:var(--shadow-hover); }
+    .hotel-card-img-wrap { overflow:hidden; aspect-ratio:4/3; }
+    .hotel-card-img { width:100%; height:100%; object-fit:cover; transition:transform 0.9s ease; display:block; }
+    .hotel-card:hover .hotel-card-img { transform:scale(1.06); }
+    .hotel-card-info { padding:22px 24px 26px; }
+    .hotel-card-country { font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:6px; display:block; }
+    .hotel-card-info h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:500; margin-bottom:4px; line-height:1.3; }
+    .hotel-card-loc { font-size:0.7rem; color:var(--text-light); letter-spacing:1px; margin-bottom:10px; }
+    .hotel-card-tag { font-size:0.8rem; color:var(--text-mid); line-height:1.55; }
+
+    /* DETAIL */
+    .detail-container { max-width:1300px; margin:140px auto 80px; padding:0 40px; }
+    .back-bar { display:flex; gap:12px; margin-bottom:36px; }
     .back-btn {
-      background: transparent;
-      border: 1px solid rgba(0,0,0,0.2);
-      padding: 8px 24px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      font-weight: 500;
-      transition: 0.3s;
-      cursor: pointer;
+      background:transparent; border:1px solid rgba(0,0,0,0.18);
+      padding:7px 22px; border-radius:100px; font-size:0.63rem;
+      letter-spacing:2px; text-transform:uppercase; font-family:'Jost',sans-serif;
+      cursor:pointer; transition:0.3s; color:var(--text);
     }
-    .back-btn:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #000;
-    }
+    .back-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
     .hotel-name-detail {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.2rem;
-      font-weight: 400;
-      margin-bottom: 16px;
-      letter-spacing: 2px;
+      font-family:'Cormorant Garamond',serif; font-size:3rem;
+      font-weight:400; letter-spacing:2px; line-height:1.15; margin-bottom:6px;
     }
-    /* New hotel description style */
+    .hotel-loc-badge { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:20px; display:block; }
     .hotel-description-detail {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #3a3a3a;
-      margin: 20px 0 32px 0;
-      padding-right: 1rem;
-      border-left: 3px solid var(--gold);
-      padding-left: 24px;
-      font-weight: 400;
-      max-width: 85%;
-      letter-spacing: 0.2px;
-      background: rgba(212, 175, 55, 0.03);
-      border-radius: 0 12px 12px 0;
+      font-size:0.92rem; line-height:1.85; color:var(--text-mid);
+      border-left:2px solid var(--gold); padding:16px 22px;
+      background:var(--gold-pale); border-radius:0 10px 10px 0;
+      margin-bottom:36px;
     }
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 10px 0 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-      padding-bottom: 20px;
+    .hotel-description-detail p { margin-bottom:10px; }
+    .hotel-description-detail p:last-child { margin-bottom:0; }
+
+    /* TABS */
+    .tab-row {
+      display:flex; flex-wrap:wrap; gap:0;
+      border-bottom:2px solid var(--border); margin-bottom:40px;
     }
     .cat-btn {
-      background: transparent;
-      border: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 8px 0;
-      color: #5a5a5a;
-      transition: 0.3s;
-      cursor: pointer;
-      position: relative;
-    }
-    .cat-btn.active {
-      color: var(--gold);
+      background:transparent; border:none; font-family:'Jost',sans-serif;
+      font-size:0.67rem; font-weight:500; letter-spacing:2px; text-transform:uppercase;
+      padding:11px 20px 13px; color:var(--text-light); cursor:pointer;
+      position:relative; transition:color 0.25s; white-space:nowrap;
     }
     .cat-btn::after {
-      content: '';
-      position: absolute;
-      bottom: -21px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--gold);
-      transition: 0.3s;
+      content:''; position:absolute; bottom:-2px; left:0;
+      width:0; height:2px; background:var(--gold); transition:width 0.3s;
     }
-    .cat-btn.active::after {
-      width: 100%;
+    .cat-btn.active { color:var(--gold); }
+    .cat-btn.active::after,.cat-btn:hover::after { width:100%; }
+    .cat-btn:hover { color:var(--text); }
+
+    /* SECTION LAYOUT */
+    .section-wrap { display:flex; gap:48px; flex-wrap:wrap; align-items:flex-start; }
+    .section-img-col {
+      flex:1.05; min-width:240px; border-radius:16px; overflow:hidden;
+      box-shadow:0 16px 40px rgba(0,0,0,0.1); position:sticky; top:110px; align-self:flex-start;
     }
-    .detail-content {
-      display: flex;
-      gap: 50px;
-      flex-wrap: wrap;
-      align-items: flex-start;
+    .section-img-col img { width:100%; display:block; object-fit:cover; max-height:540px; }
+    .section-content-col { flex:1.35; min-width:280px; }
+    .section-content-col h3 {
+      font-family:'Cormorant Garamond',serif; font-size:1.8rem;
+      font-weight:500; margin-bottom:22px; color:var(--text);
     }
-    .detail-photo {
-      flex: 1.2;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+
+    /* INTRO TEXT */
+    .intro-text { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:28px; }
+    .intro-text p { margin-bottom:11px; }
+    .intro-text p:last-child { margin-bottom:0; }
+
+    /* VILLA CARDS */
+    .villa-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .villa-card {
+      background:#fff; border:1px solid var(--border); border-radius:12px;
+      padding:18px 16px; transition:box-shadow 0.3s, border-color 0.3s;
     }
-    .detail-photo img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      max-height: 500px;
+    .villa-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.09); border-color:var(--border-gold); }
+    .villa-card-size { font-size:0.57rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:6px; display:block; }
+    .villa-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:8px; }
+    .villa-card p { font-size:0.81rem; color:var(--text-mid); line-height:1.65; }
+
+    /* FACILITY GROUPS */
+    .facility-group { margin-bottom:26px; }
+    .facility-group-title {
+      font-size:0.6rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--text-light); font-weight:600; margin-bottom:12px;
+      padding-bottom:8px; border-bottom:1px solid var(--border);
     }
-    .detail-text {
-      flex: 1;
-      font-size: 1rem;
-      line-height: 1.8;
-      opacity: 0.8;
+    .facility-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+    .facility-item {
+      display:flex; align-items:flex-start; gap:10px;
+      background:#fff; border:1px solid var(--border);
+      border-radius:9px; padding:11px 13px; font-size:0.82rem;
+      color:var(--text-mid); line-height:1.5; transition:border-color 0.25s;
     }
-    footer {
-      padding: 100px 60px 40px;
-      background: var(--bg-dark);
-      color: white;
-      margin-top: 80px;
+    .facility-item:hover { border-color:var(--border-gold); }
+    .fi-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:5px; }
+
+    /* DINING */
+    .dining-venue-card {
+      background:#fff; border:1px solid var(--border); border-radius:13px;
+      padding:19px 22px; margin-bottom:13px; transition:box-shadow 0.3s, border-color 0.3s;
     }
-    .footer-bottom {
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding-top: 50px;
-      opacity: 0.5;
+    .dining-venue-card:hover { box-shadow:0 6px 20px rgba(0,0,0,0.07); border-color:var(--border-gold); }
+    .dining-venue-card h4 {
+      font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+      font-weight:600; color:var(--text); margin-bottom:8px;
+      display:flex; align-items:center; gap:10px;
     }
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      letter-spacing: 8px;
-      display: block;
-      margin-bottom: 15px;
+    .dining-venue-card h4::before { content:''; width:16px; height:1px; background:var(--gold); flex-shrink:0; }
+    .dining-venue-card p { font-size:0.84rem; color:var(--text-mid); line-height:1.72; }
+
+    /* WELLNESS */
+    .wellness-intro { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:22px; }
+    .wellness-intro p { margin-bottom:11px; }
+    .wellness-features { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .wellness-feat {
+      background:#fff; border:1px solid var(--border); border-radius:10px;
+      padding:13px 15px; font-size:0.83rem; color:var(--text-mid);
+      display:flex; align-items:flex-start; gap:10px; transition:border-color 0.25s; line-height:1.55;
     }
-    @media (max-width: 1100px) {
-      .hotels-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .hotel-description-detail {
-        max-width: 100%;
-        font-size: 0.95rem;
-        padding-left: 20px;
-      }
+    .wellness-feat:hover { border-color:var(--border-gold); }
+    .wf-icon { font-size:0.95rem; flex-shrink:0; margin-top:1px; }
+
+    /* ACTIVITIES */
+    .activities-list { list-style:none; }
+    .activity-item {
+      display:flex; gap:14px; align-items:flex-start;
+      padding:14px 0; border-bottom:1px solid var(--border);
     }
-    @media (max-width: 700px) {
-      .hotels-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-links {
-        display: none;
-      }
-      .hotel-name-detail {
-        font-size: 2rem;
-      }
-      .button-row {
-        gap: 12px;
-      }
-      .cat-btn {
-        font-size: 0.7rem;
-      }
-      .hotel-description-detail {
-        font-size: 0.9rem;
-        padding-left: 16px;
-        margin: 16px 0 24px;
-      }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-num {
+      font-family:'Cormorant Garamond',serif; font-size:1rem;
+      color:var(--gold); font-style:italic; flex-shrink:0;
+      min-width:24px; line-height:1.7;
+    }
+    .activity-body { font-size:0.87rem; color:var(--text-mid); line-height:1.7; }
+    .activity-body strong { color:var(--text); font-weight:500; display:block; margin-bottom:2px; font-size:0.88rem; }
+
+    /* PACKAGES */
+    .package-intro { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:22px; }
+    .package-intro p { margin-bottom:10px; }
+    .package-box {
+      background:linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+      border:1px solid var(--border-gold); border-radius:14px; padding:26px 28px;
+    }
+    .package-box-title {
+      font-family:'Cormorant Garamond',serif; font-size:1.25rem;
+      font-weight:500; margin-bottom:18px; color:var(--text);
+      display:flex; align-items:center; gap:12px;
+    }
+    .package-box-title::after { content:''; flex:1; height:1px; background:var(--border-gold); }
+    .package-list { list-style:none; column-count:1; }
+    .package-list li {
+      display:flex; align-items:flex-start; gap:11px;
+      padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.05);
+      font-size:0.85rem; color:var(--text-mid); line-height:1.6;
+    }
+    .package-list li:last-child { border-bottom:none; }
+    .pkg-check { color:var(--gold); font-weight:700; flex-shrink:0; margin-top:1px; }
+
+    /* FOOTER */
+    footer { padding:70px 60px 36px; background:#0a0806; color:#fff; margin-top:80px; }
+    .footer-bottom { text-align:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:40px; opacity:0.55; }
+    .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; letter-spacing:7px; display:block; margin-bottom:10px; }
+    .footer-bottom p { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; }
+
+    @media(max-width:1100px) {
+      .hotels-grid { grid-template-columns:repeat(2,1fr); }
+      .villa-cards { grid-template-columns:1fr; }
+      .section-img-col { position:static; }
+    }
+    @media(max-width:700px) {
+      .hotels-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hotel-name-detail { font-size:2rem; }
+      .tab-row { overflow-x:auto; flex-wrap:nowrap; }
+      .cat-btn { padding:10px 13px 12px; font-size:0.6rem; }
+      .section-wrap { flex-direction:column; }
+      .villa-cards,.facility-grid,.wellness-features { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="noise-overlay"></div>
 
-  <nav id="navbar">
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <a href="index.html" class="logo">LUXE WELLNESS CLUB</a>
-    </div>
-    <ul class="nav-links">
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="hotel.html" style="opacity:1; color:var(--gold);">HOTELS</a></li>
-      <li><a href="index.html#">MAGAZINE</a></li>
-      <li><a href="index.html#">ABOUT</a></li>
-      <li><a href="index.html#">CONTACT</a></li>
-    </ul>
-    <div class="nav-right">
-      <a href="#">EN</a>
-      <a href="#" class="btn-circle" style="width: 90px;">LOGIN</a>
-    </div>
-  </nav>
+<nav id="navbar">
+  <a href="index.html" class="logo">LUXE WELLNESS CLUB</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="hotel.html" class="active">HOTELS</a></li>
+    <li><a href="#">MAGAZINE</a></li>
+    <li><a href="#">ABOUT</a></li>
+    <li><a href="#">CONTACT</a></li>
+  </ul>
+  <div class="nav-right"><a href="#">EN</a></div>
+</nav>
 
-  <!-- LIST VIEW: 20 hotel cards -->
-  <div id="listView" class="view active-view">
-    <div style="max-width:1300px; margin:140px auto 40px; padding:0 40px;">
-      <h2 style="font-family:'Playfair Display'; font-size:3rem; text-align:center; margin-bottom:20px;">20 EXCEPTIONAL HOTELS</h2>
-      <p style="text-align:center; margin-bottom:60px; letter-spacing:2px;">Curated for the discerning traveler</p>
-      <div id="hotelsGrid" class="hotels-grid"></div>
-    </div>
-    <footer>
-      <div class="footer-bottom">
-        <span class="footer-logo">LUXE WELLNESS CLUB</span>
-        <p>HOTEL COLLECTION</p>
-      </div>
-    </footer>
+<!-- LIST -->
+<div id="listView" class="view active-view">
+  <div class="list-header">
+    <h2>SIGNATURE COLLECTION</h2>
+    <p>Six extraordinary retreats &nbsp;·&nbsp; one legacy of excellence</p>
   </div>
-
-  <!-- DETAIL VIEW: hotel name + description (unique 50 words) + 5 buttons (Room 1, Room 2, Gallery, Services, Contacts) -->
-  <div id="detailView" class="view">
-    <div class="detail-container">
-      <div class="back-bar">
-        <button id="backToListBtn" class="back-btn">← BACK TO HOTELS</button>
-        <button id="backToHomeBtn" class="back-btn">HOME</button>
-      </div>
-      <h1 id="detailHotelName" class="hotel-name-detail"></h1>
-      <!-- NEW: Hotel description area (50 words each, unique per hotel) -->
-      <div id="hotelDetailDescription" class="hotel-description-detail"></div>
-      <div id="categoryButtons" class="button-row"></div>
-      <div id="detailContentArea" class="detail-content"></div>
+  <div id="hotelsGrid" class="hotels-grid"></div>
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <p>Hotel Collection &nbsp;·&nbsp; Timeless Elegance</p>
     </div>
-    <footer>
-      <div class="footer-bottom">
-        <span class="footer-logo">LUXE WELLNESS CLUB</span>
-        <p>LUXURY HOTEL EXPERIENCE</p>
-      </div>
-    </footer>
+  </footer>
+</div>
+
+<!-- DETAIL -->
+<div id="detailView" class="view">
+  <div class="detail-container">
+    <div class="back-bar">
+      <button id="backToListBtn" class="back-btn">← Back to Hotels</button>
+      <button id="backToHomeBtn" class="back-btn">Home</button>
+    </div>
+    <h1 id="detailHotelName" class="hotel-name-detail"></h1>
+    <span id="detailHotelLoc" class="hotel-loc-badge"></span>
+    <div id="hotelDetailDescription" class="hotel-description-detail"></div>
+    <div id="categoryButtons" class="tab-row"></div>
+    <div id="detailContentArea"></div>
   </div>
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <p>Luxury Hotel Experience</p>
+    </div>
+  </footer>
+</div>
 
-  <script>
-    // ======================= 20 HOTELS DATA with UNIQUE 50-WORD DESCRIPTIONS =======================
-    const hotelNames = [
-      "Aethelburg House", "Villa Serene", "The Golden Peaks", "Azure Coast Palace", "Saffron Retreat",
-      "Noir et Or", "Celestial Bay", "Ritzhaven", "The Eden Cliff", "Opaline Estate",
-      "Valmont Sanctuary", "Onyx Pavilion", "Prestige Helios", "Solis Grand", "La Perla Blu",
-      "Château Lumière", "The Royal Mist", "Velvet Sands", "Haven Crest", "Lumina Palace"
-    ];
-    const locations = [
-      "Swiss Alps", "Amalfi Coast", "Kyoto, Japan", "Maldives", "Tuscany",
-      "Paris", "Santorini", "Bali", "Aspen", "Lake Como",
-      "Ibiza", "Dubai", "French Riviera", "Himalayas", "Cape Town",
-      "Big Sur", "Phuket", "Costa Rica", "Marrakech", "Maui"
-    ];
-    const mainImages = [
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800", "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800", "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800",
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800", "https://images.unsplash.com/photo-1590073242678-70ee3fc28f8e?w=800",
-      "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800", "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800", "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=800",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800", "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=800",
-      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800", "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=800",
-      "https://images.unsplash.com/photo-1590496793929-36417d3117de?w=800", "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800",
-      "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=800", "https://images.unsplash.com/photo-1468824357306-a439d58ccb1c?w=800",
-      "https://images.unsplash.com/photo-1559599238-308793639427?w=800", "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800"
-    ];
+<script>
+// ══════════════════════════════════════════════════════════════════
+//  DATASET — ALL 6 HOTELS, FULL ORIGINAL CONTENT
+// ══════════════════════════════════════════════════════════════════
+const hotelsDataset = [
 
-    // Unique 50-word descriptions (each crafted ~45-60 words, tailored to hotel name & location)
-    const hotelDescriptions = [
-      "Aethelburg House, nestled in the Swiss Alps, blends alpine charm with timeless luxury. Ancient stone walls meet contemporary interiors, offering a secluded sanctuary. Enjoy private chalets, a Michelin-starred fondue cellar, and breathtaking Matterhorn views. Ideal for those seeking tranquility and heritage in an exclusive mountain setting.",
-      "Villa Serene on the Amalfi Coast cascades down lemon-scented cliffs. This whitewashed masterpiece features infinity pools melting into the Tyrrhenian Sea, grotto spa experiences, and hand-painted frescoes. A hideaway for romantics and art lovers, where every sunset feels like a private opera.",
-      "The Golden Peaks in Kyoto harmonizes Zen tradition with modern minimalism. Suites overlook moss gardens and ancient temples. Experience kaiseki dining, onsen baths fed by natural springs, and ikebana workshops. A spiritual retreat where centuries-old rituals meet quiet sophistication.",
-      "Azure Coast Palace in the Maldives rises above crystal lagoons. Overwater villas feature glass floors, private butlers, and underwater restaurants. Dive into coral gardens, enjoy sunrise yoga on private decks, and indulge in holistic wellness. Pure oceanic elegance redefined.",
-      "Saffron Retreat in Tuscany is a restored 12th-century monastery surrounded by vineyards and cypress trees. Rustic yet opulent, it offers truffle hunting, wine tastings in ancient cellars, and thermal pools. A pastoral escape where time slows and senses awaken.",
-      "Noir et Or in Paris channels Art Deco grandeur with a contemporary edge. Situated near the Seine, suites feature gold-leaf ceilings and city panoramas. Enjoy a clandestine cocktail bar, haute couture spa, and gastronomic dining by a three-Michelin-star chef. Parisian noir meets golden age.",
-      "Celestial Bay in Santorini perches on caldera cliffs with sweeping Aegean views. Cycladic architecture blends with volcanic stone suites, private plunge pools, and sunset-facing terraces. Indulge in wine tastings from local vineyards and Mediterranean-inspired therapies.",
-      "Ritzhaven in Bali offers jungle villas with thatched roofs and open-air living. Sacred river views, Balinese healing rituals, and farm-to-table cuisine define this eco-luxury sanctuary. Disconnect amidst rice terraces and ancient temples, embracing the island's spiritual heartbeat.",
-      "The Eden Cliff in Aspen is a modern alpine lodge with reclaimed timber and floor-to-ceiling windows. Ski-in/ski-out access, a world-class wellness center, and curated art collection. Après-ski experiences include fireside cognac tastings and private mountain guides.",
-      "Opaline Estate on Lake Como blends Renaissance elegance with contemporary luxury. Murano chandeliers, lakeside gardens, and a private vintage Riva boat. Each suite tells a story of Italian craftsmanship. Perfect for travelers who cherish cinematic romance and old-world glamour.",
-      "Valmont Sanctuary in Ibiza fuses bohemian spirit with holistic wellness. Whitewashed finca, organic gardens, and sunrise meditation pavilions. By day, enjoy sound healing; by night, exclusive sunset beats. A creative haven for free spirits seeking balance and beauty.",
-      "Onyx Pavilion in Dubai redefines urban opulence with its 360-degree skyline views. Floor-to-ceiling onyx walls, infinity pools in the clouds, and a private art gallery. Michelin-starred dining and unparalleled butler service. A vertical oasis in the desert metropolis.",
-      "Prestige Helios on the French Riviera channels Belle Époque splendor. Pastel façades, palm-fringed terraces, and a legendary casino. Suites boast sea-view balconies and curated champagne bars. Glamour, yachts, and timeless soirées—a rendezvous with the jet set.",
-      "Solis Grand in the Himalayas is a mountain fortress offering panoramic peaks and Buddhist tranquility. Stone and timber architecture, Ayurvedic retreats, and guided Himalayan treks. Starlit sky observatories and library of ancient texts create a soul-stirring escape.",
-      "La Perla Blu in Cape Town combines coastal vibrancy with African luxury. Perched above Camps Bay, it features ocean-facing infinity pools, contemporary art, and fynbos-scented spa treatments. Explore Table Mountain or simply watch whales from your suite.",
-      "Château Lumière in Big Sur is a clifftop sanctuary amidst redwood forests. Sustainable architecture, glass-walled suites, and private coastal trails. Enjoy farm-to-table dining, stargazing decks, and Japanese hot baths. Raw nature meets refined minimalism.",
-      "The Royal Mist in Phuket unveils Thai royal heritage through silk-draped pavilions and private beach coves. Traditional long-tail boat excursions, Muay Thai wellness, and spice-infused cuisine. An enclave of Andaman serenity with a touch of Siamese grandeur.",
-      "Velvet Sands in Costa Rica embraces pura vida with eco-luxury treehouses and pristine Pacific beaches. Canopy ziplines, sea turtle conservation, and open-air yoga decks. Immerse in rainforest biodiversity while enjoying world-class sustainability and barefoot elegance.",
-      "Haven Crest in Marrakech is a medina jewel with intricate zellige tiles and rose-petal courtyards. Rooftop terraces overlook the Atlas Mountains. Experience traditional hammams, spice souk tours, and Berber hospitality. A sensory journey into Moroccan mystique.",
-      "Lumina Palace in Maui celebrates Hawaiian spirit with oceanfront villas and lava rock infinity pools. Cultural ceremonies, outrigger canoe adventures, and farm-to-table luaus. Surrounded by emerald cliffs and golden shores, it’s a radiant paradise of aloha luxury."
-    ];
-
-    function generateHotels() {
-      let hotels = [];
-      for (let i = 0; i < 20; i++) {
-        const name = hotelNames[i];
-        const location = locations[i];
-        const mainImg = mainImages[i % mainImages.length];
-        const uniqueDesc = hotelDescriptions[i]; // unique 50-word description
-        
-        // Categories: Room 1, Room 2, Gallery, Services, Contacts
-        const categories = [
-          {
-            title: "Room 1",
-            description: `Experience the elegance of our ${name} Deluxe Suite. Spanning 65 sqm, this room features a king-size bed, marble bathroom with rain shower, and a private balcony overlooking the ${location}. Enjoy personalized butler service and complimentary access to the executive lounge.`,
-            imageUrl: `https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&sig=${i}r1`
-          },
-          {
-            title: "Room 2",
-            description: `The Presidential Suite at ${name} offers unparalleled luxury with 150 sqm of space, separate living and dining areas, a grand piano, and panoramic views of ${location}. Indulge in a private spa treatment room and 24/7 dedicated concierge.`,
-            imageUrl: `https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&sig=${i}r2`
-          },
-          {
-            title: "Gallery",
-            description: `Step into a visual journey through ${name}. Our curated gallery showcases the architectural beauty, serene gardens, and breathtaking moments captured by world‑renowned photographers. Each corner tells a story of timeless luxury.`,
-            imageUrl: `https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&sig=${i}g`
-          },
-          {
-            title: "Services",
-            description: `From Michelin‑starred dining to a holistic spa and state‑of‑the‑art fitness center, ${name} offers an array of premium services. Enjoy 24‑hour room service, private transfers, and bespoke experiences crafted just for you.`,
-            imageUrl: `https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&sig=${i}s`
-          },
-          {
-            title: "Contacts",
-            description: `Reach us at ${name}: ${location}. Phone: +41 22 555 1234, Email: concierge@${name.toLowerCase().replace(/\s/g,'')}.com. Our dedicated team is available 24/7 to assist with reservations, special requests, or any inquiries.`,
-            imageUrl: `https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&sig=${i}c`
-          }
-        ];
-        
-        hotels.push({ id: i, name, location, mainImage: mainImg, categories, description: uniqueDesc });
-      }
-      return hotels;
+/* ─── 1. CEYLON TEA TRAILS ─── */
+{
+  id:0, name:"Ceylon Tea Trails",
+  location:"Sri Lanka · Central Highlands", country:"Sri Lanka",
+  mainImage:"https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900",
+  tagline:"Colonial heritage among 3,500 acres of misty emerald tea estate",
+  description:[
+    "Ceylon Tea Trails is one of Sri Lanka's most unique and iconic luxury heritage retreats, nestled in the misty highlands amid rolling emerald tea plantations and tranquil valleys.",
+    "Ceylon Tea Trails is not a regular hotel — it is an immersive and timeless escape where history, nature, and refined comfort come together in perfect harmony.",
+    "Set across over 3,500 acres of working tea estate, the property's historic colonial-era bungalows offer a rare and unforgettable experience of life on a tea plantation, blending old-world charm with warm modern hospitality.",
+    "Whether you are travelling solo, as a couple, with family or friends, Ceylon Tea Trails is ready to give you an extraordinary and authentic Sri Lankan highland journey.",
+    "The resort provides a truly elegant and heritage-rich experience that feels beyond your expectation. The estate's architecture is graceful yet rooted in history — colonial tea-planter residences lovingly restored to retain their original character, period furnishings, vintage photographs, and heirloom décor that evoke tales of a bygone era.",
+    "Wandering across shaded gardens, sun-dappled verandas, and scenic walking trails, guests can breathe in the fragrant scent of fresh tea leaves and misty mountain air. Castlereagh Lake, undulating hills, and tea terraces paint an awe-inspiring backdrop that defines the essence of Sri Lanka's hill country and invites you to slow down, savor life, and discover serenity in every moment."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1552083375-1447ce886485?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Ceylon Tea Trails is composed of five historic tea-planter bungalows — Norwood, Dunkeld, Castlereagh, Summerville and Tientsin — each uniquely positioned within the estate and offering its own charm and atmosphere.","These elegant residences are scattered across the lush landscape and connected by scenic walking paths through tea gardens, inviting guests to explore and discover different aspects of the valley's beauty.","Within the bungalows are a collection of beautifully furnished rooms and suites that reflect the property's heritage. Accommodation types include Luxury Rooms, Garden Suites, Master Suites and the secluded Owner's Cottage, all offering tranquil retreats with panoramic views of tea-carpeted hills, private verandas, and soothing natural surroundings.","Each room features plush bedding, elegant antique-inspired décor, and spacious living areas designed for unhurried relaxation amid nature's embrace."],
+      villas:[
+        {name:"Luxury Rooms",size:"Bungalow Room",desc:"Plush bedding, elegant antique-inspired décor and spacious living areas with panoramic views of tea-carpeted hills and private verandas overlooking the estate."},
+        {name:"Garden Suites",size:"Garden Suite",desc:"Serene garden-facing suites with heirloom furnishings, colonial character and private sitting areas that open to shaded estate gardens."},
+        {name:"Master Suites",size:"Master Suite",desc:"Generously proportioned suites with period furnishings, vintage photographs, and premium comforts within the lovingly restored colonial bungalows."},
+        {name:"Owner's Cottage",size:"Private Cottage",desc:"A secluded retreat within the estate — the most intimate and private option, offering complete seclusion with dedicated butler service."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"Bedroom & Living",items:["King-size or four-poster beds with premium linens","Private seating areas or verandas overlooking tea gardens","Spacious living areas designed for unhurried relaxation","Elegant antique-inspired décor and heirloom furnishings"]},
+      {title:"Bathroom",items:["Ensuite bathrooms with walk-in rain showers or freestanding bathtubs","Luxury toiletries","In-room safe"]},
+      {title:"In-Room Comforts & Services",items:["Tea and coffee-making facilities","Complimentary Wi-Fi","Butler service and personalised attention in every bungalow"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Dining at Ceylon Tea Trails is shaped by a farm-to-table philosophy and the estate's seasonal bounty.","Instead of fixed menus and set meal times, each day's offerings are thoughtfully created in conversation with guests, with chefs suggesting menus tailored to individual tastes.","Meals are served in picturesque locations — from sun-drenched patios and sprawling lawns to beside the serene waters of Castlereagh Lake."],
+      venues:[
+        {name:"Bespoke Daily Menus",desc:"Guests can enjoy traditional Sri Lankan dishes, gourmet global fare, and unique estate-inspired culinary creations that reflect the region's flavors. Each day's menu is crafted in conversation with guests by the resident chef."},
+        {name:"Afternoon Cream Tea",desc:"The property celebrates the art of tea with afternoon cream tea — a traditional high tea with scones, cakes and tea brewed fresh from estate leaves, served in lush garden settings."},
+        {name:"Elevated Tea Tastings",desc:"Elevated tea tastings that highlight the very best of Ceylon's famed tea heritage, guided by expert tea masters from the working estate."},
+        {name:"Lakeside & Garden Dining",desc:"Meals are served in picturesque locations — sun-drenched patios, sprawling lawns, and beside the serene waters of Castlereagh Lake — every setting as memorable as the menu itself."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["Ceylon Tea Trails invites guests to immerse themselves in the rich textures of tea country life.","Guided walks through the tea plantations and Pekoe Trails reveal the rhythms of estate life and breathtaking views of misty valleys. Cycling adventures through lush trails bring you closer to nature's wonders, while serene moments by inviting swimming pools and heated jacuzzis amidst gardens offer restful retreats.","A scenic lake cruise on Castlereagh Reservoir with a fresh breakfast on board is another unforgettable experience, as the morning light dances over emerald hills.","For those seeking deeper cultural exploration, toboggan runs, village visits, and tea plucking with expert pickers offer insights into the art and history of Ceylon tea itself.","Whether you are biking through lush lanes, enjoying cream tea in a garden, or relaxing in a heated jacuzzi with panoramic views, every activity at Ceylon Tea Trails is designed to deepen your connection with the land and its heritage."],
+      features:[
+        {icon:"🌿",text:"Guided tea plantation walks and Pekoe Trails"},
+        {icon:"🚴",text:"Cycling adventures through winding plantation roads"},
+        {icon:"🏊",text:"Swimming pools and heated jacuzzis amidst estate gardens"},
+        {icon:"⛵",text:"Scenic lake cruise on Castlereagh Reservoir with breakfast"},
+        {icon:"🍵",text:"Tea plucking with expert pickers"},
+        {icon:"🛷",text:"Toboggan runs and village visits"},
+        {icon:"🏡",text:"Cultural village exploration experiences"},
+        {icon:"🌄",text:"Sunrise walks across misty emerald slopes"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Tea Estate Walks & Plantation Tours",desc:"Learn about tea cultivation and production, including visits to the historic Dunkeld Tea Factory where teas are processed from leaf to cup."},
+      {title:"Guided Nature Treks & Pekoe Trails",desc:"Explore serene walking routes that weave through hill country landscapes and scenic viewpoints."},
+      {title:"Cycling Adventures",desc:"Ride through winding plantation roads and discover hidden valleys and riverside trails."},
+      {title:"Scenic Lake Cruise on Castlereagh Reservoir",desc:"Gentle boat journeys with breakfast or sunset views over tranquil waters."},
+      {title:"Tea Tastings & Tea Culture Sessions",desc:"Experience the world of Ceylon tea with expert insights and tastings."},
+      {title:"Afternoon Cream Tea in Lush Gardens",desc:"Traditional high tea with scones, cakes and tea brewed fresh from estate leaves."},
+      {title:"Cultural Excursions & Highland Exploration",desc:"Visit nearby attractions such as scenic waterfalls, Horton Plains National Park, or take a mountain train ride for spectacular hill country panoramas."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Ceylon Tea Trails offers carefully curated stays designed to immerse you fully in the estate lifestyle.","Guests can choose stays ranging from three-night experiences focusing on tea country immersion to extended journeys that combine scenic exploration, wellness, and cultural discovery.","Ceylon Tea Trails is a luxury heritage retreat where every moment — from sunrise walks through emerald slopes and fragrant tea tastings to peaceful verandas and bespoke dining — invites you to immerse in an elegant tapestry of nature, culture, and time-honored hospitality."],
+      title:"All-Inclusive Estate Stay",
+      items:["All-inclusive gourmet dining","Afternoon cream tea daily","Private butler and chef service","Guided estate walks and Pekoe Trails","Tea tastings and tea culture sessions","Access to all on-estate experiences and facilities","Swimming pools and heated jacuzzis","Scenic lake cruise on Castlereagh Reservoir","Cycling and nature exploration","Personalised menus crafted daily with the resident chef"]
     }
+  }
+},
 
-    const hotelsData = generateHotels();
-    let currentHotel = null;
-    let activeCat = 0;
-
-    const listView = document.getElementById('listView');
-    const detailView = document.getElementById('detailView');
-    const hotelsGrid = document.getElementById('hotelsGrid');
-    const detailHotelName = document.getElementById('detailHotelName');
-    const hotelDetailDescription = document.getElementById('hotelDetailDescription');
-    const categoryButtonsDiv = document.getElementById('categoryButtons');
-    const detailContentArea = document.getElementById('detailContentArea');
-
-    function showView(view) {
-      listView.classList.remove('active-view');
-      detailView.classList.remove('active-view');
-      view.classList.add('active-view');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+/* ─── 2. CAPE WELIGAMA ─── */
+{
+  id:1, name:"Cape Weligama",
+  location:"Sri Lanka · Southern Coast", country:"Sri Lanka",
+  mainImage:"https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=900",
+  tagline:"Dramatic clifftop luxury above the Indian Ocean",
+  description:[
+    "Cape Weligama is one of Sri Lanka's most majestic luxury beach resorts, perched on dramatic clifftops overlooking the Indian Ocean and offering breathtaking panoramic views that define sophisticated coastal living.",
+    "Cape Weligama is not just a hotel — it is an immersive and unforgettable sanctuary where refined elegance meets relaxed tropical charm. With its expansive estate, distinctive design, and world-class hospitality, Cape Weligama invites every guest to indulge in a uniquely serene and rejuvenating escape.",
+    "The resort's architecture is striking yet warm, thoughtfully blending contemporary design with local influences. Natural materials, muted tones, and wide open spaces create an atmosphere of relaxed sophistication and effortless elegance.",
+    "Cape Weligama's dramatic clifftop setting provides unrivalled views of the Indian Ocean that redefine coastal luxury living. The resort's layout and design echo the natural curves of the coastline, inviting guests to unwind amid panoramic sea views, lush gardens, and tranquil private corners. With its inspiring aesthetics and attention to detail, the resort captures the essence of seaside refinement and heartfelt Sri Lankan hospitality."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Cape Weligama's accommodation offers a luxurious collection of rooms, suites, villas and private residences — each crafted for comfort, privacy, and spectacular ocean views.","The resort's contemporary spaces feature clean lines, elegant furnishings, and floor-to-ceiling glass that seamlessly connects guests with the sky and sea. All rooms and villas are designed to elevate your stay through thoughtful layout, spacious living areas, and sophisticated touches that make every moment feel exceptional.","Cape Weligama's accommodation is designed to make every stay feel remarkable — from spacious family residences to intimate balcony rooms that invite you to watch the sun rise over the Indian Ocean in peaceful splendour."],
+      villas:[
+        {name:"Ocean View Suites & Rooms",size:"Ocean View",desc:"Stylish rooms with generous layouts, private balconies, and sweeping Indian Ocean views that make every sunrise memorable."},
+        {name:"Residence Suites & Villas",size:"Residence",desc:"Spacious suites and villas with expansive living areas, separate lounges, and panoramic windows framing the horizon from every angle."},
+        {name:"Cliff Villas",size:"Cliff Villa",desc:"Elevated luxury with private plunge pools, outdoor decks, and personalised service that brings a sense of exclusive clifftop tranquillity."},
+        {name:"Plunge Pool Residences",size:"Private Residence",desc:"The most exclusive category — private residences with plunge pools and dedicated concierge for a completely personalised clifftop experience."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"Bedroom & Living",items:["King-size beds with premium linens","Air conditioning and climate control","Private balconies or terraces with sea views","Separate living and lounge areas (in suites & villas)","Chic furnishings and designer décor"]},
+      {title:"Bathroom",items:["Ensuite bathrooms with luxury fittings and walk-in showers","Beach towels and ocean essentials","In-room safety deposit box"]},
+      {title:"In-Room Comforts",items:["Minibar and refreshments","Tea & coffee facilities","Complimentary Wi-Fi"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Cape Weligama offers a remarkable and diverse culinary journey that celebrates the best of Sri Lankan, Asian and international flavours.","The resort's multiple dining venues are curated to deliver variety, quality and immersive sea-view settings that elevate every meal.","Cape Weligama's dining philosophy embraces freshness, creativity and a sense of place that turns every meal into a special memory."],
+      venues:[
+        {name:"Ocean View Restaurants",desc:"Stylish spaces where breakfast, lunch and dinner are served with panoramic water views and menus that highlight local produce and fresh seafood."},
+        {name:"Signature Beachfront Dining",desc:"A romantic beachside experience that brings the flavours of the sea to your plate, from grilled catch of the day to spices inspired by Sri Lanka's heritage."},
+        {name:"Bar & Lounge Spaces",desc:"Refined lounges with expertly crafted cocktails, premium spirits, and panoramic vistas perfect for sunset gatherings or evening conversations."},
+        {name:"Specialty Food Experiences",desc:"Options for private dining, chef's tasting menus, and curated culinary events that immerse guests in fusion flavours and coastal inspirations."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["Cape Weligama invites guests to nurture both body and mind at its wellness spaces, featuring holistic spa treatments inspired by traditional Ayurvedic, Asian and modern techniques.","The spa sanctuaries provide a serene backdrop of lapping waves and ocean breeze, allowing guests to unwind through massages, beauty rituals, detox therapies and calming journeys designed to refresh and restore.","Yoga sessions at sunrise, guided meditation, and sound healing are available for those seeking mindful relaxation amid the rhythm of the Indian Ocean."],
+      features:[
+        {icon:"🌊",text:"Holistic spa — Ayurvedic, Asian and modern techniques"},
+        {icon:"🧖",text:"Massages, beauty rituals and detox therapies"},
+        {icon:"🧘",text:"Yoga sessions at sunrise with ocean views"},
+        {icon:"🎶",text:"Guided meditation and sound healing"},
+        {icon:"🌅",text:"Calming ocean-facing spa sanctuaries"},
+        {icon:"💆",text:"Tailored wellness journeys to refresh and restore"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Beach & Cliff Walks",desc:"Serene morning or sunset walks along the pristine clifftops that bring sense of calm and stunning sea vistas."},
+      {title:"Water Sports & Ocean Adventures",desc:"Surfing lessons, stand-up paddle boarding, kayaking and guided ocean experiences for thrill-seekers and water lovers."},
+      {title:"Whale Watching Excursions",desc:"Seasonal boat tours to witness majestic blue whales and dolphins off the southern coast (subject to weather conditions)."},
+      {title:"Cultural Excursions",desc:"Visits to historic Galle Fort, local craft villages, temples, and scenic hill country tours that bring insights into Sri Lanka's culture."},
+      {title:"Local Markets & Artisanal Experiences",desc:"Explore colourful southern town markets, local spice gardens, and traditional craftsmanship."},
+      {title:"Sunset Sail & Ocean Picnic",desc:"Elegant experiences that combine breathtaking views with gourmet moments on the water."},
+      {title:"Yoga & Beach Meditation",desc:"Daily yoga sessions with ocean views that help reset your energy and connect with the peaceful seaside rhythm."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Cape Weligama offers tailored holiday packages that combine luxury accommodation, dining, curated activities and unforgettable experiences. Most stays come with daily breakfast included, access to wellness sessions, curated coastal experiences, beach and pool access, and concierge support to personalise your itinerary.","Guests can choose enhanced packages with half-board or full-board dining, bespoke excursions (like whale watching or Galle city tours), spa credits, sunset sail experiences, and exclusive private dining options.","For families, bespoke arrangements and kids' programmes are available to make every journey comfortable and memorable.","Cape Weligama is a destination of elevated coastal luxury — where vivid clifftop sunsets, serene ocean sounds, refined design, and engaging experiences come together to create an extraordinary seaside escape. Every moment here — from elegant meals and peaceful days by the sea to cultural discoveries and wellness rituals — is crafted to be cherished and unforgettable."],
+      title:"Tailored Coastal Package",
+      items:["Daily breakfast included","Access to wellness sessions","Curated coastal experiences","Beach and pool access","Concierge support to personalise your itinerary","Half-board or full-board dining options","Bespoke excursions — whale watching, Galle city tours","Spa credits","Sunset sail experiences","Exclusive private dining options","Kids' programmes for families"]
     }
+  }
+},
 
-    function renderHotelCards() {
-      hotelsGrid.innerHTML = '';
-      hotelsData.forEach(hotel => {
-        const card = document.createElement('div');
-        card.className = 'hotel-card';
-        card.innerHTML = `
-          <img class="hotel-card-img" src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy">
-          <div class="hotel-card-info">
-            <h3>${hotel.name}</h3>
-            <p>${hotel.location}</p>
-            <div class="hotel-location">✦ LUXURY RETREAT</div>
-          </div>
-        `;
-        card.addEventListener('click', () => openHotelDetail(hotel.id));
-        hotelsGrid.appendChild(card);
-      });
+/* ─── 3. WILD COAST TENTED LODGE ─── */
+{
+  id:2, name:"Wild Coast Tented Lodge",
+  location:"Sri Lanka · Yala National Park", country:"Sri Lanka",
+  mainImage:"https://images.unsplash.com/photo-1549366021-4f1370657e17?w=900",
+  tagline:"28 cocoon-style suites where the jungle meets the Indian Ocean",
+  description:[
+    "Wild Coast Tented Lodge is one of Sri Lanka's most exceptional luxury safari stays, where the rugged wilderness of Yala National Park meets the vast Indian Ocean and creates a once-in-a-lifetime nature escape.",
+    "Wild Coast is not just a lodge — it is an immersive and soulful retreat that celebrates the harmony between raw nature and refined comfort. With only 28 cocoon-style suites scattered among coastal bushland and sandy dunes, this exclusive safari lodge brings together serenity, elegance, and adventure in a truly unique way.",
+    "Whether you are travelling solo, as a couple, with family or friends, Wild Coast is ready to give you an exciting and unforgettable experience in Sri Lanka's wild south.",
+    "The lodge provides a truly authentic Sri Lankan safari experience that feels beyond your expectation. The architectural concept is rare and visually striking, yet warm in tone — inspired by organic shapes, coastal boulders, and the hues of the surrounding wilderness.",
+    "Rich canvas, teakwood, rustic accents, and safari-inspired décor blend beautifully with modern comforts, creating an atmosphere that is both elegant and adventurous. Wild Coast's location — where the forest meets the sea — makes it a refreshing destination, and the front-row ocean views define epic sunrises and sunsets that are sure to stay in your memory long after your stay."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Wild Coast Tented Lodge offers 28 beautifully designed cocoon-style suites, each offering spacious interiors and nature-infused luxury.","Every suite is crafted with a king-size bed, air-conditioning, premium linens, ensuite bathroom, and a private timber deck where the sounds of the wild become part of your daily rhythm.","Many suites feature private plunge pools overlooking the Indian Ocean or waterholes that attract wildlife, giving guests a remarkable blend of comfort and connection with nature. The lodge invites you to discover the art of wild luxury with unparalleled views and intimate experiences."],
+      villas:[
+        {name:"Cocoon Suites",size:"28 Suites Total",desc:"Signature canvas cocoon-style suites with king-size bed, air-conditioning, premium linens, ensuite bathroom and a private timber deck — the sounds of the wild become your daily rhythm."},
+        {name:"Ocean View Suites",size:"Select Suites",desc:"Suites with private plunge pools overlooking the Indian Ocean — a remarkable blend of comfort and direct connection with the coastal wilderness."},
+        {name:"Waterhole Suites",size:"Select Suites",desc:"Suites with views over active waterholes that attract Yala's wildlife — wake to leopards, elephants and birds visiting at dawn from your private deck."},
+        {name:"Premium Safari Suite",size:"Exclusive",desc:"The most spacious and premium suite at Wild Coast, with extended decking, priority locations and all the hallmarks of refined safari luxury."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"Suite & Outdoor",items:["King-size bed with premium linen","Private deck with lounge seating","Private plunge pool (select suites)","Scenic ocean or waterhole views","Elegant safari-inspired furnishings"]},
+      {title:"Bathroom",items:["Ensuite bathroom with premium fittings","Luxury bath amenities"]},
+      {title:"In-Suite Comforts",items:["Air conditioning and modern climate control","Minibar and refreshments","Wi-Fi access","Tea & coffee facilities"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Wild Coast Tented Lodge offers an exquisite culinary journey that complements its dramatic location.","The lodge's open-air Ten Tuskers Bar and Dining Pavilion, surrounded by a striking free-form infinity pool, serves fresh and bold flavours that celebrate Sri Lankan cuisine with international influences.","Breakfast welcomes the day with a selection of local and global favourites, while lunch and dinner showcase fresh seafood, spicy curries, grilled specialties, and gourmet delights."],
+      venues:[
+        {name:"Ten Tuskers Bar & Dining Pavilion",desc:"Open-air dining pavilion surrounded by a free-form infinity pool with ocean views. Serves fresh seafood, spicy curries, grilled specialties and gourmet delights celebrating Sri Lankan cuisine with international influences."},
+        {name:"Poolside Dining",desc:"Enjoy meals beside the pool with panoramic ocean views — the perfect setting for leisurely lunches and sundowner dinners."},
+        {name:"Beach Garden Dining",desc:"Intimate dining in the coastal garden — a serene setting with the sounds of the ocean and the surrounding jungle as your backdrop."},
+        {name:"Private Starlit Dinners",desc:"Romantic private dinners under starlit skies with the sound of the waves nearby — bespoke menus crafted especially for the occasion."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["Wild Coast Tented Lodge is also a place of relaxation and restoration.","The Sanctuary Spa offers signature wellness treatments inspired by Sri Lankan healing traditions, using natural ingredients such as Ceylon tea, cinnamon, and native herbs to soothe and refresh the body and mind.","Spa rituals are designed to help you unwind after thrilling wildlife drives, bringing a sense of balance and peace in an ocean-facing setting.","For guests seeking gentle movement and refreshed energy, beach yoga and relaxation sessions are offered at sunrise or sunset."],
+      features:[
+        {icon:"🌿",text:"Sanctuary Spa — Sri Lankan healing traditions"},
+        {icon:"🍵",text:"Treatments using Ceylon tea, cinnamon and native herbs"},
+        {icon:"🌊",text:"Ocean-facing spa setting for total restoration"},
+        {icon:"🧘",text:"Beach yoga at sunrise or sunset"},
+        {icon:"♾️",text:"Free-form infinity pool for relaxation"},
+        {icon:"🌅",text:"Restorative rituals after thrilling wildlife drives"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Yala National Park Safaris",desc:"Twice-daily guided game drives with expert naturalists for wildlife sightings including leopards, elephants, sloth bears, crocodiles, and diverse birdlife."},
+      {title:"Guided Nature Walks",desc:"Explore the bushland on foot and discover the smaller wonders of the wilderness with experienced rangers."},
+      {title:"Birdwatching & Wildlife Spotting",desc:"The region is a paradise for birders and wildlife photographers with endemic and migratory species."},
+      {title:"Cultural & Village Tours",desc:"Authentic insights into local Sri Lankan communities and lifestyles."},
+      {title:"Bush Dining & Picnics",desc:"Enjoy gourmet picnics on sand dunes or by scenic viewpoints at sunrise or sunset."},
+      {title:"Beach Walks & Coastal Moments",desc:"Peaceful early morning or evening walks along the secluded beach."},
+      {title:"Afternoon Tea & Leisure Moments",desc:"Relaxing poolside tea experiences surrounded by jungle ambience."},
+      {title:"Nearby Reserve Excursions",desc:"Tailored trips to Bundala National Park and wetland bird habitats."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Wild Coast Tented Lodge offers carefully curated packages that bring together accommodation, safaris, meals, experiences, and wellness options.","Every reservation includes daily breakfast, twice-daily guided safaris into Yala National Park, complimentary evening tea and lounge access, use of the infinity pool, and access to nature walks and lodge facilities.","Guests can upgrade to half board or full board for enhanced dining options, or choose the all-inclusive experience which includes meals, selected beverages, private experiences, and sunset safari options.","Optional spa add-ons — from deep-tissue massages to beach yoga sessions — are available to enrich your stay. Special occasion enhancements such as private beach dinners, champagne on arrival, and sunrise breakfasts can also be arranged upon request.","Wild Coast Tented Lodge is an extraordinary destination that celebrates the harmony of wild landscapes and thoughtful luxury. Every moment — from thrilling wildlife encounters and gourmet dining to serene spa retreats and coastal reflections — is crafted to leave a lasting impression and make your Sri Lankan adventure truly unforgettable."],
+      title:"Wild Coast Safari Package",
+      items:["Daily breakfast included","Twice-daily guided safaris into Yala National Park","Complimentary evening tea and lounge access","Use of the infinity pool","Access to nature walks and lodge facilities","Half-board or full-board upgrade available","All-inclusive option — meals, selected beverages, private experiences, sunset safari","Optional spa add-ons — deep-tissue massage, beach yoga","Private beach dinners for special occasions","Champagne on arrival","Sunrise breakfasts on request"]
     }
+  }
+},
 
-    function openHotelDetail(id) {
-      currentHotel = hotelsData.find(h => h.id === id);
-      if (!currentHotel) return;
-      activeCat = 0;
-      renderDetailView();
-      showView(detailView);
+/* ─── 4. HURAWALHI MALDIVES ─── */
+{
+  id:3, name:"Hurawalhi Maldives",
+  location:"Maldives · Lhaviyani Atoll", country:"Maldives",
+  mainImage:"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=900",
+  tagline:"Adults-only paradise — world's largest all-glass undersea restaurant",
+  description:[
+    "Escape on a magnificent private island in the splendor of Lhaviyani Atoll in the Maldives. If you have seen heaven, Hurawalhi Resort is just like a heaven — the resort makes an elegant blend of tranquility and thrill, luxury and adventure.",
+    "There are 90 villas — each villa allowing only adults — and this luxury resort lies on a brilliant sandy beach in the Maldives and is more magnificent than any island you have visited.",
+    "Hurawalhi is setting up a remarkable picturesque of marine life including turtles, rays, and dolphins that you can see in abundance anytime from the resort. While you are spending time, dedicated luxury excursions organised by the resort introduce you to incredible untouched local dive sites and pristine desert-island beaches.",
+    "Hurawalhi offers some beautiful moments — the resort gives you cherished inner balance unimpeded by outside demands. There is an excitement restaurant available in the resort called the 5.8 Undersea Restaurant — placed underwater and the world's largest all-glass undersea restaurant."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Hurawalhi resort's accommodations offer amazing comfort, exclusivity, and mesmerizing views, each villa offers an island that feels modern. There is a wooden deck for every villa opening out onto an incredible lagoon or tranquil sandy beach that offers a spectacular view — feeling like paradise.","Whether you choose between beachside and overwater luxury, the resort accommodation makes your preferred perspective and setting, and find pleasure in having paradise at your fingertips."],
+      villas:[
+        {name:"Ocean Pool Villa",size:"132 sq m · Pool 27 sq m",desc:"Placed over the dramatic Indian Ocean — these elegant villas are the polish of Maldives' luxury. Spend time in the lagoon from the sundeck, admire the resort surroundings from your villa or your majestic infinity pool. Within 130 square meters of attractive villa — perfect for your honeymoon. Awesome interior contemporary design for your luxury holiday."},
+        {name:"Romantic Ocean Villa",size:"105 sq m",desc:"Ideal for honeymooners and romantic couples. Undisturbed views of the blue Indian Ocean on your boasts sundeck. Outdoor bathtub, bathroom with rain shower, sundeck with staircase to the lagoon. Receive all the benefits of the resort and the sea — enjoy morning coffee or evening cocktails in the dream holiday setting."},
+        {name:"Ocean Villa",size:"105 sq m",desc:"Unwind long days with an Ocean Villa and start a new lifestyle on a glimpse villa in the Maldives. Exclusive collection of environmentally friendly amenities — enjoy luxury facilities and embrace nature on your doorstep. Bathroom with rain shower, sundeck with staircase to the lagoon."},
+        {name:"Beach Sunset Pool Villa",size:"132 sq m · Pool 27 sq m",desc:"Welcome to bliss — incredible views of the sunset, private ocean-facing infinity pool. All villas lead to a closed translucent lagoon just steps away. 27 square metre private pool with short steps to the beach. Perfect privacy — romantically curated for honeymooners and romantic couples."},
+        {name:"Beach Pool Villa",size:"105 sq m · Pool 27 sq m",desc:"Most famous for the unbeatable lifestyle it offers. Close to the tranquil sandy beach and lagoon — steps away. Located on the sunrise side. Start your morning with breakfast in your private pool and take a few steps to the beach. Close to a magnificent reef drop — start snorkelling and explore the mesmerising blues of the Indian Ocean."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"Ocean Pool Villa & Beach Sunset Pool Villa (132 sq m)",items:["Total villa size: 132 sq m / 1,420 sq ft","Private infinity pool (27 sq m / 285 sq ft)","Elegantly furnished bedroom with sitting area","Bathroom with rain shower"]},
+      {title:"Romantic Ocean Villa & Ocean Villa (105 sq m)",items:["Total villa size: 105 sq m / 1,130 sq ft","Elegantly furnished bedroom with sitting area","Outdoor bathtub (Romantic Ocean Villa)","Bathroom with rain shower","Sundeck with staircase to the lagoon"]},
+      {title:"Beach Pool Villa (105 sq m)",items:["Total villa size: 105 sq m / 1,130 sq ft","Private infinity pool (27 sq m / 285 sq ft)","Elegantly furnished bedroom with sitting area","Bathroom with rain shower","Sundeck"]},
+      {title:"Beach Sunset Pool Villa (132 sq m)",items:["Sunset location","Total villa size: 132 sq m","Private infinity pool","Bathroom with rain shower","Sundeck"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Hurawalhi offers some beautiful dining moments — the resort gives you cherished inner balance unimpeded by outside demands.","If you have an opportunity to take your dining experience while watching dolphins and other marine life, the 5.8 Undersea Restaurant delivers exactly that — a once-in-a-lifetime experience set beneath the ocean."],
+      venues:[
+        {name:"5.8 Undersea Restaurant",desc:"A magnificent fine dining culinary experience — based 5.8 metres under the Indian Ocean. Not a regular restaurant; it's amazing. See pure marine life in the deep of the sea while you take your delicious dish. Inside equipped for 16 guests — open for breakfast, lunch and dinner, with one sitting for each. The world's largest all-glass undersea restaurant. Take your delicious meal and dive into the pleasure of having a view that but a few restaurants in the world afford."},
+        {name:"Kashibo Restaurant and Bar",desc:"One of the contemporary restaurants in Hurawalhi Resort — Kashibo is Dhivehi for sea urchins. A picturesque setting and divine dining menu in equal measure. Mostly famous for Chinese, Thai, Indonesian and Vietnamese cuisine menus and an Asian cocktail menu of world-class standard. Vegetarian dishes include zesty Vietnamese Vegetable Tacos and Balinese Buffalo Wings through to Thai Lobster Tail and Chai Masala Gateau. Popular Teppanyaki, lunch and dinner at Kashibo deliver a taste of authentic Asia — Asian street food you'll undoubtedly enjoy."},
+        {name:"Canneli Restaurant",desc:"Heavenly dishes and tantalising aromas — the sizzle of the food and the atmosphere. Three meals a day: breakfast, lunch, and dinner with all culinary occasions to take delight in mouth-watering creations. Contemporary facilities, international cuisine and impressive themed evenings. Canneli stands for 'yellowfin tuna' in Dhivehi. Indoor and outdoor seating options — and a chance to explore while dolphins may pass by in the distance."},
+        {name:"Coco Bar",desc:"Entertainment and indulgence — taste world-famous liquor brands. An extensive menu of wines, cocktails, shishas, and snacks — the realisation of perfection. Enjoy world-famous liquor brands alongside an infinity pool with the beach just steps away."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["During your stay, if you need to sophisticated your holiday, just visit Duniye Spa at Hurawalhi Resort. Duniye Spa is the most famous and award-winning spa in the Maldives.","The Duniye Spa offers you exclusive treatment courses of your day with heart-centred treatments — seek pampering and inspiration regularly and enter the path of joyful, healthy living to last a lifetime.","Duniye Spa uses chemical-free, organic, high-quality ingredients and locally-produced coconut oil. Once you take a treatment from Duniye, offering a feeling of total immersion into serenity and nature — they follow a universal approach to wellness."],
+      features:[
+        {icon:"🏆",text:"Duniye Spa — award-winning, Maldives' most famous spa"},
+        {icon:"🥥",text:"Organic, chemical-free treatments using coconut oil and local ingredients"},
+        {icon:"💆",text:"Heart-centred treatments for complete wellness"},
+        {icon:"🏊",text:"Infinity pool with direct beach and ocean access"},
+        {icon:"🐬",text:"Marine life — turtles, rays and dolphins visible from resort"},
+        {icon:"🤿",text:"Luxury dive excursions to untouched dive sites"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Scuba Diving",desc:"Hurawalhi's most significant activity — ready to dive to the most picturesque coral reefs in the Maldives. Deemed the best year-round diving destination in the Indian Ocean. Marine life is abundant and varied, with manta rays and sea turtles regularly paying visits to dive sites. If you love diving, you can see the country's striking beauty extends to the underwater."},
+      {title:"Snorkelling",desc:"The resort is located around magnificent coral reefs — one of the splendid underwater environments on the planet. Snorkel with experts and encounter fish species in thousands and coral in hundreds. So many reefs around Hurawalhi, including the resort's house reef. Get more opportunities for seeing turtles and bustling schools of fish."},
+      {title:"Dolphin Safari",desc:"A unique excursion into Lhaviyani Atoll's waters to encounter playful dolphins in their natural habitat."},
+      {title:"Parasailing",desc:"Soar above the crystal waters of the Maldives for a bird's-eye view of the stunning atoll and resort island."},
+      {title:"Manta Ray Search",desc:"A dedicated excursion to encounter these magnificent creatures at the atoll's famous manta points."},
+      {title:"Private Speedboat Charter",desc:"Explore the Lhaviyani Atoll at your own pace — from sandbanks to local islands."},
+      {title:"Jet Ski",desc:"Thrilling jet ski experiences in the calm lagoon waters surrounding Hurawalhi's pristine island."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Hurawalhi's All Inclusive Package is comprehensive — covering all meals, unlimited beverages, and a wide selection of daily activities and experiences."],
+      title:"All Inclusive Package",
+      items:["Daily Breakfast (08:00–10:30), Lunch (13:00–14:30) and Dinner (19:30–22:00) in Canneli Restaurant","Dine Around — 3-course lunch and dinner at Kashibo Restaurant (pre-booking, subject to availability)","Dine Around — 2-course lunch and dinner at J.F.K Restaurant from 12:00–22:00","Bottle of Taittinger Champagne with Chef's canapés in the Champagne Pavilion (exclusive supplement)","Unlimited alcoholic & non-alcoholic beverages in Coco Bar (08:00–01:00) and Kashibo Bar (12:00–22:00)","50+ alcoholic cocktails including signature cocktails","All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices","55 premium brands spirits and liqueurs, port and sherry","Over 60 wines — extensive wine selection","Selection of international draught beer, bottled beer and cider","Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed","Soft drinks — Coke, Diet Coke, Fanta Orange, Sprite, Ginger Ale, Bitter Lemon, tonic and soda","Hurawalhi bottled water (1 litre), mineral water and sparkling water","Mini bar — house wine, bottled beer, spirit selection, soft drinks, mineral water, Nespresso, teas, assorted snacks — refilled once daily","One demi bottle of Champagne in villa on arrival (per villa per stay)","One Sunset Dolphin Cruise (regularly scheduled)","Free use of Fitness Center, Tennis and Paddle Tennis Courts","Table Tennis, Billiards and Football Grounds (equipment included)","Free use of Kayaks and Windsurfing Equipment (experienced windsurfers only)","One 30-minute Group Snorkelling with Marine Biologist (regularly scheduled)","One 30-minute Group Windsurfing Lesson (regularly scheduled)","Free Yoga Group Sessions — Asanas and Yoga Nidra (regularly scheduled)","Daily fitness activity programme — Yoga themes, Aqua Fitness, Circuit Training, diverse meditation options and more"]
     }
+  }
+},
 
-    function renderDetailView() {
-      detailHotelName.innerText = currentHotel.name;
-      // Insert the unique ~50 word description (after hotel name, before buttons)
-      hotelDetailDescription.innerText = currentHotel.description;
-      
-      categoryButtonsDiv.innerHTML = '';
-      currentHotel.categories.forEach((cat, idx) => {
-        const btn = document.createElement('button');
-        btn.innerText = cat.title;
-        btn.className = 'cat-btn' + (idx === activeCat ? ' active' : '');
-        btn.addEventListener('click', () => {
-          activeCat = idx;
-          renderDetailView();
-        });
-        categoryButtonsDiv.appendChild(btn);
-      });
-      const cat = currentHotel.categories[activeCat];
-      detailContentArea.innerHTML = `
-        <div class="detail-photo"><img src="${cat.imageUrl}" alt="${cat.title}"></div>
-        <div class="detail-text"><h3 style="font-family:'Playfair Display'; margin-bottom:20px;">${cat.title}</h3><p>${cat.description}</p></div>
-      `;
+/* ─── 5. DHIGUFARU ─── */
+{
+  id:4, name:"Dhigufaru Island Resort",
+  location:"Maldives · Baa Atoll Biosphere Reserve", country:"Maldives",
+  mainImage:"https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=900",
+  tagline:"A UNESCO biosphere reserve paradise of long reef and turquoise wonder",
+  description:[
+    "Dhigufaru Resort is located in a biosphere reserve in Baa Atoll — Dhigufaru is a sense of a long reef. It is a variegated journey in that you are imagining things.",
+    "The resort offers you relaxation in the stunning beauty of the island and surrounding reef, and a magnificent adventure package that extends the perfect balance of both.",
+    "Welcome to Dhigufaru Island Resort in Maldives. The resort warmly invites you to take an outlandish experience that is your own way to observing a serene nature — underwater, and above water.",
+    "The resort gives to an incredible feeling like no other — one that gives you the choice."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Dhigufaru Island Resort is located along the nature of the Island, offering an incredible experience and creating the most special things to do on the Island. There are seven exciting accommodation categories offered at the resort."],
+      villas:[
+        {name:"Beach Villa Veli & Boaku",size:"22 Veli + 8 Boaku",desc:"Beach front access with spectacular views — experience the incredible eastern-facing Boaku or the spectacular Veli beach. All villas have an outdoor shower space and indoor bathroom decorated with contemporary amenities. Every room includes a private veranda within a private garden with amazing views of beach and lagoon."},
+        {name:"Veli Beach Pool Villa",size:"Pool Villa",desc:"Set among the beach tree line — a remarkable luxury experience on the sun, sea and sand. Exclusive comfortable furniture, satellite television, air conditioning and ambient lighting. Veranda embedded with plunge pool facing the beach — at midday comfort after sunbathing and settle down yourself."},
+        {name:"Semi Water Villas",size:"Semi-Overwater",desc:"Take invigorating sounds and lush breeze from the Indian Ocean. Perfect placement for capturing the sunrise with magnificent views of the horizon. All Semi Water Villas are connected to the Dhigufaru lagoon from the Aanu Sandrock within your own private sun deck."},
+        {name:"Findhanfulhu Water Villa",size:"20 Water Villas",desc:"Within 20 Fidhanfulhu Water Villas offering the ultimate accommodation in comfort and leisure — very bright and luxurious, every villa has its own staircase leading into the crystal clear lagoon below. Ideal for swimming or a snorkelling adventure, relaxing a few feet above tranquil water of the Indian Ocean."},
+        {name:"Bodhanfulhu Pool Water Villa",size:"Overwater Pool",desc:"Prime lagoon accommodation — crystal clear shallow water beneath the private deck; the most popular and picturesque villa type in Dhigufaru Resort. Enjoy a private plunge pool or reach into the vast lagoon. Private veranda and private deck giving more attractiveness — able to explore the picturesque lagoon and the Indian Ocean from your bedroom."},
+        {name:"Sangu Suite",size:"Presidential Suite",desc:"Presidential suites collection — luxury and spacious in an overwater location. Private pool with easy access into the vast lagoon. Private deck with enchanting views towards the lagoon and the Indian Ocean. Designed with all contemporary amenities for your own requirement."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"Room Comforts",items:["King Size Bed","Dressing Table & Stool","Writing Table and Chair","Wardrobe","Air-conditioning","Private Safe","Mini Bar","IDD Telephone","WIFI Internet","LED TV","Tea / Coffee facility","Veranda Love Seat","Veranda Coffee Seats and Table","Outdoor Sun Loungers"]},
+      {title:"Bathroom Comforts",items:["Hot & Cold Water","Vanity with 2 x Wash Hand Basin","WC","Bathtub","Indoor Shower","Outdoor Shower","Hair Dryer","Amenities","Bath Robes","Soft Comfort Bathroom Linen","Bathroom Bench"]},
+      {title:"Pool Villas & Water Villas Additional",items:["Plunge Pool (Pool Villas)","Private Sun Deck","Own staircase to lagoon (Water Villas)"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Dhigufaru Island Resort celebrates the natural flavours of the Maldives with fresh, bold dining experiences across multiple venues — with tropical island settings and creative international cuisine."],
+      venues:[
+        {name:"Main Restaurant",desc:"The primary all-day dining venue at Dhigufaru — featuring international buffets with fresh seafood, local Maldivian specialties and global cuisine for all-day dining in a tropical island setting."},
+        {name:"Specialty Dining",desc:"Curated specialty dining menus — themed evenings and specialty culinary events celebrating ocean-to-table freshness with the flavours of the Indian Ocean."},
+        {name:"Pool & Beach Bar",desc:"Refreshing beverages, cocktails and snacks by the pool and beach, with views across the turquoise Baa Atoll lagoon — the ideal setting for sundowners and leisurely afternoons."},
+        {name:"Private Dining",desc:"Bespoke private dining arrangements for romantic or celebratory occasions — on the beach or sandbank at sunset, with personalised menus and dedicated service."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["The resort spa is an exciting offering — a significant spa treatment experience within a 241 sqm compound in a striking island setting.","Whilst you are spending time and need to recharge your body, take an amazing spa treatment in Funa Spa which offers different kinds of spa treatment services for you."],
+      features:[
+        {icon:"🌸",text:"Funa Spa — 241 sqm compound in a striking island setting"},
+        {icon:"👣",text:"Reflexology Centre"},
+        {icon:"💇",text:"Salon"},
+        {icon:"🧖",text:"Sauna & Steam Room"},
+        {icon:"🛁",text:"Private Treatment Rooms"},
+        {icon:"🐠",text:"Marine biosphere snorkelling and diving experiences"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Fishing Excursions",desc:"Traditional Maldivian fishing experiences in the waters of Baa Atoll — both day and night fishing options available."},
+      {title:"Local Island Visits",desc:"Discover authentic Maldivian island life and community culture on guided tours to nearby inhabited local islands."},
+      {title:"Sand Bank Picnic",desc:"Private gourmet picnic on pristine white sandbanks surrounded by turquoise water — one of the most memorable Maldivian experiences."},
+      {title:"Dolphin Watching",desc:"A boat excursion into Baa Atoll's waters to encounter dolphins in their natural ocean habitat."},
+      {title:"Snorkelling & Diving",desc:"Discover the vibrant marine life of Baa Atoll Marine Biosphere — one of the most incredible underwater encounters on the planet. Explore pristine sandy beaches or discover the endless turquoise reef."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Dhigufaru Island Resort offers flexible board plans and customisable packages — combining accommodation, activities, and dining for a balanced island experience in the UNESCO Baa Atoll Biosphere Reserve.","Custom resort experiences combine relaxation, activities, and island exploration for a balanced holiday."],
+      title:"Resort Package Options",
+      items:["Flexible board plans — from bed & breakfast to all-inclusive","Snorkelling and water sport equipment access","Guided Baa Atoll marine biosphere excursions","Spa treatment packages at Funa Spa","Sandbank picnic add-on","Local island discovery tours","Fishing excursion packages","Dolphin watching cruise","Access to all resort facilities — pools, beach, water sports"]
     }
+  }
+},
 
-    // Navigation
-    document.getElementById('backToListBtn').addEventListener('click', () => showView(listView));
-    document.getElementById('backToHomeBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
-    document.querySelector('.logo').addEventListener('click', () => { window.location.href = 'index.html'; });
+/* ─── 6. KAGI MALDIVES SPA ─── */
+{
+  id:5, name:"Kagi Maldives Spa",
+  location:"Maldives · North Malé Atoll", country:"Maldives",
+  mainImage:"https://images.unsplash.com/photo-1540202404-a2f29016b523?w=900",
+  tagline:"50-villa boutique wellness island — Pure Life philosophy, Baani Spa",
+  description:[
+    "Kagi Maldives Spa is one of the most signature tropical island resorts in Maldives — fall in love and spend the simplicity of life. Kagi is not a regular resort; it is an immersive and soothing retreat and the harmony between living health and joyfully.",
+    "Within just 50 villas at Kagi Maldives and 40 villas are situated out over the lagoon. The resort concept is rare in the Indian Ocean — once you stay at Kagi Maldives you take elegance and unveil the essence of Pure Life.",
+    "Whether you are travelling solo or together with your loved ones, Kagi is ready to give an exciting unique experience in a Maldivian Island.",
+    "The Resort provides a truly Maldivian luxury and feels beyond your expectation. Resort's architecture is striking-yet-warm toned with rustic wall décor and soft furnishings. Resort Spa of Baani is an enveloping and soothing retreat that recharges your body and begins a new journey in your life. Restorative yoga sessions and mouthwatering meals await you from the moment you arrive.",
+    "If you are interested in sound therapy, Kagi is leading and designs your mind properly for relaxation. This is the refreshing spot — front row views define those epic Indian Ocean sunsets. The Beach Villa is directly close to talcum sands while the Lagoon and Ocean Villa has a short step away to the water. It is an amusing place to begin your day as freshly."
+  ],
+  sectionImages:{
+    "Accommodation":"https://images.unsplash.com/photo-1560472355-536de3962603?w=800",
+    "Room Facilities":"https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+    "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+    "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+  },
+  sections:{
+    "Accommodation":{type:"accommodation",
+      intro:["Kagi is one of the elegant living spaces in Maldives Island — spacious 50 villas in a boutique island resort. There are 50 excited villas and 40 are situated over the lagoon. Every room comprises a single unit complete with a private infinity edge swimming pool.","There are three magnificent villa categories — Ocean Villas, Lagoon Villas and Beach Villas — each showing different unique charm. All villas are overwater or beachside with the ultimate isolation and comfort. The resort invites you to discover the art of life with Kagi Resort in Maldives."],
+      villas:[
+        {name:"Beach Pool Villa",size:"Beachside · Private Beach",desc:"Kagi's gracefully original luxury design — every beach villa gives an inseparable space along the private pure sandy beach. Locate a few steps away to the Indian Ocean from your deck. Able to dive into the underwater, splash or snorkel from your villa and start a morning walk on the tranquil beach feeling the sounds of the ocean rolling onto the shore. Inside the villa: spacious king size bed, veneer floors, air conditioning, an outdoor decked terrace and much more. Take delicious breakfast while watching the sun rise."},
+        {name:"Ocean Pool Villa",size:"21 Villas · Over Ocean",desc:"You must drop your bucket list at Kagi Maldives Spa — it truly encounters a magnificent holiday experience. Ocean Pool Villa is directly connected to the ocean. Feel comfortable enjoying your own pool over the ocean with picturesque surrounds. 21 Ocean Pool Villas — each villa has the finest spacious light-aired room with a private verandah and infinity plunge pool. Keep your eyes on Maldivian sunshine and delight in the live aquarium during your stay."},
+        {name:"Lagoon Pool Villa",size:"19 Villas · Over Lagoon",desc:"Head to Kagi Maldives Resort and take a Lagoon Pool Villa for relaxing and recharging within calm and comfort. Uncommon design with own private overwater terrace with infinity plunge pool — possible to relax at leisure in the resort. Swim and stay on your private sundeck and in the evening explore the sunset under the horizon. Completely decorated for tranquil romance — infinity pool sits over the lagoon. 19 lagoon pool villas embrace nature on your steps to the magnificent lagoon."}
+      ]
+    },
+    "Room Facilities":{type:"facilities",groups:[
+      {title:"All Villas — In-Villa Amenities",items:["Minibar","Nespresso Machine and tea facilities","IDD telephone","IPTV","Bluetooth sound-bar","Personal safe","Hairdryer","Safety jackets","Beach towels and a beach bag","Full indoor bathroom with bathtub","Private Plunge Pool"]}
+    ]},
+    "Dining":{type:"dining",
+      intro:["Kagi Resort offers an amazing sense of joyful culinary experience to visitors — elegant dishes which are fresh, boldly flavoured, and above all satisfying. The resort's restaurants offer international and local recipes while you enjoy the magnificent surroundings.","There are six restaurants and venues featuring inside the resort."],
+      venues:[
+        {name:"Ke-Un",desc:"Kagi's signature fine dining restaurant — exquisite cuisine in an elegant setting. Included once per 3-night stay (pre-booking required and subject to space availability). Not valid for special events."},
+        {name:"Noo Faru (Main Restaurant)",desc:"The heart of Kagi's dining — featuring 'all you can eat' buffets with a variety of international cuisines. Breakfast (07:00–10:00) and Dinner (19:00–21:30). Fresh, boldly flavoured and deeply satisfying."},
+        {name:"Ufaa Snack Bar",desc:"À la carte dining from 10:00–00:00 serving as an alternative lunch and dinner venue. Also available for an additional à la carte dinner option alongside Noo Faru."},
+        {name:"The Beach Hut",desc:"Casual beachside dining — a relaxed setting for meals, snacks and beverages with the sand between your toes and the Indian Ocean breeze."},
+        {name:"The Spa Corner",desc:"The spa's dining outlet giving fresh juice and health menu delights — perfectly curated for guests on wellness programmes."},
+        {name:"Piano Bar",desc:"The elegant evening social venue at Kagi — enjoy cocktails, premium beverages and live music in a sophisticated island atmosphere."}
+      ]
+    },
+    "Wellness & Experiences":{type:"wellness",
+      intro:["Kagi Maldives Spa is the ultimate holistic wellness destination — whether you expect to rejuvenate your entire body or simply relax, it is the best chance to switch off and indulge.","The Resort Spa of Baani is a famous award-winning spa in the Maldives — meaningful of 'The Ocean Swell'. There are amazing facilities at the spa including steam rooms, gym, hair and beauty salon and four overwater treatment rooms with picturesque Indian Ocean views.","Baani Spa centre offers the balance between living healthy and joyfully and presents different kinds of skin care and well-being products. Not only does Baani offer indoor programmes — they also provide sunrise stretching, sunrise yoga and Baani sound healing sessions on the tranquillity beach.","In addition, the spa outlet gives fresh juice and health menu delights. The philosophy of Baani spa is divided into five elements: Nature and Sound; Nutrition; Bodywork and Beauty; Mindfulness; and Movement. Using a variety of woods and herbs to 'wash off' — releasing stress, restoring balance and regaining momentum. All treatments are signature of Baani spa — given to the utmost best.","Other facilities of Baani Spa: Innovative Epicurean Cuisine, Meditation under the Sea, Mindfulness, Water sports & Recreation."],
+      features:[
+        {icon:"🏆",text:"Baani Spa — award-winning, 'The Ocean Swell'"},
+        {icon:"🌊",text:"4 overwater treatment rooms with Indian Ocean views"},
+        {icon:"🧖",text:"Steam rooms, gym, hair & beauty salon"},
+        {icon:"🧘",text:"Sunrise yoga, stretching & Baani sound healing on the beach"},
+        {icon:"🍃",text:"Five elements: Nature & Sound, Nutrition, Bodywork & Beauty, Mindfulness, Movement"},
+        {icon:"🥤",text:"Spa Corner — fresh juices and health menu cuisine"},
+        {icon:"🧠",text:"Meditation under the Sea experience"},
+        {icon:"🪵",text:"Natural woods and herbs used in signature treatments"}
+      ]
+    },
+    "Things to Do & Nearby Experiences":{type:"activities",items:[
+      {title:"Diving — Euro Divers 5-Star Certified Centre",desc:"The resort invites you to connect your mind with the deep blue sea, accompanied with Euro Divers by Kagi Maldives. The Euro Diving Centre is 5-star certified and offers ocean-based activities and different kinds of courses in your own language. Working three shifts a day — morning, afternoon and night dives — to bring you to the most incredible untouched dive sites in North Malé Atoll. A huge variety of trips and dive sites — visit a famous manta point, thrilling channel diving with sharks, overhang with delicate colourful coral."},
+      {title:"House Reef Diving",desc:"Kagi Maldives Spa sits on a spacious house reef — classified as one of the famous and best house reefs in Maldives. An ideal setting for diving and snorkelling."},
+      {title:"Night Diving and Fluo Night Dives",desc:"A unique after-dark diving experience revealing the luminous colours of the reef and the nocturnal life of Maldivian waters."},
+      {title:"Half Day and Full Day Diving Excursions",desc:"Extended guided diving excursions to the most spectacular dive sites in North Malé Atoll — including manta points and shark channels."},
+      {title:"Snorkelling on House Reef",desc:"The house reef is one of the finest in Maldives — explore healthy corals, bright colourful tropical fish and cute sea creatures: sea turtles, rays, reef sharks, moray eels. A hidden treasure for snorkellers."},
+      {title:"Fishing in the Maldives",desc:"Traditional and sport fishing in the waters of North Malé Atoll — an authentic Maldivian experience."},
+      {title:"Kayaking & Stand Up Paddle",desc:"Explore the crystal lagoon and surrounding waters from the surface — peaceful and beautiful ways to connect with the ocean environment."},
+      {title:"Mirage Eclipse, Catamaran Sailing & Wind Surfing",desc:"A range of sailing and windsurfing experiences in the Maldivian waters."},
+      {title:"Glass Bottom Kayaking",desc:"See the vibrant marine life beneath you through a glass-bottom kayak — spectacular for discovering the reef without diving."}
+    ]},
+    "Packages & Inclusions":{type:"packages",
+      intro:["Kagi Maldives offers a comprehensive Premium All Inclusive Package designed to give you the complete Kagi experience — from gourmet dining and unlimited beverages to spa discounts, water sports and wellness classes."],
+      title:"Premium All Inclusive Package",
+      items:["Breakfast (07:00–10:00) in Noo Faru — 'all you can eat' buffets with international cuisines","Lunch (12:30–14:30) — à la carte served with option between the Spa Corner and Ufaa/Noofaru (pre-booking at Spa Corner required)","Dinner (19:00–21:30) in Noo Faru — 'all you can eat' buffets with international cuisines","À la carte dinner served in Ufaa","One Dinner at Ke-Un for every 3-night stay (pre-booking required — not valid for special events)","One additional 4-course 'Chef's Table' set dinner in the Herbs Garden — US$99 per person supplement (pre-booking required)","Exclusive 25% discount on weekly Culinary Signatures","'Snack Menu' served in Ufaa from 10:00–00:00","Unlimited alcoholic and non-alcoholic beverages all day until closing time","Variety of alcoholic cocktails including signature cocktails","All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices","Extensive selection of premium brands spirits and liqueurs, port and sherry","Extensive wine selection","House champagne selection","Selection of international beers and cider","Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed","Soft drinks and Kagi bottled still and sparkling water","Mini bar: bottled wine (red, white, rosé, sparkling), canned beer, soft drinks, Kagi water, Nespresso coffees, assorted snacks — refilled once daily","Welcome bottle of Champagne and canapés served in the villa on arrival","2 bottles of spirits available in your villa on request","Daily evening culinary delights from the culinary team","Free use of Laundry Service — 3 garments per adult per week","Exclusive 20% discount on selected Spa treatments and wellness packages (first 2 days — pre-booking required)","One Sunset Dolphin Cruise Group Excursion (per resort schedule, subject to weather)","Complimentary snorkelling equipment during stay","Complimentary use of the Wellness Centre and steam rooms","Free use of kayaks — 1 hour daily (basic experience required, certain restrictions apply)","Group Introduction to 30-minute Snorkelling and Windsurfing — weekly, regularly scheduled","Complimentary Yoga and stretching classes — regularly scheduled"]
+    }
+  }
+}
 
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 50) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+]; // end hotelsDataset
 
-    renderHotelCards();
-  </script>
+// ═══════════════════════════════════════════════════════
+//  ENGINE
+// ═══════════════════════════════════════════════════════
+const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions"];
+let currentHotel=null, activeCategory=0;
+
+const listView=document.getElementById('listView');
+const detailView=document.getElementById('detailView');
+
+function showView(v){ listView.classList.remove('active-view'); detailView.classList.remove('active-view'); v.classList.add('active-view'); window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* cards */
+function renderHotelCards(){
+  const g=document.getElementById('hotelsGrid'); g.innerHTML='';
+  hotelsDataset.forEach(h=>{
+    const c=document.createElement('div'); c.className='hotel-card';
+    c.innerHTML=`<div class="hotel-card-img-wrap"><img class="hotel-card-img" src="${h.mainImage}" alt="${h.name}" loading="lazy"></div>
+      <div class="hotel-card-info">
+        <span class="hotel-card-country">✦ ${h.country}</span>
+        <h3>${h.name}</h3>
+        <div class="hotel-card-loc">📍 ${h.location}</div>
+        <div class="hotel-card-tag">${h.tagline}</div>
+      </div>`;
+    c.addEventListener('click',()=>openHotel(h.id));
+    g.appendChild(c);
+  });
+}
+
+function openHotel(id){
+  currentHotel=hotelsDataset.find(h=>h.id===id);
+  if(!currentHotel)return;
+  activeCategory=0;
+  renderDetail();
+  showView(detailView);
+}
+
+function renderDetail(){
+  document.getElementById('detailHotelName').innerText=currentHotel.name;
+  document.getElementById('detailHotelLoc').innerHTML='📍 '+currentHotel.location.toUpperCase();
+  document.getElementById('hotelDetailDescription').innerHTML=currentHotel.description.map(p=>`<p>${p}</p>`).join('');
+
+  const tabRow=document.getElementById('categoryButtons');
+  tabRow.innerHTML='';
+  SECTION_KEYS.forEach((key,idx)=>{
+    const btn=document.createElement('button');
+    btn.className='cat-btn'+(idx===activeCategory?' active':'');
+    btn.innerText=key;
+    btn.addEventListener('click',()=>{ activeCategory=idx; renderDetail(); });
+    tabRow.appendChild(btn);
+  });
+
+  const key=SECTION_KEYS[activeCategory];
+  const sec=currentHotel.sections[key];
+  const img=(currentHotel.sectionImages&&currentHotel.sectionImages[key])||currentHotel.mainImage;
+
+  document.getElementById('detailContentArea').innerHTML=`
+    <div class="section-wrap">
+      <div class="section-img-col"><img src="${img}" alt="${key}" loading="lazy"></div>
+      <div class="section-content-col">${buildSection(key,sec)}</div>
+    </div>`;
+}
+
+function buildSection(key,sec){
+  if(!sec) return `<h3>${key}</h3><p style="color:var(--text-light);">Information coming soon.</p>`;
+  switch(sec.type){
+    case 'accommodation': return buildAccommodation(sec);
+    case 'facilities':    return buildFacilities(sec);
+    case 'dining':        return buildDining(sec);
+    case 'wellness':      return buildWellness(sec);
+    case 'activities':    return buildActivities(sec);
+    case 'packages':      return buildPackages(sec);
+    default: return '';
+  }
+}
+
+function buildAccommodation(s){
+  const intro=(s.intro||[]).map(p=>`<p>${p}</p>`).join('');
+  const cards=(s.villas||[]).map(v=>`
+    <div class="villa-card">
+      <span class="villa-card-size">${v.size}</span>
+      <h4>${v.name}</h4>
+      <p>${v.desc}</p>
+    </div>`).join('');
+  return `<h3>Accommodation</h3><div class="intro-text">${intro}</div><div class="villa-cards">${cards}</div>`;
+}
+
+function buildFacilities(s){
+  const groups=(s.groups||[]).map(g=>`
+    <div class="facility-group">
+      <div class="facility-group-title">${g.title}</div>
+      <div class="facility-grid">${(g.items||[]).map(i=>`
+        <div class="facility-item"><span class="fi-dot"></span><span>${i}</span></div>`).join('')}
+      </div>
+    </div>`).join('');
+  return `<h3>Room Facilities</h3>${groups}`;
+}
+
+function buildDining(s){
+  const intro=(s.intro||[]).map(p=>`<p>${p}</p>`).join('');
+  const venues=(s.venues||[]).map(v=>`
+    <div class="dining-venue-card">
+      <h4>${v.name}</h4>
+      <p>${v.desc}</p>
+    </div>`).join('');
+  return `<h3>Dining</h3><div class="intro-text">${intro}</div>${venues}`;
+}
+
+function buildWellness(s){
+  const intro=(s.intro||[]).map(p=>`<p>${p}</p>`).join('');
+  const feats=(s.features||[]).map(f=>`
+    <div class="wellness-feat">
+      <span class="wf-icon">${f.icon}</span>
+      <span>${f.text}</span>
+    </div>`).join('');
+  return `<h3>Wellness &amp; Experiences</h3>
+    <div class="wellness-intro">${intro}</div>
+    <div class="wellness-features">${feats}</div>`;
+}
+
+function buildActivities(s){
+  const items=(s.items||[]).map((item,i)=>`
+    <li class="activity-item">
+      <span class="activity-num">${String(i+1).padStart(2,'0')}.</span>
+      <span class="activity-body">
+        ${item.title?`<strong>${item.title}</strong>`:''}
+        ${item.desc||(typeof item==='string'?item:'')}
+      </span>
+    </li>`).join('');
+  return `<h3>Things to Do &amp; Nearby Experiences</h3><ul class="activities-list">${items}</ul>`;
+}
+
+function buildPackages(s){
+  const intro=(s.intro||[]).map(p=>`<p>${p}</p>`).join('');
+  const items=(s.items||[]).map(i=>`<li><span class="pkg-check">✓</span><span>${i}</span></li>`).join('');
+  return `<h3>Packages &amp; Inclusions</h3>
+    <div class="package-intro">${intro}</div>
+    <div class="package-box">
+      <div class="package-box-title">${s.title||"What's Included"}</div>
+      <ul class="package-list">${items}</ul>
+    </div>`;
+}
+
+/* nav */
+document.getElementById('backToListBtn').addEventListener('click',()=>showView(listView));
+document.getElementById('backToHomeBtn').addEventListener('click',()=>{ window.location.href='index.html'; });
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50); });
+
+renderHotelCards();
+</script>
 </body>
 </html>

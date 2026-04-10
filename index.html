@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
+    /* … (keep all existing styles unchanged) … */
     :root {
       --gold: #c9a84c;
       --gold-light: #f3e5ab;
@@ -27,7 +28,7 @@
 
     * {
       margin: 0; padding: 0; box-sizing: border-box;
-      cursor: default; /* normal cursor */
+      cursor: default;
     }
 
     body {
@@ -41,7 +42,6 @@
       position: relative;
     }
 
-    /* --- MODERN LUXURY 3D PATTERN --- */
     body::before {
       content: "";
       position: fixed;
@@ -66,7 +66,6 @@
       mix-blend-mode: overlay;
     }
 
-    /* --- CINEMATIC NOISE --- */
     .noise-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -85,7 +84,6 @@
       z-index: 0;
     }
 
-    /* --- NAVIGATION (glassmorphism) --- */
     nav {
       position: fixed;
       top: 24px; left: 50%;
@@ -171,7 +169,6 @@
     .btn-circle:hover::before { top: 0; border-radius: 0; }
     .btn-circle:hover { color: #000; border-color: var(--gold); letter-spacing: 3px; }
 
-    /* --- HERO --- */
     .hero {
       height: 100vh;
       display: flex;
@@ -226,7 +223,6 @@
       transform: translateY(20px);
     }
 
-    /* --- LIGHT SECTIONS --- */
     .light-section {
       background: var(--bg-light);
       color: var(--text-dark);
@@ -316,6 +312,11 @@
       overflow: hidden;
       border-radius: 4px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-8px);
     }
     .img-wrapper {
       width: 100%; height: 100%;
@@ -711,38 +712,12 @@
     </div>
   </section>
 
+  <!-- CURRENT FAVORITES (DYNAMIC HOTELS FROM HOTEL PAGE) -->
   <section id="favorites-section" class="light-section" style="padding: 80px 0;">
     <h2 class="section-title">CURRENT FAVORITES</h2>
     <div class="horizontal-scroll-container">
       <div class="horizontal-scroll" id="scrollGallery">
-        <div class="gallery-item">
-          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1920" alt="Resort"></div>
-          <div class="item-text">
-            <h4>Chenot Palace Weggis</h4>
-            <p>Switzerland</p>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="img-wrapper"><img src="nuvara eliya.jpg" alt="Lanserhof"></div>
-          <div class="item-text">
-            <h4>Lanserhof Tegernsee</h4>
-            <p>Germany</p>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1920" alt="SHA Wellness"></div>
-          <div class="item-text">
-            <h4>SHA Wellness Clinic</h4>
-            <p>Spain</p>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="img-wrapper"><img src="Joali Being Maldives.jpg" alt="Joali"></div>
-          <div class="item-text">
-            <h4>Joali Being</h4>
-            <p>Maldives</p>
-          </div>
-        </div>
+        <!-- Populated by JavaScript -->
       </div>
     </div>
   </section>
@@ -921,6 +896,38 @@
   </footer>
 
   <script>
+    // Hotel dataset (same as hotel.html)
+    const hotelsDataset = [
+      { id:0, name:"Ceylon Tea Trails", location:"Sri Lanka · Central Highlands", country:"Sri Lanka", mainImage:"https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900", tagline:"Colonial heritage among 3,500 acres of misty emerald tea estate" },
+      { id:1, name:"Cape Weligama", location:"Sri Lanka · Southern Coast", country:"Sri Lanka", mainImage:"https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=900", tagline:"Dramatic clifftop luxury above the Indian Ocean" },
+      { id:2, name:"Wild Coast Tented Lodge", location:"Sri Lanka · Yala National Park", country:"Sri Lanka", mainImage:"https://images.unsplash.com/photo-1549366021-4f1370657e17?w=900", tagline:"28 cocoon-style suites where the jungle meets the Indian Ocean" },
+      { id:3, name:"Hurawalhi Maldives", location:"Maldives · Lhaviyani Atoll", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=900", tagline:"Adults-only paradise — world's largest all-glass undersea restaurant" },
+      { id:4, name:"Dhigufaru Island Resort", location:"Maldives · Baa Atoll Biosphere Reserve", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=900", tagline:"A UNESCO biosphere reserve paradise of long reef and turquoise wonder" },
+      { id:5, name:"Kagi Maldives Spa", location:"Maldives · North Malé Atoll", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1540202404-a2f29016b523?w=900", tagline:"50-villa boutique wellness island — Pure Life philosophy, Baani Spa" }
+    ];
+
+    // Populate favorites gallery
+    const galleryContainer = document.getElementById('scrollGallery');
+    if (galleryContainer) {
+      galleryContainer.innerHTML = hotelsDataset.map(hotel => `
+        <div class="gallery-item" data-hotel-id="${hotel.id}">
+          <div class="img-wrapper"><img src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy"></div>
+          <div class="item-text">
+            <h4>${hotel.name}</h4>
+            <p>${hotel.country}</p>
+          </div>
+        </div>
+      `).join('');
+      
+      // Add click navigation
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          const hotelId = item.dataset.hotelId;
+          window.location.href = `hotel.html?hotel=${hotelId}`;
+        });
+      });
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     // Navbar glassy effect on scroll

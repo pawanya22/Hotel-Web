@@ -112,6 +112,13 @@
       font-weight:400; letter-spacing:2px; line-height:1.15; margin-bottom:6px;
     }
     .hotel-loc-badge { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:20px; display:block; }
+    .detail-hero-img {
+      width:100%; max-width:1200px; height:500px; overflow:hidden;
+      border-radius:16px; margin:0 0 36px 0; box-shadow:0 20px 60px rgba(0,0,0,0.15);
+    }
+    .detail-hero-img img {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
     .hotel-description-detail {
       font-size:0.92rem; line-height:1.85; color:var(--text-mid);
       border-left:2px solid var(--gold); padding:16px 22px;
@@ -121,15 +128,15 @@
     .hotel-description-detail p { margin-bottom:10px; }
     .hotel-description-detail p:last-child { margin-bottom:0; }
 
-    /* TABS */
+    /* TABS – now wrap without scroll */
     .tab-row {
       display:flex; flex-wrap:wrap; gap:0;
       border-bottom:2px solid var(--border); margin-bottom:40px;
     }
     .cat-btn {
       background:transparent; border:none; font-family:'Jost',sans-serif;
-      font-size:0.67rem; font-weight:500; letter-spacing:2px; text-transform:uppercase;
-      padding:11px 20px 13px; color:var(--text-light); cursor:pointer;
+      font-size:0.65rem; font-weight:500; letter-spacing:1.8px; text-transform:uppercase;
+      padding:10px 16px 12px; color:var(--text-light); cursor:pointer;
       position:relative; transition:color 0.25s; white-space:nowrap;
     }
     .cat-btn::after {
@@ -152,6 +159,10 @@
       font-family:'Cormorant Garamond',serif; font-size:1.8rem;
       font-weight:500; margin-bottom:22px; color:var(--text);
     }
+
+    /* full‑width gallery override */
+    .gallery-full .section-content-col { flex:1; width:100%; }
+    .gallery-full .section-img-col { display:none; }
 
     /* INTRO TEXT */
     .intro-text { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:28px; }
@@ -249,25 +260,57 @@
     .package-list li:last-child { border-bottom:none; }
     .pkg-check { color:var(--gold); font-weight:700; flex-shrink:0; margin-top:1px; }
 
+    /* GALLERY */
+    .gallery-grid {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:18px; margin-top:8px;
+    }
+    .gallery-item {
+      border-radius:14px; overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,0.08);
+      border:1px solid var(--border);
+      transition:transform 0.3s, box-shadow 0.4s;
+      aspect-ratio:4/3;
+    }
+    .gallery-item:hover {
+      transform:scale(1.02);
+      box-shadow:0 18px 36px rgba(0,0,0,0.12);
+      border-color:var(--border-gold);
+    }
+    .gallery-item img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform 0.7s;
+    }
+    .gallery-item:hover img { transform:scale(1.05); }
+    .gallery-caption {
+      font-family:'Cormorant Garamond',serif; font-size:0.85rem;
+      margin-top:18px; color:var(--text-light); letter-spacing:1px;
+      font-style:italic; text-align:right;
+    }
+
     /* FOOTER */
     footer { padding:70px 60px 36px; background:#0a0806; color:#fff; margin-top:80px; }
     .footer-bottom { text-align:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:40px; opacity:0.55; }
     .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; letter-spacing:7px; display:block; margin-bottom:10px; }
     .footer-bottom p { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; }
 
+    @media(min-width:900px) {
+      .gallery-grid { grid-template-columns:repeat(3,1fr); }
+    }
     @media(max-width:1100px) {
       .hotels-grid { grid-template-columns:repeat(2,1fr); }
       .villa-cards { grid-template-columns:1fr; }
       .section-img-col { position:static; }
+      .gallery-grid { grid-template-columns:1fr 1fr; }
     }
     @media(max-width:700px) {
       .hotels-grid { grid-template-columns:1fr; }
       .nav-links { display:none; }
       .hotel-name-detail { font-size:2rem; }
-      .tab-row { overflow-x:auto; flex-wrap:nowrap; }
-      .cat-btn { padding:10px 13px 12px; font-size:0.6rem; }
+      .cat-btn { padding:8px 10px 10px; font-size:0.58rem; letter-spacing:1.5px; }
       .section-wrap { flex-direction:column; }
-      .villa-cards,.facility-grid,.wellness-features { grid-template-columns:1fr; }
+      .villa-cards,.facility-grid,.wellness-features,.gallery-grid { grid-template-columns:1fr; }
+      .detail-hero-img { height:300px; }
     }
   </style>
 </head>
@@ -308,6 +351,7 @@
     </div>
     <h1 id="detailHotelName" class="hotel-name-detail"></h1>
     <span id="detailHotelLoc" class="hotel-loc-badge"></span>
+    <div id="detailHeroImage" class="detail-hero-img"></div>
     <div id="hotelDetailDescription" class="hotel-description-detail"></div>
     <div id="categoryButtons" class="tab-row"></div>
     <div id="detailContentArea"></div>
@@ -322,7 +366,7 @@
 
 <script>
 // ══════════════════════════════════════════════════════════════════
-//  DATASET — ALL 6 HOTELS, FULL ORIGINAL CONTENT
+//  DATASET — ALL 6 HOTELS + GALLERY (5 images each)
 // ══════════════════════════════════════════════════════════════════
 const hotelsDataset = [
 
@@ -346,7 +390,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1552083375-1447ce886485?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -398,7 +443,14 @@ const hotelsDataset = [
       intro:["Ceylon Tea Trails offers carefully curated stays designed to immerse you fully in the estate lifestyle.","Guests can choose stays ranging from three-night experiences focusing on tea country immersion to extended journeys that combine scenic exploration, wellness, and cultural discovery.","Ceylon Tea Trails is a luxury heritage retreat where every moment — from sunrise walks through emerald slopes and fragrant tea tastings to peaceful verandas and bespoke dining — invites you to immerse in an elegant tapestry of nature, culture, and time-honored hospitality."],
       title:"All-Inclusive Estate Stay",
       items:["All-inclusive gourmet dining","Afternoon cream tea daily","Private butler and chef service","Guided estate walks and Pekoe Trails","Tea tastings and tea culture sessions","Access to all on-estate experiences and facilities","Swimming pools and heated jacuzzis","Scenic lake cruise on Castlereagh Reservoir","Cycling and nature exploration","Personalised menus crafted daily with the resident chef"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+      "https://images.unsplash.com/photo-1552083375-1447ce886485?w=800",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800"
+    ]}
   }
 },
 
@@ -420,7 +472,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -470,7 +523,14 @@ const hotelsDataset = [
       intro:["Cape Weligama offers tailored holiday packages that combine luxury accommodation, dining, curated activities and unforgettable experiences. Most stays come with daily breakfast included, access to wellness sessions, curated coastal experiences, beach and pool access, and concierge support to personalise your itinerary.","Guests can choose enhanced packages with half-board or full-board dining, bespoke excursions (like whale watching or Galle city tours), spa credits, sunset sail experiences, and exclusive private dining options.","For families, bespoke arrangements and kids' programmes are available to make every journey comfortable and memorable.","Cape Weligama is a destination of elevated coastal luxury — where vivid clifftop sunsets, serene ocean sounds, refined design, and engaging experiences come together to create an extraordinary seaside escape. Every moment here — from elegant meals and peaceful days by the sea to cultural discoveries and wellness rituals — is crafted to be cherished and unforgettable."],
       title:"Tailored Coastal Package",
       items:["Daily breakfast included","Access to wellness sessions","Curated coastal experiences","Beach and pool access","Concierge support to personalise your itinerary","Half-board or full-board dining options","Bespoke excursions — whale watching, Galle city tours","Spa credits","Sunset sail experiences","Exclusive private dining options","Kids' programmes for families"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800",
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800"
+    ]}
   }
 },
 
@@ -493,7 +553,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1549366021-4f1370657e17?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -544,7 +605,14 @@ const hotelsDataset = [
       intro:["Wild Coast Tented Lodge offers carefully curated packages that bring together accommodation, safaris, meals, experiences, and wellness options.","Every reservation includes daily breakfast, twice-daily guided safaris into Yala National Park, complimentary evening tea and lounge access, use of the infinity pool, and access to nature walks and lodge facilities.","Guests can upgrade to half board or full board for enhanced dining options, or choose the all-inclusive experience which includes meals, selected beverages, private experiences, and sunset safari options.","Optional spa add-ons — from deep-tissue massages to beach yoga sessions — are available to enrich your stay. Special occasion enhancements such as private beach dinners, champagne on arrival, and sunrise breakfasts can also be arranged upon request.","Wild Coast Tented Lodge is an extraordinary destination that celebrates the harmony of wild landscapes and thoughtful luxury. Every moment — from thrilling wildlife encounters and gourmet dining to serene spa retreats and coastal reflections — is crafted to leave a lasting impression and make your Sri Lankan adventure truly unforgettable."],
       title:"Wild Coast Safari Package",
       items:["Daily breakfast included","Twice-daily guided safaris into Yala National Park","Complimentary evening tea and lounge access","Use of the infinity pool","Access to nature walks and lodge facilities","Half-board or full-board upgrade available","All-inclusive option — meals, selected beverages, private experiences, sunset safari","Optional spa add-ons — deep-tissue massage, beach yoga","Private beach dinners for special occasions","Champagne on arrival","Sunrise breakfasts on request"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1549366021-4f1370657e17?w=800",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+      "https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800"
+    ]}
   }
 },
 
@@ -566,7 +634,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -618,7 +687,14 @@ const hotelsDataset = [
       intro:["Hurawalhi's All Inclusive Package is comprehensive — covering all meals, unlimited beverages, and a wide selection of daily activities and experiences."],
       title:"All Inclusive Package",
       items:["Daily Breakfast (08:00–10:30), Lunch (13:00–14:30) and Dinner (19:30–22:00) in Canneli Restaurant","Dine Around — 3-course lunch and dinner at Kashibo Restaurant (pre-booking, subject to availability)","Dine Around — 2-course lunch and dinner at J.F.K Restaurant from 12:00–22:00","Bottle of Taittinger Champagne with Chef's canapés in the Champagne Pavilion (exclusive supplement)","Unlimited alcoholic & non-alcoholic beverages in Coco Bar (08:00–01:00) and Kashibo Bar (12:00–22:00)","50+ alcoholic cocktails including signature cocktails","All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices","55 premium brands spirits and liqueurs, port and sherry","Over 60 wines — extensive wine selection","Selection of international draught beer, bottled beer and cider","Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed","Soft drinks — Coke, Diet Coke, Fanta Orange, Sprite, Ginger Ale, Bitter Lemon, tonic and soda","Hurawalhi bottled water (1 litre), mineral water and sparkling water","Mini bar — house wine, bottled beer, spirit selection, soft drinks, mineral water, Nespresso, teas, assorted snacks — refilled once daily","One demi bottle of Champagne in villa on arrival (per villa per stay)","One Sunset Dolphin Cruise (regularly scheduled)","Free use of Fitness Center, Tennis and Paddle Tennis Courts","Table Tennis, Billiards and Football Grounds (equipment included)","Free use of Kayaks and Windsurfing Equipment (experienced windsurfers only)","One 30-minute Group Snorkelling with Marine Biologist (regularly scheduled)","One 30-minute Group Windsurfing Lesson (regularly scheduled)","Free Yoga Group Sessions — Asanas and Yoga Nidra (regularly scheduled)","Daily fitness activity programme — Yoga themes, Aqua Fitness, Circuit Training, diverse meditation options and more"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+      "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=800",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+      "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+    ]}
   }
 },
 
@@ -640,7 +716,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -690,7 +767,14 @@ const hotelsDataset = [
       intro:["Dhigufaru Island Resort offers flexible board plans and customisable packages — combining accommodation, activities, and dining for a balanced island experience in the UNESCO Baa Atoll Biosphere Reserve.","Custom resort experiences combine relaxation, activities, and island exploration for a balanced holiday."],
       title:"Resort Package Options",
       items:["Flexible board plans — from bed & breakfast to all-inclusive","Snorkelling and water sport equipment access","Guided Baa Atoll marine biosphere excursions","Spa treatment packages at Funa Spa","Sandbank picnic add-on","Local island discovery tours","Fishing excursion packages","Dolphin watching cruise","Access to all resort facilities — pools, beach, water sports"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=800",
+      "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+      "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+    ]}
   }
 },
 
@@ -713,7 +797,8 @@ const hotelsDataset = [
     "Dining":"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
     "Wellness & Experiences":"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
     "Things to Do & Nearby Experiences":"https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
-    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800"
+    "Packages & Inclusions":"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+    "Gallery":"https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800"
   },
   sections:{
     "Accommodation":{type:"accommodation",
@@ -766,16 +851,23 @@ const hotelsDataset = [
       intro:["Kagi Maldives offers a comprehensive Premium All Inclusive Package designed to give you the complete Kagi experience — from gourmet dining and unlimited beverages to spa discounts, water sports and wellness classes."],
       title:"Premium All Inclusive Package",
       items:["Breakfast (07:00–10:00) in Noo Faru — 'all you can eat' buffets with international cuisines","Lunch (12:30–14:30) — à la carte served with option between the Spa Corner and Ufaa/Noofaru (pre-booking at Spa Corner required)","Dinner (19:00–21:30) in Noo Faru — 'all you can eat' buffets with international cuisines","À la carte dinner served in Ufaa","One Dinner at Ke-Un for every 3-night stay (pre-booking required — not valid for special events)","One additional 4-course 'Chef's Table' set dinner in the Herbs Garden — US$99 per person supplement (pre-booking required)","Exclusive 25% discount on weekly Culinary Signatures","'Snack Menu' served in Ufaa from 10:00–00:00","Unlimited alcoholic and non-alcoholic beverages all day until closing time","Variety of alcoholic cocktails including signature cocktails","All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices","Extensive selection of premium brands spirits and liqueurs, port and sherry","Extensive wine selection","House champagne selection","Selection of international beers and cider","Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed","Soft drinks and Kagi bottled still and sparkling water","Mini bar: bottled wine (red, white, rosé, sparkling), canned beer, soft drinks, Kagi water, Nespresso coffees, assorted snacks — refilled once daily","Welcome bottle of Champagne and canapés served in the villa on arrival","2 bottles of spirits available in your villa on request","Daily evening culinary delights from the culinary team","Free use of Laundry Service — 3 garments per adult per week","Exclusive 20% discount on selected Spa treatments and wellness packages (first 2 days — pre-booking required)","One Sunset Dolphin Cruise Group Excursion (per resort schedule, subject to weather)","Complimentary snorkelling equipment during stay","Complimentary use of the Wellness Centre and steam rooms","Free use of kayaks — 1 hour daily (basic experience required, certain restrictions apply)","Group Introduction to 30-minute Snorkelling and Windsurfing — weekly, regularly scheduled","Complimentary Yoga and stretching classes — regularly scheduled"]
-    }
+    },
+    "Gallery":{type:"gallery", images:[
+      "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800",
+      "https://images.unsplash.com/photo-1560472355-536de3962603?w=800",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+      "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+    ]}
   }
 }
 
 ]; // end hotelsDataset
 
 // ═══════════════════════════════════════════════════════
-//  ENGINE
+//  ENGINE (UPDATED: gallery removes left image, tabs wrap)
 // ═══════════════════════════════════════════════════════
-const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions"];
+const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions","Gallery"];
 let currentHotel=null, activeCategory=0;
 
 const listView=document.getElementById('listView');
@@ -783,7 +875,6 @@ const detailView=document.getElementById('detailView');
 
 function showView(v){ listView.classList.remove('active-view'); detailView.classList.remove('active-view'); v.classList.add('active-view'); window.scrollTo({top:0,behavior:'smooth'}); }
 
-/* cards */
 function renderHotelCards(){
   const g=document.getElementById('hotelsGrid'); g.innerHTML='';
   hotelsDataset.forEach(h=>{
@@ -811,6 +902,7 @@ function openHotel(id){
 function renderDetail(){
   document.getElementById('detailHotelName').innerText=currentHotel.name;
   document.getElementById('detailHotelLoc').innerHTML='📍 '+currentHotel.location.toUpperCase();
+  document.getElementById('detailHeroImage').innerHTML=`<img src="${currentHotel.mainImage}" alt="${currentHotel.name}" loading="lazy">`;
   document.getElementById('hotelDetailDescription').innerHTML=currentHotel.description.map(p=>`<p>${p}</p>`).join('');
 
   const tabRow=document.getElementById('categoryButtons');
@@ -825,11 +917,18 @@ function renderDetail(){
 
   const key=SECTION_KEYS[activeCategory];
   const sec=currentHotel.sections[key];
-  const img=(currentHotel.sectionImages&&currentHotel.sectionImages[key])||currentHotel.mainImage;
+  const isGallery = (key === 'Gallery');
 
-  document.getElementById('detailContentArea').innerHTML=`
-    <div class="section-wrap">
-      <div class="section-img-col"><img src="${img}" alt="${key}" loading="lazy"></div>
+  let containerClass = 'section-wrap';
+  if (isGallery) containerClass += ' gallery-full';
+
+  const imgUrl = (currentHotel.sectionImages && currentHotel.sectionImages[key]) || currentHotel.mainImage;
+
+  const leftColHtml = isGallery ? '' : `<div class="section-img-col"><img src="${imgUrl}" alt="${key}" loading="lazy"></div>`;
+
+  document.getElementById('detailContentArea').innerHTML = `
+    <div class="${containerClass}">
+      ${leftColHtml}
       <div class="section-content-col">${buildSection(key,sec)}</div>
     </div>`;
 }
@@ -843,6 +942,7 @@ function buildSection(key,sec){
     case 'wellness':      return buildWellness(sec);
     case 'activities':    return buildActivities(sec);
     case 'packages':      return buildPackages(sec);
+    case 'gallery':       return buildGallery(sec);
     default: return '';
   }
 }
@@ -914,10 +1014,35 @@ function buildPackages(s){
     </div>`;
 }
 
+function buildGallery(s){
+  const images = s.images || [];
+  const imageItems = images.map(url => `
+    <div class="gallery-item">
+      <img src="${url}" alt="Gallery image" loading="lazy">
+    </div>`).join('');
+  return `<h3>Photo Gallery</h3>
+    <div class="gallery-grid">${imageItems}</div>
+    <div class="gallery-caption">${currentHotel.name} — 5 exclusive views</div>`;
+}
+
 /* nav */
 document.getElementById('backToListBtn').addEventListener('click',()=>showView(listView));
 document.getElementById('backToHomeBtn').addEventListener('click',()=>{ window.location.href='index.html'; });
 window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50); });
+
+// Check for hotel ID in URL (e.g., hotel.html?hotel=2)
+const urlParams = new URLSearchParams(window.location.search);
+const hotelIdParam = urlParams.get('hotel');
+if (hotelIdParam !== null) {
+  const id = parseInt(hotelIdParam, 10);
+  const hotel = hotelsDataset.find(h => h.id === id);
+  if (hotel) {
+    // Wait for DOM ready then open
+    window.addEventListener('DOMContentLoaded', () => {
+      openHotel(id);
+    });
+  }
+}
 
 renderHotelCards();
 </script>

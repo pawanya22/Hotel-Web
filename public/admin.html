@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxe Admin | Luxury Travel Guru</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { 
+      --gold: #c9a84c; 
+      --bg: #f8f6f1; 
+      --dark: #1a1714; 
+      --border: #e2e0db;
+      --white: #ffffff;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--bg); color: var(--dark); font-family: 'Jost', sans-serif; line-height: 1.6; }
+
+    .header { background: var(--dark); color: white; padding: 40px; text-align: center; margin-bottom: 30px; }
+    .header h1 { font-family: 'Cormorant Garamond', serif; letter-spacing: 4px; text-transform: uppercase; }
+    .nav-links { margin-top: 15px; }
+    .nav-links a { color: var(--gold); text-decoration: none; margin: 0 15px; font-size: 0.8rem; letter-spacing: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; display: grid; grid-template-columns: 1fr 350px; gap: 30px; }
+
+    /* Form Styling */
+    .card { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid var(--border); }
+    .card h2 { font-family: 'Cormorant Garamond', serif; margin-bottom: 25px; border-bottom: 2px solid var(--bg); padding-bottom: 10px; color: var(--dark); }
+    
+    .form-section { margin-bottom: 40px; padding: 20px; background: #fafafa; border-radius: 8px; border-left: 4px solid var(--gold); }
+    .form-section h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #555; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; color: #888; }
+    input, textarea, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-family: 'Jost', sans-serif; font-size: 0.95rem; }
+    textarea { min-height: 80px; resize: vertical; }
+
+    /* Repeater items (Villas, Dining, etc.) */
+    .repeater-item { background: white; padding: 15px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; position: relative; }
+    .remove-btn { position: absolute; top: 10px; right: 10px; background: #ff4d4d; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
+    .add-btn { background: #4a4540; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; transition: 0.3s; }
+    .add-btn:hover { background: var(--gold); }
+
+    /* Controls */
+    .sticky-actions { position: sticky; bottom: 20px; background: white; padding: 20px; border-radius: 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); display: flex; justify-content: center; gap: 20px; z-index: 100; border: 1px solid var(--gold); }
+    .btn-save { background: var(--gold); color: black; border: none; padding: 15px 40px; border-radius: 30px; font-weight: 600; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; }
+    .btn-cancel { background: #eee; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; }
+
+    /* Hotel List Sidebar */
+    .sidebar-list { list-style: none; }
+    .hotel-item { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .hotel-item:last-child { border: none; }
+    .hotel-item h4 { font-size: 0.9rem; }
+    .hotel-item p { font-size: 0.75rem; color: #888; }
+    .action-links button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 0.75rem; margin-left: 10px; text-transform: uppercase; font-weight: 600; }
+    .action-links .del-btn { color: #ff4d4d; }
+
+    #message { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; z-index: 2000; display: none; }
+    .success { background: #2ecc71; }
+    .error { background: #e74c3c; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Hotel Management System</h1>
+  <div class="nav-links">
+    <a href="index.html">VIEW WEBSITE</a>
+    <a href="hotel.html">BROWSE HOTELS</a>
+  </div>
+</div>
+
+<div id="message"></div>
+
+<div class="container">
+  <!-- FORM SIDE -->
+  <main>
+    <form id="hotelForm">
+      <input type="hidden" id="hotelId">
+      
+      <div class="card">
+        <h2 id="formTitle">Add New Luxury Hotel</h2>
+        
+        <!-- BASIC INFO -->
+        <div class="form-section">
+          <h3>Basic Information</h3>
+          <div class="form-group">
+            <label>Hotel Name</label>
+            <input type="text" id="name" placeholder="e.g. Ceylon Tea Trails" required>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" id="location" placeholder="e.g. Sri Lanka · Central Highlands" required>
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" id="country" placeholder="Sri Lanka or Maldives" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Main Cover Image (URL)</label>
+            <input type="url" id="mainImage" placeholder="https://images.unsplash.com/..." required>
+          </div>
+          <div class="form-group">
+            <label>Short Tagline</label>
+            <input type="text" id="tagline" placeholder="Brief one-sentence hook" required>
+          </div>
+          <div class="form-group">
+            <label>Full Description (One paragraph per line)</label>
+            <textarea id="description" placeholder="Write the story of the hotel here..."></textarea>
+          </div>
+        </div>
+
+        <!-- TAB IMAGES -->
+        <div class="form-section">
+          <h3>Tab Category Images</h3>
+          <p style="font-size: 0.7rem; color: #999; margin-bottom: 10px;">Specify images that appear when users click the tabs (Accommodation, Dining, etc.)</p>
+          <div class="grid-2" id="tabImagesContainer">
+            <!-- Dynamically generated keys -->
+          </div>
+        </div>
+
+        <!-- ACCOMMODATION -->
+        <div class="form-section" id="section-accommodation">
+          <h3>Accommodation / Villas</h3>
+          <div class="form-group">
+            <label>Intro Text</label>
+            <textarea class="sec-intro" data-sec="Accommodation"></textarea>
+          </div>
+          <div class="repeater" id="villas-list">
+            <!-- Villa items go here -->
+          </div>
+          <button type="button" class="add-btn" onclick="addVilla()">+ Add Room/Villa Type</button>
+        </div>
+
+        <!-- DINING -->
+        <div class="form-section" id="section-dining">
+          <h3>Dining & Venues</h3>
+          <div class="form-group">
+            <label>Intro Text</label>
+            <textarea class="sec-intro" data-sec="Dining"></textarea>
+          </div>
+          <div class="repeater" id="dining-list"></div>
+          <button type="button" class="add-btn" onclick="addDining()">+ Add Dining Venue</button>
+        </div>
+
+        <!-- FACILITIES -->
+        <div class="form-section" id="section-facilities">
+          <h3>Room Facilities</h3>
+          <div class="repeater" id="facilities-list"></div>
+          <button type="button" class="add-btn" onclick="addFacilityGroup()">+ Add Facility Group (e.g. Bathroom)</button>
+        </div>
+
+        <!-- WELLNESS -->
+        <div class="form-section" id="section-wellness">
+          <h3>Wellness & Experiences</h3>
+          <div class="form-group">
+            <label>Intro Text</label>
+            <textarea class="sec-intro" data-sec="Wellness & Experiences"></textarea>
+          </div>
+          <div class="repeater" id="wellness-list"></div>
+          <button type="button" class="add-btn" onclick="addWellness()">+ Add Wellness Feature</button>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="form-section" id="section-activities">
+          <h3>Nearby Experiences / Things To Do</h3>
+          <div class="repeater" id="activities-list"></div>
+          <button type="button" class="add-btn" onclick="addActivity()">+ Add Activity</button>
+        </div>
+
+        <!-- PACKAGES -->
+        <div class="form-section" id="section-packages">
+          <h3>Packages & Inclusions</h3>
+          <div class="form-group">
+            <label>Intro Text</label>
+            <textarea class="sec-intro" data-sec="Packages & Inclusions"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Package Title</label>
+            <input type="text" id="pkg-title" placeholder="e.g. All-Inclusive Estate Stay">
+          </div>
+          <div class="form-group">
+            <label>Inclusions (One per line)</label>
+            <textarea id="pkg-items" placeholder="Item 1&#10;Item 2&#10;Item 3"></textarea>
+          </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="form-section">
+          <h3>Photo Gallery</h3>
+          <div class="form-group">
+            <label>Image URLs (One URL per line)</label>
+            <textarea id="gallery-urls" style="min-height: 150px;"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sticky-actions">
+        <button type="button" class="btn-cancel" onclick="resetForm()">Reset Form</button>
+        <button type="submit" class="btn-save" id="saveBtn">Save Hotel Data</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="card">
+      <h2>Existing Hotels</h2>
+      <div id="hotelList" class="sidebar-list">
+        <!-- Hotels will be listed here -->
+        <p>Loading hotels...</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const API_URL = 'http://localhost:3000/api/hotels';
+  const tabKeys = ["Accommodation", "Room Facilities", "Dining", "Wellness & Experiences", "Things to Do & Nearby Experiences", "Packages & Inclusions", "Gallery"];
+  let allHotels = [];
+
+  // Initialize Tab Images Inputs
+  const tabImgContainer = document.getElementById('tabImagesContainer');
+  tabKeys.forEach(key => {
+    tabImgContainer.innerHTML += `
+      <div class="form-group">
+        <label>${key} Image</label>
+        <input type="url" class="tab-img-input" data-key="${key}" placeholder="URL">
+      </div>
+    `;
+  });
+
+  // --- REPEATER FUNCTIONS ---
+
+  function addVilla(name='', size='', desc='') {
+    const div = document.createElement('div');
+    div.className = 'repeater-item villa-item';
+    div.innerHTML = `
+      <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+      <div class="grid-2">
+        <div class="form-group"><label>Room/Villa Name</label><input type="text" class="v-name" value="${name}"></div>
+        <div class="form-group"><label>Size/Type</label><input type="text" class="v-size" value="${size}"></div>
+      </div>
+      <div class="form-group"><label>Description</label><textarea class="v-desc">${desc}</textarea></div>
+    `;
+    document.getElementById('villas-list').appendChild(div);
+  }
+
+  function addDining(name='', desc='') {
+    const div = document.createElement('div');
+    div.className = 'repeater-item dining-item';
+    div.innerHTML = `
+      <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+      <div class="form-group"><label>Venue Name</label><input type="text" class="d-name" value="${name}"></div>
+      <div class="form-group"><label>Venue Description</label><textarea class="d-desc">${desc}</textarea></div>
+    `;
+    document.getElementById('dining-list').appendChild(div);
+  }
+
+  function addFacilityGroup(title='', items='') {
+    const div = document.createElement('div');
+    div.className = 'repeater-item facility-item';
+    div.innerHTML = `
+      <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+      <div class="form-group"><label>Group Title (e.g. Bathroom)</label><input type="text" class="f-title" value="${title}"></div>
+      <div class="form-group"><label>Items (One per line)</label><textarea class="f-items">${items}</textarea></div>
+    `;
+    document.getElementById('facilities-list').appendChild(div);
+  }
+
+  function addWellness(icon='🌿', text='') {
+    const div = document.createElement('div');
+    div.className = 'repeater-item wellness-item';
+    div.innerHTML = `
+      <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+      <div style="display:flex; gap:10px;">
+        <div class="form-group" style="width:80px;"><label>Icon</label><input type="text" class="w-icon" value="${icon}"></div>
+        <div class="form-group" style="flex:1;"><label>Feature Text</label><input type="text" class="w-text" value="${text}"></div>
+      </div>
+    `;
+    document.getElementById('wellness-list').appendChild(div);
+  }
+
+  function addActivity(title='', desc='') {
+    const div = document.createElement('div');
+    div.className = 'repeater-item activity-item';
+    div.innerHTML = `
+      <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+      <div class="form-group"><label>Activity Title</label><input type="text" class="a-title" value="${title}"></div>
+      <div class="form-group"><label>Activity Description</label><textarea class="a-desc">${desc}</textarea></div>
+    `;
+    document.getElementById('activities-list').appendChild(div);
+  }
+
+  // --- DATA OPERATIONS ---
+
+  async function loadHotels() {
+    try {
+      const res = await fetch(API_URL);
+      const json = await res.json();
+      allHotels = json.data;
+      const list = document.getElementById('hotelList');
+      list.innerHTML = allHotels.map(h => `
+        <div class="hotel-item">
+          <div>
+            <h4>${h.name}</h4>
+            <p>${h.location}</p>
+          </div>
+          <div class="action-links">
+            <button type="button" onclick="editHotel(${h.id})">Edit</button>
+            <button type="button" class="del-btn" onclick="deleteHotel(${h.id})">Del</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (e) { notify("Error loading hotels", "error"); }
+  }
+
+  function editHotel(id) {
+    const h = allHotels.find(x => x.id === id);
+    if(!h) return;
+
+    resetForm();
+    document.getElementById('hotelId').value = h.id;
+    document.getElementById('name').value = h.name;
+    document.getElementById('location').value = h.location;
+    document.getElementById('country').value = h.country;
+    document.getElementById('mainImage').value = h.mainImage;
+    document.getElementById('tagline').value = h.tagline;
+    document.getElementById('description').value = h.description.join('\n');
+
+    // Tab Images
+    document.querySelectorAll('.tab-img-input').forEach(input => {
+      input.value = h.sectionImages[input.dataset.key] || '';
+    });
+
+    // Accommodation
+    const acc = h.sections["Accommodation"] || {};
+    document.querySelector('.sec-intro[data-sec="Accommodation"]').value = (acc.intro || []).join('\n');
+    (acc.villas || []).forEach(v => addVilla(v.name, v.size, v.desc));
+
+    // Dining
+    const din = h.sections["Dining"] || {};
+    document.querySelector('.sec-intro[data-sec="Dining"]').value = (din.intro || []).join('\n');
+    (din.venues || []).forEach(v => addDining(v.name, v.desc));
+
+    // Facilities
+    const fac = h.sections["Room Facilities"] || {};
+    (fac.groups || []).forEach(g => addFacilityGroup(g.title, g.items.join('\n')));
+
+    // Wellness
+    const wel = h.sections["Wellness & Experiences"] || {};
+    document.querySelector('.sec-intro[data-sec="Wellness & Experiences"]').value = (wel.intro || []).join('\n');
+    (wel.features || []).forEach(f => addWellness(f.icon, f.text));
+
+    // Activities
+    const act = h.sections["Things to Do & Nearby Experiences"] || {};
+    (act.items || []).forEach(a => addActivity(a.title, a.desc));
+
+    // Packages
+    const pkg = h.sections["Packages & Inclusions"] || {};
+    document.querySelector('.sec-intro[data-sec="Packages & Inclusions"]').value = (pkg.intro || []).join('\n');
+    document.getElementById('pkg-title').value = pkg.title || '';
+    document.getElementById('pkg-items').value = (pkg.items || []).join('\n');
+
+    // Gallery
+    const gal = h.sections["Gallery"] || {};
+    document.getElementById('gallery-urls').value = (gal.images || []).join('\n');
+
+    document.getElementById('formTitle').innerText = "Editing: " + h.name;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function deleteHotel(id) {
+    if(!confirm("Are you sure? This cannot be undone.")) return;
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    loadHotels();
+    notify("Hotel deleted", "success");
+  }
+
+  document.getElementById('hotelForm').onsubmit = async (e) => {
+    e.preventDefault();
+    
+    // Construct Object
+    const hotelData = {
+      name: document.getElementById('name').value,
+      location: document.getElementById('location').value,
+      country: document.getElementById('country').value,
+      mainImage: document.getElementById('mainImage').value,
+      tagline: document.getElementById('tagline').value,
+      description: document.getElementById('description').value.split('\n').filter(l => l.trim()),
+      sectionImages: {},
+      sections: {}
+    };
+
+    // Tab Images
+    document.querySelectorAll('.tab-img-input').forEach(i => {
+      hotelData.sectionImages[i.dataset.key] = i.value;
+    });
+
+    // Construct Sections
+    hotelData.sections["Accommodation"] = {
+      type: "accommodation",
+      intro: document.querySelector('.sec-intro[data-sec="Accommodation"]').value.split('\n').filter(l => l.trim()),
+      villas: Array.from(document.querySelectorAll('.villa-item')).map(v => ({
+        name: v.querySelector('.v-name').value,
+        size: v.querySelector('.v-size').value,
+        desc: v.querySelector('.v-desc').value
+      }))
+    };
+
+    hotelData.sections["Dining"] = {
+      type: "dining",
+      intro: document.querySelector('.sec-intro[data-sec="Dining"]').value.split('\n').filter(l => l.trim()),
+      venues: Array.from(document.querySelectorAll('.dining-item')).map(v => ({
+        name: v.querySelector('.d-name').value,
+        desc: v.querySelector('.d-desc').value
+      }))
+    };
+
+    hotelData.sections["Room Facilities"] = {
+      type: "facilities",
+      groups: Array.from(document.querySelectorAll('.facility-item')).map(f => ({
+        title: f.querySelector('.f-title').value,
+        items: f.querySelector('.f-items').value.split('\n').filter(l => l.trim())
+      }))
+    };
+
+    hotelData.sections["Wellness & Experiences"] = {
+      type: "wellness",
+      intro: document.querySelector('.sec-intro[data-sec="Wellness & Experiences"]').value.split('\n').filter(l => l.trim()),
+      features: Array.from(document.querySelectorAll('.wellness-item')).map(w => ({
+        icon: w.querySelector('.w-icon').value,
+        text: w.querySelector('.w-text').value
+      }))
+    };
+
+    hotelData.sections["Things to Do & Nearby Experiences"] = {
+      type: "activities",
+      items: Array.from(document.querySelectorAll('.activity-item')).map(a => ({
+        title: a.querySelector('.a-title').value,
+        desc: a.querySelector('.a-desc').value
+      }))
+    };
+
+    hotelData.sections["Packages & Inclusions"] = {
+      type: "packages",
+      intro: document.querySelector('.sec-intro[data-sec="Packages & Inclusions"]').value.split('\n').filter(l => l.trim()),
+      title: document.getElementById('pkg-title').value,
+      items: document.getElementById('pkg-items').value.split('\n').filter(l => l.trim())
+    };
+
+    hotelData.sections["Gallery"] = {
+      type: "gallery",
+      images: document.getElementById('gallery-urls').value.split('\n').filter(l => l.trim())
+    };
+
+    const id = document.getElementById('hotelId').value;
+    const method = id ? 'PUT' : 'POST';
+    const url = id ? `${API_URL}/${id}` : API_URL;
+
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(hotelData)
+      });
+      if(res.ok) {
+        notify(id ? "Hotel updated!" : "New hotel added!", "success");
+        resetForm();
+        loadHotels();
+      }
+    } catch (e) { notify("Error saving data", "error"); }
+  };
+
+  function resetForm() {
+    document.getElementById('hotelForm').reset();
+    document.getElementById('hotelId').value = '';
+    document.querySelectorAll('.repeater').forEach(r => r.innerHTML = '');
+    document.getElementById('formTitle').innerText = "Add New Luxury Hotel";
+  }
+
+  function notify(msg, type) {
+    const el = document.getElementById('message');
+    el.innerText = msg;
+    el.className = type;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 3000);
+  }
+
+  loadHotels();
+</script>
+
+</body>
+</html>

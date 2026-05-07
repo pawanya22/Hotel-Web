@@ -1,0 +1,1353 @@
+{
+  "hotels": [
+    {
+      "id": 0,
+      "name": "Ceylon Tea Trails",
+      "location": "Sri Lanka · Central Highlands",
+      "country": "Sri Lanka",
+      "mainImage": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900",
+      "tagline": "Colonial heritage among 3,500 acres of misty emerald tea estate",
+      "description": [
+        "Ceylon Tea Trails is one of Sri Lanka's most unique and iconic luxury heritage retreats, nestled in the misty highlands amid rolling emerald tea plantations and tranquil valleys.",
+        "Ceylon Tea Trails is not a regular hotel — it is an immersive and timeless escape where history, nature, and refined comfort come together in perfect harmony.",
+        "Set across over 3,500 acres of working tea estate, the property's historic colonial-era bungalows offer a rare and unforgettable experience of life on a tea plantation, blending old-world charm with warm modern hospitality.",
+        "Whether you are travelling solo, as a couple, with family or friends, Ceylon Tea Trails is ready to give you an extraordinary and authentic Sri Lankan highland journey.",
+        "The resort provides a truly elegant and heritage-rich experience that feels beyond your expectation. The estate's architecture is graceful yet rooted in history — colonial tea-planter residences lovingly restored to retain their original character, period furnishings, vintage photographs, and heirloom décor that evoke tales of a bygone era.",
+        "Wandering across shaded gardens, sun-dappled verandas, and scenic walking trails, guests can breathe in the fragrant scent of fresh tea leaves and misty mountain air. Castlereagh Lake, undulating hills, and tea terraces paint an awe-inspiring backdrop that defines the essence of Sri Lanka's hill country and invites you to slow down, savor life, and discover serenity in every moment."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1552083375-1447ce886485?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Ceylon Tea Trails is composed of five historic tea-planter bungalows — Norwood, Dunkeld, Castlereagh, Summerville and Tientsin — each uniquely positioned within the estate and offering its own charm and atmosphere.",
+            "These elegant residences are scattered across the lush landscape and connected by scenic walking paths through tea gardens, inviting guests to explore and discover different aspects of the valley's beauty.",
+            "Within the bungalows are a collection of beautifully furnished rooms and suites that reflect the property's heritage. Accommodation types include Luxury Rooms, Garden Suites, Master Suites and the secluded Owner's Cottage, all offering tranquil retreats with panoramic views of tea-carpeted hills, private verandas, and soothing natural surroundings.",
+            "Each room features plush bedding, elegant antique-inspired décor, and spacious living areas designed for unhurried relaxation amid nature's embrace."
+          ],
+          "villas": [
+            {
+              "name": "Luxury Rooms",
+              "size": "Bungalow Room",
+              "desc": "Plush bedding, elegant antique-inspired décor and spacious living areas with panoramic views of tea-carpeted hills and private verandas overlooking the estate."
+            },
+            {
+              "name": "Garden Suites",
+              "size": "Garden Suite",
+              "desc": "Serene garden-facing suites with heirloom furnishings, colonial character and private sitting areas that open to shaded estate gardens."
+            },
+            {
+              "name": "Master Suites",
+              "size": "Master Suite",
+              "desc": "Generously proportioned suites with period furnishings, vintage photographs, and premium comforts within the lovingly restored colonial bungalows."
+            },
+            {
+              "name": "Owner's Cottage",
+              "size": "Private Cottage",
+              "desc": "A secluded retreat within the estate — the most intimate and private option, offering complete seclusion with dedicated butler service."
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Dining at Ceylon Tea Trails is shaped by a farm-to-table philosophy and the estate's seasonal bounty.",
+            "Instead of fixed menus and set meal times, each day's offerings are thoughtfully created in conversation with guests, with chefs suggesting menus tailored to individual tastes.",
+            "Meals are served in picturesque locations — from sun-drenched patios and sprawling lawns to beside the serene waters of Castlereagh Lake."
+          ],
+          "venues": [
+            {
+              "name": "Bespoke Daily Menus",
+              "desc": "Guests can enjoy traditional Sri Lankan dishes, gourmet global fare, and unique estate-inspired culinary creations that reflect the region's flavors. Each day's menu is crafted in conversation with guests by the resident chef."
+            },
+            {
+              "name": "Afternoon Cream Tea",
+              "desc": "The property celebrates the art of tea with afternoon cream tea — a traditional high tea with scones, cakes and tea brewed fresh from estate leaves, served in lush garden settings."
+            },
+            {
+              "name": "Elevated Tea Tastings",
+              "desc": "Elevated tea tastings that highlight the very best of Ceylon's famed tea heritage, guided by expert tea masters from the working estate."
+            },
+            {
+              "name": "Lakeside & Garden Dining",
+              "desc": "Meals are served in picturesque locations — sun-drenched patios, sprawling lawns, and beside the serene waters of Castlereagh Lake — every setting as memorable as the menu itself."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "Bedroom & Living",
+              "items": [
+                "King-size or four-poster beds with premium linens",
+                "Private seating areas or verandas overlooking tea gardens",
+                "Spacious living areas designed for unhurried relaxation",
+                "Elegant antique-inspired décor and heirloom furnishings"
+              ]
+            },
+            {
+              "title": "Bathroom",
+              "items": [
+                "Ensuite bathrooms with walk-in rain showers or freestanding bathtubs",
+                "Luxury toiletries",
+                "In-room safe"
+              ]
+            },
+            {
+              "title": "In-Room Comforts & Services",
+              "items": [
+                "Tea and coffee-making facilities",
+                "Complimentary Wi-Fi",
+                "Butler service and personalised attention in every bungalow"
+              ]
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "Ceylon Tea Trails invites guests to immerse themselves in the rich textures of tea country life.",
+            "Guided walks through the tea plantations and Pekoe Trails reveal the rhythms of estate life and breathtaking views of misty valleys. Cycling adventures through lush trails bring you closer to nature's wonders, while serene moments by inviting swimming pools and heated jacuzzis amidst gardens offer restful retreats.",
+            "A scenic lake cruise on Castlereagh Reservoir with a fresh breakfast on board is another unforgettable experience, as the morning light dances over emerald hills.",
+            "For those seeking deeper cultural exploration, toboggan runs, village visits, and tea plucking with expert pickers offer insights into the art and history of Ceylon tea itself.",
+            "Whether you are biking through lush lanes, enjoying cream tea in a garden, or relaxing in a heated jacuzzi with panoramic views, every activity at Ceylon Tea Trails is designed to deepen your connection with the land and its heritage."
+          ],
+          "features": [
+            {
+              "icon": "🌿",
+              "text": "Guided tea plantation walks and Pekoe Trails"
+            },
+            {
+              "icon": "🚴",
+              "text": "Cycling adventures through winding plantation roads"
+            },
+            {
+              "icon": "🏊",
+              "text": "Swimming pools and heated jacuzzis amidst estate gardens"
+            },
+            {
+              "icon": "⛵",
+              "text": "Scenic lake cruise on Castlereagh Reservoir with breakfast"
+            },
+            {
+              "icon": "🍵",
+              "text": "Tea plucking with expert pickers"
+            },
+            {
+              "icon": "🛷",
+              "text": "Toboggan runs and village visits"
+            },
+            {
+              "icon": "🏡",
+              "text": "Cultural village exploration experiences"
+            },
+            {
+              "icon": "🌄",
+              "text": "Sunrise walks across misty emerald slopes"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Tea Estate Walks & Plantation Tours",
+              "desc": "Learn about tea cultivation and production, including visits to the historic Dunkeld Tea Factory where teas are processed from leaf to cup."
+            },
+            {
+              "title": "Guided Nature Treks & Pekoe Trails",
+              "desc": "Explore serene walking routes that weave through hill country landscapes and scenic viewpoints."
+            },
+            {
+              "title": "Cycling Adventures",
+              "desc": "Ride through winding plantation roads and discover hidden valleys and riverside trails."
+            },
+            {
+              "title": "Scenic Lake Cruise on Castlereagh Reservoir",
+              "desc": "Gentle boat journeys with breakfast or sunset views over tranquil waters."
+            },
+            {
+              "title": "Tea Tastings & Tea Culture Sessions",
+              "desc": "Experience the world of Ceylon tea with expert insights and tastings."
+            },
+            {
+              "title": "Afternoon Cream Tea in Lush Gardens",
+              "desc": "Traditional high tea with scones, cakes and tea brewed fresh from estate leaves."
+            },
+            {
+              "title": "Cultural Excursions & Highland Exploration",
+              "desc": "Visit nearby attractions such as scenic waterfalls, Horton Plains National Park, or take a mountain train ride for spectacular hill country panoramas."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Ceylon Tea Trails offers carefully curated stays designed to immerse you fully in the estate lifestyle.",
+            "Guests can choose stays ranging from three-night experiences focusing on tea country immersion to extended journeys that combine scenic exploration, wellness, and cultural discovery.",
+            "Ceylon Tea Trails is a luxury heritage retreat where every moment — from sunrise walks through emerald slopes and fragrant tea tastings to peaceful verandas and bespoke dining — invites you to immerse in an elegant tapestry of nature, culture, and time-honored hospitality."
+          ],
+          "title": "All-Inclusive Estate Stay",
+          "items": [
+            "All-inclusive gourmet dining",
+            "Afternoon cream tea daily",
+            "Private butler and chef service",
+            "Guided estate walks and Pekoe Trails",
+            "Tea tastings and tea culture sessions",
+            "Access to all on-estate experiences and facilities",
+            "Swimming pools and heated jacuzzis",
+            "Scenic lake cruise on Castlereagh Reservoir",
+            "Cycling and nature exploration",
+            "Personalised menus crafted daily with the resident chef"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800",
+            "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1552083375-1447ce886485?w=800",
+            "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800"
+          ]
+        }
+      }
+    },
+    {
+      "id": 1,
+      "name": "Cape Weligama",
+      "location": "Sri Lanka · Southern Coast",
+      "country": "Sri Lanka",
+      "mainImage": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=900",
+      "tagline": "Dramatic clifftop luxury above the Indian Ocean",
+      "description": [
+        "Cape Weligama is one of Sri Lanka's most majestic luxury beach resorts, perched on dramatic clifftops overlooking the Indian Ocean and offering breathtaking panoramic views that define sophisticated coastal living.",
+        "Cape Weligama is not just a hotel — it is an immersive and unforgettable sanctuary where refined elegance meets relaxed tropical charm. With its expansive estate, distinctive design, and world-class hospitality, Cape Weligama invites every guest to indulge in a uniquely serene and rejuvenating escape.",
+        "The resort's architecture is striking yet warm, thoughtfully blending contemporary design with local influences. Natural materials, muted tones, and wide open spaces create an atmosphere of relaxed sophistication and effortless elegance.",
+        "Cape Weligama's dramatic clifftop setting provides unrivalled views of the Indian Ocean that redefine coastal luxury living. The resort's layout and design echo the natural curves of the coastline, inviting guests to unwind amid panoramic sea views, lush gardens, and tranquil private corners. With its inspiring aesthetics and attention to detail, the resort captures the essence of seaside refinement and heartfelt Sri Lankan hospitality."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Cape Weligama's accommodation offers a luxurious collection of rooms, suites, villas and private residences — each crafted for comfort, privacy, and spectacular ocean views.",
+            "The resort's contemporary spaces feature clean lines, elegant furnishings, and floor-to-ceiling glass that seamlessly connects guests with the sky and sea. All rooms and villas are designed to elevate your stay through thoughtful layout, spacious living areas, and sophisticated touches that make every moment feel exceptional.",
+            "Cape Weligama's accommodation is designed to make every stay feel remarkable — from spacious family residences to intimate balcony rooms that invite you to watch the sun rise over the Indian Ocean in peaceful splendour."
+          ],
+          "villas": [
+            {
+              "name": "Ocean View Suites & Rooms",
+              "size": "Ocean View",
+              "desc": "Stylish rooms with generous layouts, private balconies, and sweeping Indian Ocean views that make every sunrise memorable."
+            },
+            {
+              "name": "Residence Suites & Villas",
+              "size": "Residence",
+              "desc": "Spacious suites and villas with expansive living areas, separate lounges, and panoramic windows framing the horizon from every angle."
+            },
+            {
+              "name": "Cliff Villas",
+              "size": "Cliff Villa",
+              "desc": "Elevated luxury with private plunge pools, outdoor decks, and personalised service that brings a sense of exclusive clifftop tranquillity."
+            },
+            {
+              "name": "Plunge Pool Residences",
+              "size": "Private Residence",
+              "desc": "The most exclusive category — private residences with plunge pools and dedicated concierge for a completely personalised clifftop experience."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "Bedroom & Living",
+              "items": [
+                "King-size beds with premium linens",
+                "Air conditioning and climate control",
+                "Private balconies or terraces with sea views",
+                "Separate living and lounge areas (in suites & villas)",
+                "Chic furnishings and designer décor"
+              ]
+            },
+            {
+              "title": "Bathroom",
+              "items": [
+                "Ensuite bathrooms with luxury fittings and walk-in showers",
+                "Beach towels and ocean essentials",
+                "In-room safety deposit box"
+              ]
+            },
+            {
+              "title": "In-Room Comforts",
+              "items": [
+                "Minibar and refreshments",
+                "Tea & coffee facilities",
+                "Complimentary Wi-Fi"
+              ]
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Cape Weligama offers a remarkable and diverse culinary journey that celebrates the best of Sri Lankan, Asian and international flavours.",
+            "The resort's multiple dining venues are curated to deliver variety, quality and immersive sea-view settings that elevate every meal.",
+            "Cape Weligama's dining philosophy embraces freshness, creativity and a sense of place that turns every meal into a special memory."
+          ],
+          "venues": [
+            {
+              "name": "Ocean View Restaurants",
+              "desc": "Stylish spaces where breakfast, lunch and dinner are served with panoramic water views and menus that highlight local produce and fresh seafood."
+            },
+            {
+              "name": "Signature Beachfront Dining",
+              "desc": "A romantic beachside experience that brings the flavours of the sea to your plate, from grilled catch of the day to spices inspired by Sri Lanka's heritage."
+            },
+            {
+              "name": "Bar & Lounge Spaces",
+              "desc": "Refined lounges with expertly crafted cocktails, premium spirits, and panoramic vistas perfect for sunset gatherings or evening conversations."
+            },
+            {
+              "name": "Specialty Food Experiences",
+              "desc": "Options for private dining, chef's tasting menus, and curated culinary events that immerse guests in fusion flavours and coastal inspirations."
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "Cape Weligama invites guests to nurture both body and mind at its wellness spaces, featuring holistic spa treatments inspired by traditional Ayurvedic, Asian and modern techniques.",
+            "The spa sanctuaries provide a serene backdrop of lapping waves and ocean breeze, allowing guests to unwind through massages, beauty rituals, detox therapies and calming journeys designed to refresh and restore.",
+            "Yoga sessions at sunrise, guided meditation, and sound healing are available for those seeking mindful relaxation amid the rhythm of the Indian Ocean."
+          ],
+          "features": [
+            {
+              "icon": "🌊",
+              "text": "Holistic spa — Ayurvedic, Asian and modern techniques"
+            },
+            {
+              "icon": "🧖",
+              "text": "Massages, beauty rituals and detox therapies"
+            },
+            {
+              "icon": "🧘",
+              "text": "Yoga sessions at sunrise with ocean views"
+            },
+            {
+              "icon": "🎶",
+              "text": "Guided meditation and sound healing"
+            },
+            {
+              "icon": "🌅",
+              "text": "Calming ocean-facing spa sanctuaries"
+            },
+            {
+              "icon": "💆",
+              "text": "Tailored wellness journeys to refresh and restore"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Beach & Cliff Walks",
+              "desc": "Serene morning or sunset walks along the pristine clifftops that bring sense of calm and stunning sea vistas."
+            },
+            {
+              "title": "Water Sports & Ocean Adventures",
+              "desc": "Surfing lessons, stand-up paddle boarding, kayaking and guided ocean experiences for thrill-seekers and water lovers."
+            },
+            {
+              "title": "Whale Watching Excursions",
+              "desc": "Seasonal boat tours to witness majestic blue whales and dolphins off the southern coast (subject to weather conditions)."
+            },
+            {
+              "title": "Cultural Excursions",
+              "desc": "Visits to historic Galle Fort, local craft villages, temples, and scenic hill country tours that bring insights into Sri Lanka's culture."
+            },
+            {
+              "title": "Local Markets & Artisanal Experiences",
+              "desc": "Explore colourful southern town markets, local spice gardens, and traditional craftsmanship."
+            },
+            {
+              "title": "Sunset Sail & Ocean Picnic",
+              "desc": "Elegant experiences that combine breathtaking views with gourmet moments on the water."
+            },
+            {
+              "title": "Yoga & Beach Meditation",
+              "desc": "Daily yoga sessions with ocean views that help reset your energy and connect with the peaceful seaside rhythm."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Cape Weligama offers tailored holiday packages that combine luxury accommodation, dining, curated activities and unforgettable experiences. Most stays come with daily breakfast included, access to wellness sessions, curated coastal experiences, beach and pool access, and concierge support to personalise your itinerary.",
+            "Guests can choose enhanced packages with half-board or full-board dining, bespoke excursions (like whale watching or Galle city tours), spa credits, sunset sail experiences, and exclusive private dining options.",
+            "For families, bespoke arrangements and kids' programmes are available to make every journey comfortable and memorable.",
+            "Cape Weligama is a destination of elevated coastal luxury — where vivid clifftop sunsets, serene ocean sounds, refined design, and engaging experiences come together to create an extraordinary seaside escape. Every moment here — from elegant meals and peaceful days by the sea to cultural discoveries and wellness rituals — is crafted to be cherished and unforgettable."
+          ],
+          "title": "Tailored Coastal Package",
+          "items": [
+            "Daily breakfast included",
+            "Access to wellness sessions",
+            "Curated coastal experiences",
+            "Beach and pool access",
+            "Concierge support to personalise your itinerary",
+            "Half-board or full-board dining options",
+            "Bespoke excursions — whale watching, Galle city tours",
+            "Spa credits",
+            "Sunset sail experiences",
+            "Exclusive private dining options",
+            "Kids' programmes for families"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+            "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800"
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Wild Coast Tented Lodge",
+      "location": "Sri Lanka · Yala National Park",
+      "country": "Sri Lanka",
+      "mainImage": "https://images.unsplash.com/photo-1741850821150-58b56e0e6156?w=600",
+      "tagline": "28 cocoon-style suites where the jungle meets the Indian Ocean",
+      "description": [
+        "Wild Coast Tented Lodge is one of Sri Lanka's most exceptional luxury safari stays, where the rugged wilderness of Yala National Park meets the vast Indian Ocean and creates a once-in-a-lifetime nature escape.",
+        "Wild Coast is not just a lodge — it is an immersive and soulful retreat that celebrates the harmony between raw nature and refined comfort. With only 28 cocoon-style suites scattered among coastal bushland and sandy dunes, this exclusive safari lodge brings together serenity, elegance, and adventure in a truly unique way.",
+        "Whether you are travelling solo, as a couple, with family or friends, Wild Coast is ready to give you an exciting and unforgettable experience in Sri Lanka's wild south.",
+        "The lodge provides a truly authentic Sri Lankan safari experience that feels beyond your expectation. The architectural concept is rare and visually striking, yet warm in tone — inspired by organic shapes, coastal boulders, and the hues of the surrounding wilderness.",
+        "Rich canvas, teakwood, rustic accents, and safari-inspired décor blend beautifully with modern comforts, creating an atmosphere that is both elegant and adventurous. Wild Coast's location — where the forest meets the sea — makes it a refreshing destination, and the front-row ocean views define epic sunrises and sunsets that are sure to stay in your memory long after your stay."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1549366021-4f1370657e17?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Wild Coast Tented Lodge offers 28 beautifully designed cocoon-style suites, each offering spacious interiors and nature-infused luxury.",
+            "Every suite is crafted with a king-size bed, air-conditioning, premium linens, ensuite bathroom, and a private timber deck where the sounds of the wild become part of your daily rhythm.",
+            "Many suites feature private plunge pools overlooking the Indian Ocean or waterholes that attract wildlife, giving guests a remarkable blend of comfort and connection with nature. The lodge invites you to discover the art of wild luxury with unparalleled views and intimate experiences."
+          ],
+          "villas": [
+            {
+              "name": "Cocoon Suites",
+              "size": "28 Suites Total",
+              "desc": "Signature canvas cocoon-style suites with king-size bed, air-conditioning, premium linens, ensuite bathroom and a private timber deck — the sounds of the wild become your daily rhythm."
+            },
+            {
+              "name": "Ocean View Suites",
+              "size": "Select Suites",
+              "desc": "Suites with private plunge pools overlooking the Indian Ocean — a remarkable blend of comfort and direct connection with the coastal wilderness."
+            },
+            {
+              "name": "Waterhole Suites",
+              "size": "Select Suites",
+              "desc": "Suites with views over active waterholes that attract Yala's wildlife — wake to leopards, elephants and birds visiting at dawn from your private deck."
+            },
+            {
+              "name": "Premium Safari Suite",
+              "size": "Exclusive",
+              "desc": "The most spacious and premium suite at Wild Coast, with extended decking, priority locations and all the hallmarks of refined safari luxury."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "Suite & Outdoor",
+              "items": [
+                "King-size bed with premium linen",
+                "Private deck with lounge seating",
+                "Private plunge pool (select suites)",
+                "Scenic ocean or waterhole views",
+                "Elegant safari-inspired furnishings"
+              ]
+            },
+            {
+              "title": "Bathroom",
+              "items": [
+                "Ensuite bathroom with premium fittings",
+                "Luxury bath amenities"
+              ]
+            },
+            {
+              "title": "In-Suite Comforts",
+              "items": [
+                "Air conditioning and modern climate control",
+                "Minibar and refreshments",
+                "Wi-Fi access",
+                "Tea & coffee facilities"
+              ]
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Wild Coast Tented Lodge offers an exquisite culinary journey that complements its dramatic location.",
+            "The lodge's open-air Ten Tuskers Bar and Dining Pavilion, surrounded by a striking free-form infinity pool, serves fresh and bold flavours that celebrate Sri Lankan cuisine with international influences.",
+            "Breakfast welcomes the day with a selection of local and global favourites, while lunch and dinner showcase fresh seafood, spicy curries, grilled specialties, and gourmet delights."
+          ],
+          "venues": [
+            {
+              "name": "Ten Tuskers Bar & Dining Pavilion",
+              "desc": "Open-air dining pavilion surrounded by a free-form infinity pool with ocean views. Serves fresh seafood, spicy curries, grilled specialties and gourmet delights celebrating Sri Lankan cuisine with international influences."
+            },
+            {
+              "name": "Poolside Dining",
+              "desc": "Enjoy meals beside the pool with panoramic ocean views — the perfect setting for leisurely lunches and sundowner dinners."
+            },
+            {
+              "name": "Beach Garden Dining",
+              "desc": "Intimate dining in the coastal garden — a serene setting with the sounds of the ocean and the surrounding jungle as your backdrop."
+            },
+            {
+              "name": "Private Starlit Dinners",
+              "desc": "Romantic private dinners under starlit skies with the sound of the waves nearby — bespoke menus crafted especially for the occasion."
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "Wild Coast Tented Lodge is also a place of relaxation and restoration.",
+            "The Sanctuary Spa offers signature wellness treatments inspired by Sri Lankan healing traditions, using natural ingredients such as Ceylon tea, cinnamon, and native herbs to soothe and refresh the body and mind.",
+            "Spa rituals are designed to help you unwind after thrilling wildlife drives, bringing a sense of balance and peace in an ocean-facing setting.",
+            "For guests seeking gentle movement and refreshed energy, beach yoga and relaxation sessions are offered at sunrise or sunset."
+          ],
+          "features": [
+            {
+              "icon": "🌿",
+              "text": "Sanctuary Spa — Sri Lankan healing traditions"
+            },
+            {
+              "icon": "🍵",
+              "text": "Treatments using Ceylon tea, cinnamon and native herbs"
+            },
+            {
+              "icon": "🌊",
+              "text": "Ocean-facing spa setting for total restoration"
+            },
+            {
+              "icon": "🧘",
+              "text": "Beach yoga at sunrise or sunset"
+            },
+            {
+              "icon": "♾️",
+              "text": "Free-form infinity pool for relaxation"
+            },
+            {
+              "icon": "🌅",
+              "text": "Restorative rituals after thrilling wildlife drives"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Yala National Park Safaris",
+              "desc": "Twice-daily guided game drives with expert naturalists for wildlife sightings including leopards, elephants, sloth bears, crocodiles, and diverse birdlife."
+            },
+            {
+              "title": "Guided Nature Walks",
+              "desc": "Explore the bushland on foot and discover the smaller wonders of the wilderness with experienced rangers."
+            },
+            {
+              "title": "Birdwatching & Wildlife Spotting",
+              "desc": "The region is a paradise for birders and wildlife photographers with endemic and migratory species."
+            },
+            {
+              "title": "Cultural & Village Tours",
+              "desc": "Authentic insights into local Sri Lankan communities and lifestyles."
+            },
+            {
+              "title": "Bush Dining & Picnics",
+              "desc": "Enjoy gourmet picnics on sand dunes or by scenic viewpoints at sunrise or sunset."
+            },
+            {
+              "title": "Beach Walks & Coastal Moments",
+              "desc": "Peaceful early morning or evening walks along the secluded beach."
+            },
+            {
+              "title": "Afternoon Tea & Leisure Moments",
+              "desc": "Relaxing poolside tea experiences surrounded by jungle ambience."
+            },
+            {
+              "title": "Nearby Reserve Excursions",
+              "desc": "Tailored trips to Bundala National Park and wetland bird habitats."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Wild Coast Tented Lodge offers carefully curated packages that bring together accommodation, safaris, meals, experiences, and wellness options.",
+            "Every reservation includes daily breakfast, twice-daily guided safaris into Yala National Park, complimentary evening tea and lounge access, use of the infinity pool, and access to nature walks and lodge facilities.",
+            "Guests can upgrade to half board or full board for enhanced dining options, or choose the all-inclusive experience which includes meals, selected beverages, private experiences, and sunset safari options.",
+            "Optional spa add-ons — from deep-tissue massages to beach yoga sessions — are available to enrich your stay. Special occasion enhancements such as private beach dinners, champagne on arrival, and sunrise breakfasts can also be arranged upon request.",
+            "Wild Coast Tented Lodge is an extraordinary destination that celebrates the harmony of wild landscapes and thoughtful luxury. Every moment — from thrilling wildlife encounters and gourmet dining to serene spa retreats and coastal reflections — is crafted to leave a lasting impression and make your Sri Lankan adventure truly unforgettable."
+          ],
+          "title": "Wild Coast Safari Package",
+          "items": [
+            "Daily breakfast included",
+            "Twice-daily guided safaris into Yala National Park",
+            "Complimentary evening tea and lounge access",
+            "Use of the infinity pool",
+            "Access to nature walks and lodge facilities",
+            "Half-board or full-board upgrade available",
+            "All-inclusive option — meals, selected beverages, private experiences, sunset safari",
+            "Optional spa add-ons — deep-tissue massage, beach yoga",
+            "Private beach dinners for special occasions",
+            "Champagne on arrival",
+            "Sunrise breakfasts on request"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1549366021-4f1370657e17?w=800",
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+            "https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=800"
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Hurawalhi Maldives",
+      "location": "Maldives · Lhaviyani Atoll",
+      "country": "Maldives",
+      "mainImage": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=900",
+      "tagline": "Adults-only paradise — world's largest all-glass undersea restaurant",
+      "description": [
+        "Escape on a magnificent private island in the splendor of Lhaviyani Atoll in the Maldives. If you have seen heaven, Hurawalhi Resort is just like a heaven — the resort makes an elegant blend of tranquility and thrill, luxury and adventure.",
+        "There are 90 villas — each villa allowing only adults — and this luxury resort lies on a brilliant sandy beach in the Maldives and is more magnificent than any island you have visited.",
+        "Hurawalhi is setting up a remarkable picturesque of marine life including turtles, rays, and dolphins that you can see in abundance anytime from the resort. While you are spending time, dedicated luxury excursions organised by the resort introduce you to incredible untouched local dive sites and pristine desert-island beaches.",
+        "Hurawalhi offers some beautiful moments — the resort gives you cherished inner balance unimpeded by outside demands. There is an excitement restaurant available in the resort called the 5.8 Undersea Restaurant — placed underwater and the world's largest all-glass undersea restaurant."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Hurawalhi resort's accommodations offer amazing comfort, exclusivity, and mesmerizing views, each villa offers an island that feels modern. There is a wooden deck for every villa opening out onto an incredible lagoon or tranquil sandy beach that offers a spectacular view — feeling like paradise.",
+            "Whether you choose between beachside and overwater luxury, the resort accommodation makes your preferred perspective and setting, and find pleasure in having paradise at your fingertips."
+          ],
+          "villas": [
+            {
+              "name": "Ocean Pool Villa",
+              "size": "132 sq m · Pool 27 sq m",
+              "desc": "Placed over the dramatic Indian Ocean — these elegant villas are the polish of Maldives' luxury. Spend time in the lagoon from the sundeck, admire the resort surroundings from your villa or your majestic infinity pool. Within 130 square meters of attractive villa — perfect for your honeymoon. Awesome interior contemporary design for your luxury holiday."
+            },
+            {
+              "name": "Romantic Ocean Villa",
+              "size": "105 sq m",
+              "desc": "Ideal for honeymooners and romantic couples. Undisturbed views of the blue Indian Ocean on your boasts sundeck. Outdoor bathtub, bathroom with rain shower, sundeck with staircase to the lagoon. Receive all the benefits of the resort and the sea — enjoy morning coffee or evening cocktails in the dream holiday setting."
+            },
+            {
+              "name": "Ocean Villa",
+              "size": "105 sq m",
+              "desc": "Unwind long days with an Ocean Villa and start a new lifestyle on a glimpse villa in the Maldives. Exclusive collection of environmentally friendly amenities — enjoy luxury facilities and embrace nature on your doorstep. Bathroom with rain shower, sundeck with staircase to the lagoon."
+            },
+            {
+              "name": "Beach Sunset Pool Villa",
+              "size": "132 sq m · Pool 27 sq m",
+              "desc": "Welcome to bliss — incredible views of the sunset, private ocean-facing infinity pool. All villas lead to a closed translucent lagoon just steps away. 27 square metre private pool with short steps to the beach. Perfect privacy — romantically curated for honeymooners and romantic couples."
+            },
+            {
+              "name": "Beach Pool Villa",
+              "size": "105 sq m · Pool 27 sq m",
+              "desc": "Most famous for the unbeatable lifestyle it offers. Close to the tranquil sandy beach and lagoon — steps away. Located on the sunrise side. Start your morning with breakfast in your private pool and take a few steps to the beach. Close to a magnificent reef drop — start snorkelling and explore the mesmerising blues of the Indian Ocean."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "Ocean Pool Villa & Beach Sunset Pool Villa (132 sq m)",
+              "items": [
+                "Total villa size: 132 sq m / 1,420 sq ft",
+                "Private infinity pool (27 sq m / 285 sq ft)",
+                "Elegantly furnished bedroom with sitting area",
+                "Bathroom with rain shower"
+              ]
+            },
+            {
+              "title": "Romantic Ocean Villa & Ocean Villa (105 sq m)",
+              "items": [
+                "Total villa size: 105 sq m / 1,130 sq ft",
+                "Elegantly furnished bedroom with sitting area",
+                "Outdoor bathtub (Romantic Ocean Villa)",
+                "Bathroom with rain shower",
+                "Sundeck with staircase to the lagoon"
+              ]
+            },
+            {
+              "title": "Beach Pool Villa (105 sq m)",
+              "items": [
+                "Total villa size: 105 sq m / 1,130 sq ft",
+                "Private infinity pool (27 sq m / 285 sq ft)",
+                "Elegantly furnished bedroom with sitting area",
+                "Bathroom with rain shower",
+                "Sundeck"
+              ]
+            },
+            {
+              "title": "Beach Sunset Pool Villa (132 sq m)",
+              "items": [
+                "Sunset location",
+                "Total villa size: 132 sq m",
+                "Private infinity pool",
+                "Bathroom with rain shower",
+                "Sundeck"
+              ]
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Hurawalhi offers some beautiful dining moments — the resort gives you cherished inner balance unimpeded by outside demands.",
+            "If you have an opportunity to take your dining experience while watching dolphins and other marine life, the 5.8 Undersea Restaurant delivers exactly that — a once-in-a-lifetime experience set beneath the ocean."
+          ],
+          "venues": [
+            {
+              "name": "5.8 Undersea Restaurant",
+              "desc": "A magnificent fine dining culinary experience — based 5.8 metres under the Indian Ocean. Not a regular restaurant; it's amazing. See pure marine life in the deep of the sea while you take your delicious dish. Inside equipped for 16 guests — open for breakfast, lunch and dinner, with one sitting for each. The world's largest all-glass undersea restaurant. Take your delicious meal and dive into the pleasure of having a view that but a few restaurants in the world afford."
+            },
+            {
+              "name": "Kashibo Restaurant and Bar",
+              "desc": "One of the contemporary restaurants in Hurawalhi Resort — Kashibo is Dhivehi for sea urchins. A picturesque setting and divine dining menu in equal measure. Mostly famous for Chinese, Thai, Indonesian and Vietnamese cuisine menus and an Asian cocktail menu of world-class standard. Vegetarian dishes include zesty Vietnamese Vegetable Tacos and Balinese Buffalo Wings through to Thai Lobster Tail and Chai Masala Gateau. Popular Teppanyaki, lunch and dinner at Kashibo deliver a taste of authentic Asia — Asian street food you'll undoubtedly enjoy."
+            },
+            {
+              "name": "Canneli Restaurant",
+              "desc": "Heavenly dishes and tantalising aromas — the sizzle of the food and the atmosphere. Three meals a day: breakfast, lunch, and dinner with all culinary occasions to take delight in mouth-watering creations. Contemporary facilities, international cuisine and impressive themed evenings. Canneli stands for 'yellowfin tuna' in Dhivehi. Indoor and outdoor seating options — and a chance to explore while dolphins may pass by in the distance."
+            },
+            {
+              "name": "Coco Bar",
+              "desc": "Entertainment and indulgence — taste world-famous liquor brands. An extensive menu of wines, cocktails, shishas, and snacks — the realisation of perfection. Enjoy world-famous liquor brands alongside an infinity pool with the beach just steps away."
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "During your stay, if you need to sophisticated your holiday, just visit Duniye Spa at Hurawalhi Resort. Duniye Spa is the most famous and award-winning spa in the Maldives.",
+            "The Duniye Spa offers you exclusive treatment courses of your day with heart-centred treatments — seek pampering and inspiration regularly and enter the path of joyful, healthy living to last a lifetime.",
+            "Duniye Spa uses chemical-free, organic, high-quality ingredients and locally-produced coconut oil. Once you take a treatment from Duniye, offering a feeling of total immersion into serenity and nature — they follow a universal approach to wellness."
+          ],
+          "features": [
+            {
+              "icon": "🏆",
+              "text": "Duniye Spa — award-winning, Maldives' most famous spa"
+            },
+            {
+              "icon": "🥥",
+              "text": "Organic, chemical-free treatments using coconut oil and local ingredients"
+            },
+            {
+              "icon": "💆",
+              "text": "Heart-centred treatments for complete wellness"
+            },
+            {
+              "icon": "🏊",
+              "text": "Infinity pool with direct beach and ocean access"
+            },
+            {
+              "icon": "🐬",
+              "text": "Marine life — turtles, rays and dolphins visible from resort"
+            },
+            {
+              "icon": "🤿",
+              "text": "Luxury dive excursions to untouched dive sites"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Scuba Diving",
+              "desc": "Hurawalhi's most significant activity — ready to dive to the most picturesque coral reefs in the Maldives. Deemed the best year-round diving destination in the Indian Ocean. Marine life is abundant and varied, with manta rays and sea turtles regularly paying visits to dive sites. If you love diving, you can see the country's striking beauty extends to the underwater."
+            },
+            {
+              "title": "Snorkelling",
+              "desc": "The resort is located around magnificent coral reefs — one of the splendid underwater environments on the planet. Snorkel with experts and encounter fish species in thousands and coral in hundreds. So many reefs around Hurawalhi, including the resort's house reef. Get more opportunities for seeing turtles and bustling schools of fish."
+            },
+            {
+              "title": "Dolphin Safari",
+              "desc": "A unique excursion into Lhaviyani Atoll's waters to encounter playful dolphins in their natural habitat."
+            },
+            {
+              "title": "Parasailing",
+              "desc": "Soar above the crystal waters of the Maldives for a bird's-eye view of the stunning atoll and resort island."
+            },
+            {
+              "title": "Manta Ray Search",
+              "desc": "A dedicated excursion to encounter these magnificent creatures at the atoll's famous manta points."
+            },
+            {
+              "title": "Private Speedboat Charter",
+              "desc": "Explore the Lhaviyani Atoll at your own pace — from sandbanks to local islands."
+            },
+            {
+              "title": "Jet Ski",
+              "desc": "Thrilling jet ski experiences in the calm lagoon waters surrounding Hurawalhi's pristine island."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Hurawalhi's All Inclusive Package is comprehensive — covering all meals, unlimited beverages, and a wide selection of daily activities and experiences."
+          ],
+          "title": "All Inclusive Package",
+          "items": [
+            "Daily Breakfast (08:00–10:30), Lunch (13:00–14:30) and Dinner (19:30–22:00) in Canneli Restaurant",
+            "Dine Around — 3-course lunch and dinner at Kashibo Restaurant (pre-booking, subject to availability)",
+            "Dine Around — 2-course lunch and dinner at J.F.K Restaurant from 12:00–22:00",
+            "Bottle of Taittinger Champagne with Chef's canapés in the Champagne Pavilion (exclusive supplement)",
+            "Unlimited alcoholic & non-alcoholic beverages in Coco Bar (08:00–01:00) and Kashibo Bar (12:00–22:00)",
+            "50+ alcoholic cocktails including signature cocktails",
+            "All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices",
+            "55 premium brands spirits and liqueurs, port and sherry",
+            "Over 60 wines — extensive wine selection",
+            "Selection of international draught beer, bottled beer and cider",
+            "Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed",
+            "Soft drinks — Coke, Diet Coke, Fanta Orange, Sprite, Ginger Ale, Bitter Lemon, tonic and soda",
+            "Hurawalhi bottled water (1 litre), mineral water and sparkling water",
+            "Mini bar — house wine, bottled beer, spirit selection, soft drinks, mineral water, Nespresso, teas, assorted snacks — refilled once daily",
+            "One demi bottle of Champagne in villa on arrival (per villa per stay)",
+            "One Sunset Dolphin Cruise (regularly scheduled)",
+            "Free use of Fitness Center, Tennis and Paddle Tennis Courts",
+            "Table Tennis, Billiards and Football Grounds (equipment included)",
+            "Free use of Kayaks and Windsurfing Equipment (experienced windsurfers only)",
+            "One 30-minute Group Snorkelling with Marine Biologist (regularly scheduled)",
+            "One 30-minute Group Windsurfing Lesson (regularly scheduled)",
+            "Free Yoga Group Sessions — Asanas and Yoga Nidra (regularly scheduled)",
+            "Daily fitness activity programme — Yoga themes, Aqua Fitness, Circuit Training, diverse meditation options and more"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+            "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=800",
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+            "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Dhigufaru Island Resort",
+      "location": "Maldives · Baa Atoll Biosphere Reserve",
+      "country": "Maldives",
+      "mainImage": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=900",
+      "tagline": "A UNESCO biosphere reserve paradise of long reef and turquoise wonder",
+      "description": [
+        "Dhigufaru Resort is located in a biosphere reserve in Baa Atoll — Dhigufaru is a sense of a long reef. It is a variegated journey in that you are imagining things.",
+        "The resort offers you relaxation in the stunning beauty of the island and surrounding reef, and a magnificent adventure package that extends the perfect balance of both.",
+        "Welcome to Dhigufaru Island Resort in Maldives. The resort warmly invites you to take an outlandish experience that is your own way to observing a serene nature — underwater, and above water.",
+        "The resort gives to an incredible feeling like no other — one that gives you the choice."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Dhigufaru Island Resort is located along the nature of the Island, offering an incredible experience and creating the most special things to do on the Island. There are seven exciting accommodation categories offered at the resort."
+          ],
+          "villas": [
+            {
+              "name": "Beach Villa Veli & Boaku",
+              "size": "22 Veli + 8 Boaku",
+              "desc": "Beach front access with spectacular views — experience the incredible eastern-facing Boaku or the spectacular Veli beach. All villas have an outdoor shower space and indoor bathroom decorated with contemporary amenities. Every room includes a private veranda within a private garden with amazing views of beach and lagoon."
+            },
+            {
+              "name": "Veli Beach Pool Villa",
+              "size": "Pool Villa",
+              "desc": "Set among the beach tree line — a remarkable luxury experience on the sun, sea and sand. Exclusive comfortable furniture, satellite television, air conditioning and ambient lighting. Veranda embedded with plunge pool facing the beach — at midday comfort after sunbathing and settle down yourself."
+            },
+            {
+              "name": "Semi Water Villas",
+              "size": "Semi-Overwater",
+              "desc": "Take invigorating sounds and lush breeze from the Indian Ocean. Perfect placement for capturing the sunrise with magnificent views of the horizon. All Semi Water Villas are connected to the Dhigufaru lagoon from the Aanu Sandrock within your own private sun deck."
+            },
+            {
+              "name": "Findhanfulhu Water Villa",
+              "size": "20 Water Villas",
+              "desc": "Within 20 Fidhanfulhu Water Villas offering the ultimate accommodation in comfort and leisure — very bright and luxurious, every villa has its own staircase leading into the crystal clear lagoon below. Ideal for swimming or a snorkelling adventure, relaxing a few feet above tranquil water of the Indian Ocean."
+            },
+            {
+              "name": "Bodhanfulhu Pool Water Villa",
+              "size": "Overwater Pool",
+              "desc": "Prime lagoon accommodation — crystal clear shallow water beneath the private deck; the most popular and picturesque villa type in Dhigufaru Resort. Enjoy a private plunge pool or reach into the vast lagoon. Private veranda and private deck giving more attractiveness — able to explore the picturesque lagoon and the Indian Ocean from your bedroom."
+            },
+            {
+              "name": "Sangu Suite",
+              "size": "Presidential Suite",
+              "desc": "Presidential suites collection — luxury and spacious in an overwater location. Private pool with easy access into the vast lagoon. Private deck with enchanting views towards the lagoon and the Indian Ocean. Designed with all contemporary amenities for your own requirement."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "Room Comforts",
+              "items": [
+                "King Size Bed",
+                "Dressing Table & Stool",
+                "Writing Table and Chair",
+                "Wardrobe",
+                "Air-conditioning",
+                "Private Safe",
+                "Mini Bar",
+                "IDD Telephone",
+                "WIFI Internet",
+                "LED TV",
+                "Tea / Coffee facility",
+                "Veranda Love Seat",
+                "Veranda Coffee Seats and Table",
+                "Outdoor Sun Loungers"
+              ]
+            },
+            {
+              "title": "Bathroom Comforts",
+              "items": [
+                "Hot & Cold Water",
+                "Vanity with 2 x Wash Hand Basin",
+                "WC",
+                "Bathtub",
+                "Indoor Shower",
+                "Outdoor Shower",
+                "Hair Dryer",
+                "Amenities",
+                "Bath Robes",
+                "Soft Comfort Bathroom Linen",
+                "Bathroom Bench"
+              ]
+            },
+            {
+              "title": "Pool Villas & Water Villas Additional",
+              "items": [
+                "Plunge Pool (Pool Villas)",
+                "Private Sun Deck",
+                "Own staircase to lagoon (Water Villas)"
+              ]
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Dhigufaru Island Resort celebrates the natural flavours of the Maldives with fresh, bold dining experiences across multiple venues — with tropical island settings and creative international cuisine."
+          ],
+          "venues": [
+            {
+              "name": "Main Restaurant",
+              "desc": "The primary all-day dining venue at Dhigufaru — featuring international buffets with fresh seafood, local Maldivian specialties and global cuisine for all-day dining in a tropical island setting."
+            },
+            {
+              "name": "Specialty Dining",
+              "desc": "Curated specialty dining menus — themed evenings and specialty culinary events celebrating ocean-to-table freshness with the flavours of the Indian Ocean."
+            },
+            {
+              "name": "Pool & Beach Bar",
+              "desc": "Refreshing beverages, cocktails and snacks by the pool and beach, with views across the turquoise Baa Atoll lagoon — the ideal setting for sundowners and leisurely afternoons."
+            },
+            {
+              "name": "Private Dining",
+              "desc": "Bespoke private dining arrangements for romantic or celebratory occasions — on the beach or sandbank at sunset, with personalised menus and dedicated service."
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "The resort spa is an exciting offering — a significant spa treatment experience within a 241 sqm compound in a striking island setting.",
+            "Whilst you are spending time and need to recharge your body, take an amazing spa treatment in Funa Spa which offers different kinds of spa treatment services for you."
+          ],
+          "features": [
+            {
+              "icon": "🌸",
+              "text": "Funa Spa — 241 sqm compound in a striking island setting"
+            },
+            {
+              "icon": "👣",
+              "text": "Reflexology Centre"
+            },
+            {
+              "icon": "💇",
+              "text": "Salon"
+            },
+            {
+              "icon": "🧖",
+              "text": "Sauna & Steam Room"
+            },
+            {
+              "icon": "🛁",
+              "text": "Private Treatment Rooms"
+            },
+            {
+              "icon": "🐠",
+              "text": "Marine biosphere snorkelling and diving experiences"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Fishing Excursions",
+              "desc": "Traditional Maldivian fishing experiences in the waters of Baa Atoll — both day and night fishing options available."
+            },
+            {
+              "title": "Local Island Visits",
+              "desc": "Discover authentic Maldivian island life and community culture on guided tours to nearby inhabited local islands."
+            },
+            {
+              "title": "Sand Bank Picnic",
+              "desc": "Private gourmet picnic on pristine white sandbanks surrounded by turquoise water — one of the most memorable Maldivian experiences."
+            },
+            {
+              "title": "Dolphin Watching",
+              "desc": "A boat excursion into Baa Atoll's waters to encounter dolphins in their natural ocean habitat."
+            },
+            {
+              "title": "Snorkelling & Diving",
+              "desc": "Discover the vibrant marine life of Baa Atoll Marine Biosphere — one of the most incredible underwater encounters on the planet. Explore pristine sandy beaches or discover the endless turquoise reef."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Dhigufaru Island Resort offers flexible board plans and customisable packages — combining accommodation, activities, and dining for a balanced island experience in the UNESCO Baa Atoll Biosphere Reserve.",
+            "Custom resort experiences combine relaxation, activities, and island exploration for a balanced holiday."
+          ],
+          "title": "Resort Package Options",
+          "items": [
+            "Flexible board plans — from bed & breakfast to all-inclusive",
+            "Snorkelling and water sport equipment access",
+            "Guided Baa Atoll marine biosphere excursions",
+            "Spa treatment packages at Funa Spa",
+            "Sandbank picnic add-on",
+            "Local island discovery tours",
+            "Fishing excursion packages",
+            "Dolphin watching cruise",
+            "Access to all resort facilities — pools, beach, water sports"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=800",
+            "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+            "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+          ]
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Kagi Maldives Spa",
+      "location": "Maldives · North Malé Atoll",
+      "country": "Maldives",
+      "mainImage": "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=900",
+      "tagline": "50-villa boutique wellness island — Pure Life philosophy, Baani Spa",
+      "description": [
+        "Kagi Maldives Spa is one of the most signature tropical island resorts in Maldives — fall in love and spend the simplicity of life. Kagi is not a regular resort; it is an immersive and soothing retreat and the harmony between living health and joyfully.",
+        "Within just 50 villas at Kagi Maldives and 40 villas are situated out over the lagoon. The resort concept is rare in the Indian Ocean — once you stay at Kagi Maldives you take elegance and unveil the essence of Pure Life.",
+        "Whether you are travelling solo or together with your loved ones, Kagi is ready to give an exciting unique experience in a Maldivian Island.",
+        "The Resort provides a truly Maldivian luxury and feels beyond your expectation. Resort's architecture is striking-yet-warm toned with rustic wall décor and soft furnishings. Resort Spa of Baani is an enveloping and soothing retreat that recharges your body and begins a new journey in your life. Restorative yoga sessions and mouthwatering meals await you from the moment you arrive.",
+        "If you are interested in sound therapy, Kagi is leading and designs your mind properly for relaxation. This is the refreshing spot — front row views define those epic Indian Ocean sunsets. The Beach Villa is directly close to talcum sands while the Lagoon and Ocean Villa has a short step away to the water. It is an amusing place to begin your day as freshly."
+      ],
+      "sectionImages": {
+        "Accommodation": "https://images.unsplash.com/photo-1560472355-536de3962603?w=800",
+        "Room Facilities": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+        "Dining": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+        "Wellness & Experiences": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+        "Things to Do & Nearby Experiences": "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800",
+        "Packages & Inclusions": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
+        "Gallery": "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800"
+      },
+      "sections": {
+        "Accommodation": {
+          "type": "accommodation",
+          "intro": [
+            "Kagi is one of the elegant living spaces in Maldives Island — spacious 50 villas in a boutique island resort. There are 50 excited villas and 40 are situated over the lagoon. Every room comprises a single unit complete with a private infinity edge swimming pool.",
+            "There are three magnificent villa categories — Ocean Villas, Lagoon Villas and Beach Villas — each showing different unique charm. All villas are overwater or beachside with the ultimate isolation and comfort. The resort invites you to discover the art of life with Kagi Resort in Maldives."
+          ],
+          "villas": [
+            {
+              "name": "Beach Pool Villa",
+              "size": "Beachside · Private Beach",
+              "desc": "Kagi's gracefully original luxury design — every beach villa gives an inseparable space along the private pure sandy beach. Locate a few steps away to the Indian Ocean from your deck. Able to dive into the underwater, splash or snorkel from your villa and start a morning walk on the tranquil beach feeling the sounds of the ocean rolling onto the shore. Inside the villa: spacious king size bed, veneer floors, air conditioning, an outdoor decked terrace and much more. Take delicious breakfast while watching the sun rise."
+            },
+            {
+              "name": "Ocean Pool Villa",
+              "size": "21 Villas · Over Ocean",
+              "desc": "You must drop your bucket list at Kagi Maldives Spa — it truly encounters a magnificent holiday experience. Ocean Pool Villa is directly connected to the ocean. Feel comfortable enjoying your own pool over the ocean with picturesque surrounds. 21 Ocean Pool Villas — each villa has the finest spacious light-aired room with a private verandah and infinity plunge pool. Keep your eyes on Maldivian sunshine and delight in the live aquarium during your stay."
+            },
+            {
+              "name": "Lagoon Pool Villa",
+              "size": "19 Villas · Over Lagoon",
+              "desc": "Head to Kagi Maldives Resort and take a Lagoon Pool Villa for relaxing and recharging within calm and comfort. Uncommon design with own private overwater terrace with infinity plunge pool — possible to relax at leisure in the resort. Swim and stay on your private sundeck and in the evening explore the sunset under the horizon. Completely decorated for tranquil romance — infinity pool sits over the lagoon. 19 lagoon pool villas embrace nature on your steps to the magnificent lagoon."
+            }
+          ]
+        },
+        "Room Facilities": {
+          "type": "facilities",
+          "groups": [
+            {
+              "title": "All Villas — In-Villa Amenities",
+              "items": [
+                "Minibar",
+                "Nespresso Machine and tea facilities",
+                "IDD telephone",
+                "IPTV",
+                "Bluetooth sound-bar",
+                "Personal safe",
+                "Hairdryer",
+                "Safety jackets",
+                "Beach towels and a beach bag",
+                "Full indoor bathroom with bathtub",
+                "Private Plunge Pool"
+              ]
+            }
+          ]
+        },
+        "Dining": {
+          "type": "dining",
+          "intro": [
+            "Kagi Resort offers an amazing sense of joyful culinary experience to visitors — elegant dishes which are fresh, boldly flavoured, and above all satisfying. The resort's restaurants offer international and local recipes while you enjoy the magnificent surroundings.",
+            "There are six restaurants and venues featuring inside the resort."
+          ],
+          "venues": [
+            {
+              "name": "Ke-Un",
+              "desc": "Kagi's signature fine dining restaurant — exquisite cuisine in an elegant setting. Included once per 3-night stay (pre-booking required and subject to space availability). Not valid for special events."
+            },
+            {
+              "name": "Noo Faru (Main Restaurant)",
+              "desc": "The heart of Kagi's dining — featuring 'all you can eat' buffets with a variety of international cuisines. Breakfast (07:00–10:00) and Dinner (19:00–21:30). Fresh, boldly flavoured and deeply satisfying."
+            },
+            {
+              "name": "Ufaa Snack Bar",
+              "desc": "À la carte dining from 10:00–00:00 serving as an alternative lunch and dinner venue. Also available for an additional à la carte dinner option alongside Noo Faru."
+            },
+            {
+              "name": "The Beach Hut",
+              "desc": "Casual beachside dining — a relaxed setting for meals, snacks and beverages with the sand between your toes and the Indian Ocean breeze."
+            },
+            {
+              "name": "The Spa Corner",
+              "desc": "The spa's dining outlet giving fresh juice and health menu delights — perfectly curated for guests on wellness programmes."
+            },
+            {
+              "name": "Piano Bar",
+              "desc": "The elegant evening social venue at Kagi — enjoy cocktails, premium beverages and live music in a sophisticated island atmosphere."
+            }
+          ]
+        },
+        "Wellness & Experiences": {
+          "type": "wellness",
+          "intro": [
+            "Kagi Maldives Spa is the ultimate holistic wellness destination — whether you expect to rejuvenate your entire body or simply relax, it is the best chance to switch off and indulge.",
+            "The Resort Spa of Baani is a famous award-winning spa in the Maldives — meaningful of 'The Ocean Swell'. There are amazing facilities at the spa including steam rooms, gym, hair and beauty salon and four overwater treatment rooms with picturesque Indian Ocean views.",
+            "Baani Spa centre offers the balance between living healthy and joyfully and presents different kinds of skin care and well-being products. Not only does Baani offer indoor programmes — they also provide sunrise stretching, sunrise yoga and Baani sound healing sessions on the tranquillity beach.",
+            "In addition, the spa outlet gives fresh juice and health menu delights. The philosophy of Baani spa is divided into five elements: Nature and Sound; Nutrition; Bodywork and Beauty; Mindfulness; and Movement. Using a variety of woods and herbs to 'wash off' — releasing stress, restoring balance and regaining momentum. All treatments are signature of Baani spa — given to the utmost best.",
+            "Other facilities of Baani Spa: Innovative Epicurean Cuisine, Meditation under the Sea, Mindfulness, Water sports & Recreation."
+          ],
+          "features": [
+            {
+              "icon": "🏆",
+              "text": "Baani Spa — award-winning, 'The Ocean Swell'"
+            },
+            {
+              "icon": "🌊",
+              "text": "4 overwater treatment rooms with Indian Ocean views"
+            },
+            {
+              "icon": "🧖",
+              "text": "Steam rooms, gym, hair & beauty salon"
+            },
+            {
+              "icon": "🧘",
+              "text": "Sunrise yoga, stretching & Baani sound healing on the beach"
+            },
+            {
+              "icon": "🍃",
+              "text": "Five elements: Nature & Sound, Nutrition, Bodywork & Beauty, Mindfulness, Movement"
+            },
+            {
+              "icon": "🥤",
+              "text": "Spa Corner — fresh juices and health menu cuisine"
+            },
+            {
+              "icon": "🧠",
+              "text": "Meditation under the Sea experience"
+            },
+            {
+              "icon": "🪵",
+              "text": "Natural woods and herbs used in signature treatments"
+            }
+          ]
+        },
+        "Things to Do & Nearby Experiences": {
+          "type": "activities",
+          "items": [
+            {
+              "title": "Diving — Euro Divers 5-Star Certified Centre",
+              "desc": "The resort invites you to connect your mind with the deep blue sea, accompanied with Euro Divers by Kagi Maldives. The Euro Diving Centre is 5-star certified and offers ocean-based activities and different kinds of courses in your own language. Working three shifts a day — morning, afternoon and night dives — to bring you to the most incredible untouched dive sites in North Malé Atoll. A huge variety of trips and dive sites — visit a famous manta point, thrilling channel diving with sharks, overhang with delicate colourful coral."
+            },
+            {
+              "title": "House Reef Diving",
+              "desc": "Kagi Maldives Spa sits on a spacious house reef — classified as one of the famous and best house reefs in Maldives. An ideal setting for diving and snorkelling."
+            },
+            {
+              "title": "Night Diving and Fluo Night Dives",
+              "desc": "A unique after-dark diving experience revealing the luminous colours of the reef and the nocturnal life of Maldivian waters."
+            },
+            {
+              "title": "Half Day and Full Day Diving Excursions",
+              "desc": "Extended guided diving excursions to the most spectacular dive sites in North Malé Atoll — including manta points and shark channels."
+            },
+            {
+              "title": "Snorkelling on House Reef",
+              "desc": "The house reef is one of the finest in Maldives — explore healthy corals, bright colourful tropical fish and cute sea creatures: sea turtles, rays, reef sharks, moray eels. A hidden treasure for snorkellers."
+            },
+            {
+              "title": "Fishing in the Maldives",
+              "desc": "Traditional and sport fishing in the waters of North Malé Atoll — an authentic Maldivian experience."
+            },
+            {
+              "title": "Kayaking & Stand Up Paddle",
+              "desc": "Explore the crystal lagoon and surrounding waters from the surface — peaceful and beautiful ways to connect with the ocean environment."
+            },
+            {
+              "title": "Mirage Eclipse, Catamaran Sailing & Wind Surfing",
+              "desc": "A range of sailing and windsurfing experiences in the Maldivian waters."
+            },
+            {
+              "title": "Glass Bottom Kayaking",
+              "desc": "See the vibrant marine life beneath you through a glass-bottom kayak — spectacular for discovering the reef without diving."
+            }
+          ]
+        },
+        "Packages & Inclusions": {
+          "type": "packages",
+          "intro": [
+            "Kagi Maldives offers a comprehensive Premium All Inclusive Package designed to give you the complete Kagi experience — from gourmet dining and unlimited beverages to spa discounts, water sports and wellness classes."
+          ],
+          "title": "Premium All Inclusive Package",
+          "items": [
+            "Breakfast (07:00–10:00) in Noo Faru — 'all you can eat' buffets with international cuisines",
+            "Lunch (12:30–14:30) — à la carte served with option between the Spa Corner and Ufaa/Noofaru (pre-booking at Spa Corner required)",
+            "Dinner (19:00–21:30) in Noo Faru — 'all you can eat' buffets with international cuisines",
+            "À la carte dinner served in Ufaa",
+            "One Dinner at Ke-Un for every 3-night stay (pre-booking required — not valid for special events)",
+            "One additional 4-course 'Chef's Table' set dinner in the Herbs Garden — US$99 per person supplement (pre-booking required)",
+            "Exclusive 25% discount on weekly Culinary Signatures",
+            "'Snack Menu' served in Ufaa from 10:00–00:00",
+            "Unlimited alcoholic and non-alcoholic beverages all day until closing time",
+            "Variety of alcoholic cocktails including signature cocktails",
+            "All non-alcoholic cocktails, smoothies and freshly squeezed fruit juices",
+            "Extensive selection of premium brands spirits and liqueurs, port and sherry",
+            "Extensive wine selection",
+            "House champagne selection",
+            "Selection of international beers and cider",
+            "Coffee, tea, iced coffee, espresso, cappuccino, latte and macchiato — freshly brewed",
+            "Soft drinks and Kagi bottled still and sparkling water",
+            "Mini bar: bottled wine (red, white, rosé, sparkling), canned beer, soft drinks, Kagi water, Nespresso coffees, assorted snacks — refilled once daily",
+            "Welcome bottle of Champagne and canapés served in the villa on arrival",
+            "2 bottles of spirits available in your villa on request",
+            "Daily evening culinary delights from the culinary team",
+            "Free use of Laundry Service — 3 garments per adult per week",
+            "Exclusive 20% discount on selected Spa treatments and wellness packages (first 2 days — pre-booking required)",
+            "One Sunset Dolphin Cruise Group Excursion (per resort schedule, subject to weather)",
+            "Complimentary snorkelling equipment during stay",
+            "Complimentary use of the Wellness Centre and steam rooms",
+            "Free use of kayaks — 1 hour daily (basic experience required, certain restrictions apply)",
+            "Group Introduction to 30-minute Snorkelling and Windsurfing — weekly, regularly scheduled",
+            "Complimentary Yoga and stretching classes — regularly scheduled"
+          ]
+        },
+        "Gallery": {
+          "type": "gallery",
+          "images": [
+            "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800",
+            "https://images.unsplash.com/photo-1560472355-536de3962603?w=800",
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800",
+            "https://images.unsplash.com/photo-1439066290691-dabb18e96f0a?w=800"
+          ]
+        }
+      }
+    }
+  ]
+}

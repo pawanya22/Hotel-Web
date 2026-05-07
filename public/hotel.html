@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Luxe Hotels | Curated Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-pale: rgba(201,168,76,0.08);
+      --border-gold: rgba(201,168,76,0.28);
+      --bg: #f8f6f1;
+      --bg-card: #ffffff;
+      --text: #1a1714;
+      --text-mid: #4a4540;
+      --text-light: #8a8178;
+      --border: rgba(0,0,0,0.08);
+      --shadow: 0 4px 24px rgba(0,0,0,0.07);
+      --shadow-hover: 0 20px 50px rgba(0,0,0,0.13);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    body::before {
+      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+      pointer-events:none; z-index:-1;
+      background: radial-gradient(ellipse at 80% 10%, rgba(201,168,76,0.045) 0%, transparent 55%),
+                  radial-gradient(ellipse at 10% 80%, rgba(201,168,76,0.03) 0%, transparent 50%);
+    }
+
+    /* NAV */
+    nav {
+      position:fixed; top:24px; left:50%; transform:translateX(-50%);
+      width:90%; max-width:1400px; padding:14px 36px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:rgba(10,8,6,0.65); backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,0.12); border-radius:100px;
+      z-index:1000; transition:background 0.4s;
+    }
+    nav.scrolled { background:rgba(10,8,6,0.92); }
+    .logo {
+      font-family:'Cormorant Garamond',serif; font-size:1.15rem;
+      letter-spacing:6px; color:#fff; font-weight:500;
+      text-transform:uppercase; text-decoration:none; cursor:pointer;
+    }
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a {
+      color:rgba(255,255,255,0.72); font-size:0.65rem; letter-spacing:3px;
+      text-transform:uppercase; text-decoration:none; transition:color 0.3s;
+      position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px;
+      background:var(--gold); transition:width 0.4s ease;
+    }
+    .nav-links a:hover,.nav-links a.active { color:var(--gold); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-right { display:flex; gap:30px; align-items:center; }
+    .nav-right a { color:rgba(255,255,255,0.7); font-size:0.65rem; letter-spacing:2px; text-decoration:none; text-transform:uppercase; }
+
+    /* VIEWS */
+    .view { display:none; width:100%; }
+    .view.active-view { display:block; }
+
+    /* CARD GRID */
+    .list-header { max-width:1300px; margin:148px auto 0; padding:0 40px 48px; text-align:center; }
+    .list-header h2 {
+      font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:400;
+      letter-spacing:4px; margin-bottom:12px;
+    }
+    .list-header p { font-size:0.68rem; letter-spacing:3px; color:var(--text-light); text-transform:uppercase; }
+    .hotels-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:32px; max-width:1300px; margin:0 auto; padding:0 40px 80px;
+    }
+    .hotel-card {
+      background:var(--bg-card); border-radius:20px; overflow:hidden;
+      border:1px solid var(--border); box-shadow:var(--shadow);
+      cursor:pointer; transition:transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.45s;
+    }
+    .hotel-card:hover { transform:translateY(-10px); box-shadow:var(--shadow-hover); }
+    .hotel-card-img-wrap { overflow:hidden; aspect-ratio:4/3; }
+    .hotel-card-img { width:100%; height:100%; object-fit:cover; transition:transform 0.9s ease; display:block; }
+    .hotel-card:hover .hotel-card-img { transform:scale(1.06); }
+    .hotel-card-info { padding:22px 24px 26px; }
+    .hotel-card-country { font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:6px; display:block; }
+    .hotel-card-info h3 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:500; margin-bottom:4px; line-height:1.3; }
+    .hotel-card-loc { font-size:0.7rem; color:var(--text-light); letter-spacing:1px; margin-bottom:10px; }
+    .hotel-card-tag { font-size:0.8rem; color:var(--text-mid); line-height:1.55; }
+
+    /* DETAIL */
+    .detail-container { max-width:1300px; margin:140px auto 80px; padding:0 40px; }
+    .back-bar { display:flex; gap:12px; margin-bottom:36px; }
+    .back-btn {
+      background:transparent; border:1px solid rgba(0,0,0,0.18);
+      padding:7px 22px; border-radius:100px; font-size:0.63rem;
+      letter-spacing:2px; text-transform:uppercase; font-family:'Jost',sans-serif;
+      cursor:pointer; transition:0.3s; color:var(--text);
+    }
+    .back-btn:hover { background:var(--gold); border-color:var(--gold); color:#fff; }
+    .hotel-name-detail {
+      font-family:'Cormorant Garamond',serif; font-size:3rem;
+      font-weight:400; letter-spacing:2px; line-height:1.15; margin-bottom:6px;
+    }
+    .hotel-loc-badge { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:20px; display:block; }
+    .detail-hero-img {
+      width:100%; max-width:1200px; height:500px; overflow:hidden;
+      border-radius:16px; margin:0 0 36px 0; box-shadow:0 20px 60px rgba(0,0,0,0.15);
+    }
+    .detail-hero-img img {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .hotel-description-detail {
+      font-size:0.92rem; line-height:1.85; color:var(--text-mid);
+      border-left:2px solid var(--gold); padding:16px 22px;
+      background:var(--gold-pale); border-radius:0 10px 10px 0;
+      margin-bottom:36px;
+    }
+    .hotel-description-detail p { margin-bottom:10px; }
+    .hotel-description-detail p:last-child { margin-bottom:0; }
+
+    /* TABS – now wrap without scroll */
+    .tab-row {
+      display:flex; flex-wrap:wrap; gap:0;
+      border-bottom:2px solid var(--border); margin-bottom:40px;
+    }
+    .cat-btn {
+      background:transparent; border:none; font-family:'Jost',sans-serif;
+      font-size:0.65rem; font-weight:500; letter-spacing:1.8px; text-transform:uppercase;
+      padding:10px 16px 12px; color:var(--text-light); cursor:pointer;
+      position:relative; transition:color 0.25s; white-space:nowrap;
+    }
+    .cat-btn::after {
+      content:''; position:absolute; bottom:-2px; left:0;
+      width:0; height:2px; background:var(--gold); transition:width 0.3s;
+    }
+    .cat-btn.active { color:var(--gold); }
+    .cat-btn.active::after,.cat-btn:hover::after { width:100%; }
+    .cat-btn:hover { color:var(--text); }
+
+    /* SECTION LAYOUT */
+    .section-wrap { display:flex; gap:48px; flex-wrap:wrap; align-items:flex-start; }
+    .section-img-col {
+      flex:1.05; min-width:240px; border-radius:16px; overflow:hidden;
+      box-shadow:0 16px 40px rgba(0,0,0,0.1); position:sticky; top:110px; align-self:flex-start;
+    }
+    .section-img-col img { width:100%; display:block; object-fit:cover; max-height:540px; }
+    .section-content-col { flex:1.35; min-width:280px; }
+    .section-content-col h3 {
+      font-family:'Cormorant Garamond',serif; font-size:1.8rem;
+      font-weight:500; margin-bottom:22px; color:var(--text);
+    }
+
+    /* full‑width gallery override */
+    .gallery-full .section-content-col { flex:1; width:100%; }
+    .gallery-full .section-img-col { display:none; }
+
+    /* INTRO TEXT */
+    .intro-text { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:28px; }
+    .intro-text p { margin-bottom:11px; }
+    .intro-text p:last-child { margin-bottom:0; }
+
+    /* VILLA CARDS */
+    .villa-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .villa-card {
+      background:#fff; border:1px solid var(--border); border-radius:12px;
+      padding:18px 16px; transition:box-shadow 0.3s, border-color 0.3s;
+    }
+    .villa-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.09); border-color:var(--border-gold); }
+    .villa-card-size { font-size:0.57rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:6px; display:block; }
+    .villa-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:8px; }
+    .villa-card p { font-size:0.81rem; color:var(--text-mid); line-height:1.65; }
+
+    /* FACILITY GROUPS */
+    .facility-group { margin-bottom:26px; }
+    .facility-group-title {
+      font-size:0.6rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--text-light); font-weight:600; margin-bottom:12px;
+      padding-bottom:8px; border-bottom:1px solid var(--border);
+    }
+    .facility-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+    .facility-item {
+      display:flex; align-items:flex-start; gap:10px;
+      background:#fff; border:1px solid var(--border);
+      border-radius:9px; padding:11px 13px; font-size:0.82rem;
+      color:var(--text-mid); line-height:1.5; transition:border-color 0.25s;
+    }
+    .facility-item:hover { border-color:var(--border-gold); }
+    .fi-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:5px; }
+
+    /* DINING */
+    .dining-venue-card {
+      background:#fff; border:1px solid var(--border); border-radius:13px;
+      padding:19px 22px; margin-bottom:13px; transition:box-shadow 0.3s, border-color 0.3s;
+    }
+    .dining-venue-card:hover { box-shadow:0 6px 20px rgba(0,0,0,0.07); border-color:var(--border-gold); }
+    .dining-venue-card h4 {
+      font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+      font-weight:600; color:var(--text); margin-bottom:8px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .dining-venue-card h4::before { content:''; width:16px; height:1px; background:var(--gold); flex-shrink:0; }
+    .dining-venue-card p { font-size:0.84rem; color:var(--text-mid); line-height:1.72; }
+
+    /* WELLNESS */
+    .wellness-intro { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:22px; }
+    .wellness-intro p { margin-bottom:11px; }
+    .wellness-features { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .wellness-feat {
+      background:#fff; border:1px solid var(--border); border-radius:10px;
+      padding:13px 15px; font-size:0.83rem; color:var(--text-mid);
+      display:flex; align-items:flex-start; gap:10px; transition:border-color 0.25s; line-height:1.55;
+    }
+    .wellness-feat:hover { border-color:var(--border-gold); }
+    .wf-icon { font-size:0.95rem; flex-shrink:0; margin-top:1px; }
+
+    /* ACTIVITIES */
+    .activities-list { list-style:none; }
+    .activity-item {
+      display:flex; gap:14px; align-items:flex-start;
+      padding:14px 0; border-bottom:1px solid var(--border);
+    }
+    .activity-item:last-child { border-bottom:none; }
+    .activity-num {
+      font-family:'Cormorant Garamond',serif; font-size:1rem;
+      color:var(--gold); font-style:italic; flex-shrink:0;
+      min-width:24px; line-height:1.7;
+    }
+    .activity-body { font-size:0.87rem; color:var(--text-mid); line-height:1.7; }
+    .activity-body strong { color:var(--text); font-weight:500; display:block; margin-bottom:2px; font-size:0.88rem; }
+
+    /* PACKAGES */
+    .package-intro { font-size:0.91rem; line-height:1.85; color:var(--text-mid); margin-bottom:22px; }
+    .package-intro p { margin-bottom:10px; }
+    .package-box {
+      background:linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+      border:1px solid var(--border-gold); border-radius:14px; padding:26px 28px;
+    }
+    .package-box-title {
+      font-family:'Cormorant Garamond',serif; font-size:1.25rem;
+      font-weight:500; margin-bottom:18px; color:var(--text);
+      display:flex; align-items:center; gap:12px;
+    }
+    .package-box-title::after { content:''; flex:1; height:1px; background:var(--border-gold); }
+    .package-list { list-style:none; column-count:1; }
+    .package-list li {
+      display:flex; align-items:flex-start; gap:11px;
+      padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.05);
+      font-size:0.85rem; color:var(--text-mid); line-height:1.6;
+    }
+    .package-list li:last-child { border-bottom:none; }
+    .pkg-check { color:var(--gold); font-weight:700; flex-shrink:0; margin-top:1px; }
+
+    /* GALLERY */
+    .gallery-grid {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:18px; margin-top:8px;
+    }
+    .gallery-item {
+      border-radius:14px; overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,0.08);
+      border:1px solid var(--border);
+      transition:transform 0.3s, box-shadow 0.4s;
+      aspect-ratio:4/3;
+    }
+    .gallery-item:hover {
+      transform:scale(1.02);
+      box-shadow:0 18px 36px rgba(0,0,0,0.12);
+      border-color:var(--border-gold);
+    }
+    .gallery-item img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform 0.7s;
+    }
+    .gallery-item:hover img { transform:scale(1.05); }
+    .gallery-caption {
+      font-family:'Cormorant Garamond',serif; font-size:0.85rem;
+      margin-top:18px; color:var(--text-light); letter-spacing:1px;
+      font-style:italic; text-align:right;
+    }
+
+    /* FOOTER */
+    footer { padding:70px 60px 36px; background:#0a0806; color:#fff; margin-top:80px; }
+    .footer-bottom { text-align:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:40px; opacity:0.55; }
+    .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; letter-spacing:7px; display:block; margin-bottom:10px; }
+    .footer-bottom p { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; }
+
+    @media(min-width:900px) {
+      .gallery-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media(max-width:1100px) {
+      .hotels-grid { grid-template-columns:repeat(2,1fr); }
+      .villa-cards { grid-template-columns:1fr; }
+      .section-img-col { position:static; }
+      .gallery-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:700px) {
+      .hotels-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hotel-name-detail { font-size:2rem; }
+      .cat-btn { padding:8px 10px 10px; font-size:0.58rem; letter-spacing:1.5px; }
+      .section-wrap { flex-direction:column; }
+      .villa-cards,.facility-grid,.wellness-features,.gallery-grid { grid-template-columns:1fr; }
+      .detail-hero-img { height:300px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="logo">LUXE WELLNESS CLUB</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="hotel.html" class="active">HOTELS</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right"><a href="#">EN</a></div>
+</nav>
+
+<!-- LIST -->
+<div id="listView" class="view active-view">
+  <div class="list-header">
+    <h2>SIGNATURE COLLECTION</h2>
+    <p>Six extraordinary retreats &nbsp;·&nbsp; one legacy of excellence</p>
+  </div>
+  <div id="hotelsGrid" class="hotels-grid"></div>
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <p>Hotel Collection &nbsp;·&nbsp; Timeless Elegance</p>
+    </div>
+  </footer>
+</div>
+
+<!-- DETAIL -->
+<div id="detailView" class="view">
+  <div class="detail-container">
+    <div class="back-bar">
+      <button id="backToListBtn" class="back-btn">← Back to Hotels</button>
+      <button id="backToHomeBtn" class="back-btn">Home</button>
+    </div>
+    <h1 id="detailHotelName" class="hotel-name-detail"></h1>
+    <span id="detailHotelLoc" class="hotel-loc-badge"></span>
+    <div id="detailHeroImage" class="detail-hero-img"></div>
+    <div id="hotelDetailDescription" class="hotel-description-detail"></div>
+    <div id="categoryButtons" class="tab-row"></div>
+    <div id="detailContentArea"></div>
+  </div>
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <p>Luxury Hotel Experience</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+//  HOTEL.HTML - UPDATED JAVASCRIPT SECTION
+//  Replace the script section in your hotel.html with this code
+//  This fetches hotel data from the API instead of using hardcoded data
+// ══════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────
+//  API CONFIGURATION
+// ─────────────────────────────────────────────────────────────────
+
+const API_BASE_URL = 'http://localhost:3000/api';
+
+// Global variable to store hotels (loaded from API)
+let hotelsDataset = [];
+
+// ─────────────────────────────────────────────────────────────────
+//  FETCH HOTELS FROM API
+// ─────────────────────────────────────────────────────────────────
+
+/**
+ * Fetch all hotels from the backend API
+ * This replaces the hardcoded hotelsDataset array
+ */
+async function fetchHotels() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/hotels`);
+    const result = await response.json();
+    
+    if (result.success) {
+      hotelsDataset = result.data;
+      console.log(`✅ Loaded ${hotelsDataset.length} hotels from API`);
+      
+      // After loading data, render the hotel cards
+      renderHotelCards();
+      
+      // Check if a specific hotel should be opened from URL
+      checkUrlForHotelId();
+    } else {
+      console.error('Failed to fetch hotels:', result.error);
+      showError('Failed to load hotels. Please refresh the page.');
+    }
+  } catch (error) {
+    console.error('Error fetching hotels:', error);
+    showError('Unable to connect to server. Please make sure the server is running.');
+  }
+}
+
+/**
+ * Display error message to user
+ */
+function showError(message) {
+  const gridContainer = document.getElementById('hotelsGrid');
+  if (gridContainer) {
+    gridContainer.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+        <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 20px;">⚠️ ${message}</p>
+        <button onclick="location.reload()" style="padding: 12px 30px; background: var(--gold); color: #000; border: none; border-radius: 30px; cursor: pointer; font-size: 0.85rem; letter-spacing: 2px;">RELOAD PAGE</button>
+      </div>
+    `;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  VIEW SWITCHING & RENDERING
+// ─────────────────────────────────────────────────────────────────
+
+const listView = document.getElementById('listView');
+const detailView = document.getElementById('detailView');
+const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions","Gallery"];
+
+let currentHotel = null;
+let activeCategory = 0;
+
+function showView(view) {
+  listView.classList.remove('active-view');
+  detailView.classList.remove('active-view');
+  view.classList.add('active-view');
+  window.scrollTo(0, 0);
+}
+
+/**
+ * Render all hotel cards in the grid
+ */
+function renderHotelCards() {
+  const gridContainer = document.getElementById('hotelsGrid');
+  
+  if (!gridContainer) return;
+  
+  if (hotelsDataset.length === 0) {
+    gridContainer.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+        <p style="color: var(--text-light); font-size: 1.1rem;">No hotels available yet.</p>
+      </div>
+    `;
+    return;
+  }
+  
+  gridContainer.innerHTML = hotelsDataset.map(hotel => `
+    <div class="hotel-card" onclick="openHotel(${hotel.id})">
+      <div class="hotel-card-img-wrap">
+        <img class="hotel-card-img" src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy">
+      </div>
+      <div class="hotel-card-info">
+        <span class="hotel-card-country">${hotel.country}</span>
+        <h3>${hotel.name}</h3>
+        <p class="hotel-card-loc">${hotel.location}</p>
+        <p class="hotel-card-tag">${hotel.tagline}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+/**
+ * Open detailed view for a specific hotel
+ */
+function openHotel(id) {
+  currentHotel = hotelsDataset.find(h => h.id === id);
+  if (!currentHotel) return;
+  
+  activeCategory = 0;
+  showView(detailView);
+  renderDetail();
+}
+
+/**
+ * Render the detail page content
+ */
+function renderDetail() {
+  document.getElementById('detailHotelName').innerText = currentHotel.name;
+  document.getElementById('detailHotelLoc').innerHTML = '📍 ' + currentHotel.location.toUpperCase();
+  document.getElementById('detailHeroImage').innerHTML = `<img src="${currentHotel.mainImage}" alt="${currentHotel.name}" loading="lazy">`;
+  document.getElementById('hotelDetailDescription').innerHTML = currentHotel.description.map(p => `<p>${p}</p>`).join('');
+
+  const tabRow = document.getElementById('categoryButtons');
+  tabRow.innerHTML = '';
+  SECTION_KEYS.forEach((key, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (idx === activeCategory ? ' active' : '');
+    btn.innerText = key;
+    btn.addEventListener('click', () => { activeCategory = idx; renderDetail(); });
+    tabRow.appendChild(btn);
+  });
+
+  const key = SECTION_KEYS[activeCategory];
+  const sec = currentHotel.sections[key];
+  const isGallery = (key === 'Gallery');
+
+  let containerClass = 'section-wrap';
+  if (isGallery) containerClass += ' gallery-full';
+
+  const imgUrl = (currentHotel.sectionImages && currentHotel.sectionImages[key]) || currentHotel.mainImage;
+  const leftColHtml = isGallery ? '' : `<div class="section-img-col"><img src="${imgUrl}" alt="${key}" loading="lazy"></div>`;
+
+  document.getElementById('detailContentArea').innerHTML = `
+    <div class="${containerClass}">
+      ${leftColHtml}
+      <div class="section-content-col">${buildSection(key, sec)}</div>
+    </div>`;
+}
+
+function buildSection(key, sec) {
+  if (!sec) return `<h3>${key}</h3><p style="color:var(--text-light);">Information coming soon.</p>`;
+  switch (sec.type) {
+    case 'accommodation': return buildAccommodation(sec);
+    case 'facilities': return buildFacilities(sec);
+    case 'dining': return buildDining(sec);
+    case 'wellness': return buildWellness(sec);
+    case 'activities': return buildActivities(sec);
+    case 'packages': return buildPackages(sec);
+    case 'gallery': return buildGallery(sec);
+    default: return '';
+  }
+}
+
+function buildAccommodation(s) {
+  const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
+  const cards = (s.villas || []).map(v => `
+    <div class="villa-card">
+      <span class="villa-card-size">${v.size}</span>
+      <h4>${v.name}</h4>
+      <p>${v.desc}</p>
+    </div>`).join('');
+  return `<h3>Accommodation</h3><div class="intro-text">${intro}</div><div class="villa-cards">${cards}</div>`;
+}
+
+function buildFacilities(s) {
+  const groups = (s.groups || []).map(g => `
+    <div class="facility-group">
+      <div class="facility-group-title">${g.title}</div>
+      <div class="facility-grid">${(g.items || []).map(i => `
+        <div class="facility-item"><span class="fi-dot"></span><span>${i}</span></div>`).join('')}
+      </div>
+    </div>`).join('');
+  return `<h3>Room Facilities</h3>${groups}`;
+}
+
+function buildDining(s) {
+  const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
+  const venues = (s.venues || []).map(v => `
+    <div class="dining-venue-card">
+      <h4>${v.name}</h4>
+      <p>${v.desc}</p>
+    </div>`).join('');
+  return `<h3>Dining</h3><div class="intro-text">${intro}</div>${venues}`;
+}
+
+function buildWellness(s) {
+  const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
+  const feats = (s.features || []).map(f => `
+    <div class="wellness-feat">
+      <span class="wf-icon">${f.icon}</span>
+      <span>${f.text}</span>
+    </div>`).join('');
+  return `<h3>Wellness &amp; Experiences</h3>
+    <div class="wellness-intro">${intro}</div>
+    <div class="wellness-features">${feats}</div>`;
+}
+
+function buildActivities(s) {
+  const items = (s.items || []).map((item, i) => `
+    <li class="activity-item">
+      <span class="activity-num">${String(i + 1).padStart(2, '0')}.</span>
+      <span class="activity-body">
+        ${item.title ? `<strong>${item.title}</strong>` : ''}
+        ${item.desc || (typeof item === 'string' ? item : '')}
+      </span>
+    </li>`).join('');
+  return `<h3>Things to Do &amp; Nearby Experiences</h3><ul class="activities-list">${items}</ul>`;
+}
+
+function buildPackages(s) {
+  const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
+  const items = (s.items || []).map(i => `<li><span class="pkg-check">✓</span><span>${i}</span></li>`).join('');
+  return `<h3>Packages &amp; Inclusions</h3>
+    <div class="package-intro">${intro}</div>
+    <div class="package-box">
+      <div class="package-box-title">${s.title || "What's Included"}</div>
+      <ul class="package-list">${items}</ul>
+    </div>`;
+}
+
+function buildGallery(s) {
+  const images = s.images || [];
+  const imageItems = images.map(url => `
+    <div class="gallery-item">
+      <img src="${url}" alt="Gallery image" loading="lazy">
+    </div>`).join('');
+  return `<h3>Photo Gallery</h3>
+    <div class="gallery-grid">${imageItems}</div>
+    <div class="gallery-caption">${currentHotel.name} — ${images.length} exclusive views</div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  NAVIGATION & URL HANDLING
+// ─────────────────────────────────────────────────────────────────
+
+document.getElementById('backToListBtn').addEventListener('click', () => showView(listView));
+document.getElementById('backToHomeBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
+window.addEventListener('scroll', () => { 
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); 
+});
+
+/**
+ * Check URL for hotel ID parameter and open that hotel
+ * Example: hotel.html?hotel=2
+ */
+function checkUrlForHotelId() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const hotelIdParam = urlParams.get('hotel');
+  
+  if (hotelIdParam !== null) {
+    const id = parseInt(hotelIdParam, 10);
+    const hotel = hotelsDataset.find(h => h.id === id);
+    if (hotel) {
+      openHotel(id);
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  INITIALIZE - FETCH DATA ON PAGE LOAD
+// ─────────────────────────────────────────────────────────────────
+
+// Start loading hotels when page loads
+fetchHotels();
+</script>
+</body>
+</html>

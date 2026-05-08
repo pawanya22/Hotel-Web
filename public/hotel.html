@@ -365,56 +365,30 @@
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════
-//  HOTEL.HTML - UPDATED JAVASCRIPT SECTION
-//  Replace the script section in your hotel.html with this code
-//  This fetches hotel data from the API instead of using hardcoded data
-// ══════════════════════════════════════════════════════════════════
-
-// ─────────────────────────────────────────────────────────────────
-//  API CONFIGURATION
-// ─────────────────────────────────────────────────────────────────
-
-const API_BASE_URL = 'http://localhost:3000/api';
-
-// Global variable to store hotels (loaded from API)
+const API_BASE_URL = '/api'; // Changed for Vercel
 let hotelsDataset = [];
+const listView = document.getElementById('listView');
+const detailView = document.getElementById('detailView');
+const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions","Gallery"];
+let currentHotel = null;
+let activeCategory = 0;
 
-// ─────────────────────────────────────────────────────────────────
-//  FETCH HOTELS FROM API
-// ─────────────────────────────────────────────────────────────────
-
-/**
- * Fetch all hotels from the backend API
- * This replaces the hardcoded hotelsDataset array
- */
 async function fetchHotels() {
   try {
     const response = await fetch(`${API_BASE_URL}/hotels`);
     const result = await response.json();
-    
     if (result.success) {
       hotelsDataset = result.data;
-      console.log(`✅ Loaded ${hotelsDataset.length} hotels from API`);
-      
-      // After loading data, render the hotel cards
       renderHotelCards();
-      
-      // Check if a specific hotel should be opened from URL
       checkUrlForHotelId();
     } else {
-      console.error('Failed to fetch hotels:', result.error);
       showError('Failed to load hotels. Please refresh the page.');
     }
   } catch (error) {
-    console.error('Error fetching hotels:', error);
     showError('Unable to connect to server. Please make sure the server is running.');
   }
 }
 
-/**
- * Display error message to user
- */
 function showError(message) {
   const gridContainer = document.getElementById('hotelsGrid');
   if (gridContainer) {
@@ -427,17 +401,6 @@ function showError(message) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────
-//  VIEW SWITCHING & RENDERING
-// ─────────────────────────────────────────────────────────────────
-
-const listView = document.getElementById('listView');
-const detailView = document.getElementById('detailView');
-const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions","Gallery"];
-
-let currentHotel = null;
-let activeCategory = 0;
-
 function showView(view) {
   listView.classList.remove('active-view');
   detailView.classList.remove('active-view');
@@ -445,25 +408,15 @@ function showView(view) {
   window.scrollTo(0, 0);
 }
 
-/**
- * Render all hotel cards in the grid
- */
 function renderHotelCards() {
   const gridContainer = document.getElementById('hotelsGrid');
-  
   if (!gridContainer) return;
-  
   if (hotelsDataset.length === 0) {
-    gridContainer.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
-        <p style="color: var(--text-light); font-size: 1.1rem;">No hotels available yet.</p>
-      </div>
-    `;
+    gridContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;"><p style="color: var(--text-light); font-size: 1.1rem;">No hotels available yet.</p></div>`;
     return;
   }
-  
   gridContainer.innerHTML = hotelsDataset.map(hotel => `
-    <div class="hotel-card" onclick="openHotel(${hotel.id})">
+    <div class="hotel-card" onclick="openHotel('${hotel._id}')">
       <div class="hotel-card-img-wrap">
         <img class="hotel-card-img" src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy">
       </div>
@@ -477,26 +430,19 @@ function renderHotelCards() {
   `).join('');
 }
 
-/**
- * Open detailed view for a specific hotel
- */
 function openHotel(id) {
-  currentHotel = hotelsDataset.find(h => h.id === id);
+  currentHotel = hotelsDataset.find(h => h._id === id); // Changed to _id
   if (!currentHotel) return;
-  
   activeCategory = 0;
   showView(detailView);
   renderDetail();
 }
 
-/**
- * Render the detail page content
- */
 function renderDetail() {
   document.getElementById('detailHotelName').innerText = currentHotel.name;
   document.getElementById('detailHotelLoc').innerHTML = '📍 ' + currentHotel.location.toUpperCase();
   document.getElementById('detailHeroImage').innerHTML = `<img src="${currentHotel.mainImage}" alt="${currentHotel.name}" loading="lazy">`;
-  document.getElementById('hotelDetailDescription').innerHTML = currentHotel.description.map(p => `<p>${p}</p>`).join('');
+  document.getElementById('hotelDetailDescription').innerHTML = (currentHotel.description || []).map(p => `<p>${p}</p>`).join('');
 
   const tabRow = document.getElementById('categoryButtons');
   tabRow.innerHTML = '';
@@ -509,13 +455,13 @@ function renderDetail() {
   });
 
   const key = SECTION_KEYS[activeCategory];
-  const sec = currentHotel.sections[key];
+  const sec = currentHotel.sections ? currentHotel.sections[key] : null;
   const isGallery = (key === 'Gallery');
 
   let containerClass = 'section-wrap';
   if (isGallery) containerClass += ' gallery-full';
 
-  const imgUrl = (currentHotel.sectionImages && currentHotel.sectionImages[key]) || currentHotel.mainImage;
+  const imgUrl = (currentHotel.sectionImages && currentHotel.sectionImages[key]) ? currentHotel.sectionImages[key] : currentHotel.mainImage;
   const leftColHtml = isGallery ? '' : `<div class="section-img-col"><img src="${imgUrl}" alt="${key}" loading="lazy"></div>`;
 
   document.getElementById('detailContentArea').innerHTML = `
@@ -541,114 +487,51 @@ function buildSection(key, sec) {
 
 function buildAccommodation(s) {
   const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
-  const cards = (s.villas || []).map(v => `
-    <div class="villa-card">
-      <span class="villa-card-size">${v.size}</span>
-      <h4>${v.name}</h4>
-      <p>${v.desc}</p>
-    </div>`).join('');
+  const cards = (s.villas || []).map(v => `<div class="villa-card"><span class="villa-card-size">${v.size}</span><h4>${v.name}</h4><p>${v.desc}</p></div>`).join('');
   return `<h3>Accommodation</h3><div class="intro-text">${intro}</div><div class="villa-cards">${cards}</div>`;
 }
-
 function buildFacilities(s) {
-  const groups = (s.groups || []).map(g => `
-    <div class="facility-group">
-      <div class="facility-group-title">${g.title}</div>
-      <div class="facility-grid">${(g.items || []).map(i => `
-        <div class="facility-item"><span class="fi-dot"></span><span>${i}</span></div>`).join('')}
-      </div>
-    </div>`).join('');
+  const groups = (s.groups || []).map(g => `<div class="facility-group"><div class="facility-group-title">${g.title}</div><div class="facility-grid">${(g.items || []).map(i => `<div class="facility-item"><span class="fi-dot"></span><span>${i}</span></div>`).join('')}</div></div>`).join('');
   return `<h3>Room Facilities</h3>${groups}`;
 }
-
 function buildDining(s) {
   const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
-  const venues = (s.venues || []).map(v => `
-    <div class="dining-venue-card">
-      <h4>${v.name}</h4>
-      <p>${v.desc}</p>
-    </div>`).join('');
+  const venues = (s.venues || []).map(v => `<div class="dining-venue-card"><h4>${v.name}</h4><p>${v.desc}</p></div>`).join('');
   return `<h3>Dining</h3><div class="intro-text">${intro}</div>${venues}`;
 }
-
 function buildWellness(s) {
   const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
-  const feats = (s.features || []).map(f => `
-    <div class="wellness-feat">
-      <span class="wf-icon">${f.icon}</span>
-      <span>${f.text}</span>
-    </div>`).join('');
-  return `<h3>Wellness &amp; Experiences</h3>
-    <div class="wellness-intro">${intro}</div>
-    <div class="wellness-features">${feats}</div>`;
+  const feats = (s.features || []).map(f => `<div class="wellness-feat"><span class="wf-icon">${f.icon}</span><span>${f.text}</span></div>`).join('');
+  return `<h3>Wellness &amp; Experiences</h3><div class="wellness-intro">${intro}</div><div class="wellness-features">${feats}</div>`;
 }
-
 function buildActivities(s) {
-  const items = (s.items || []).map((item, i) => `
-    <li class="activity-item">
-      <span class="activity-num">${String(i + 1).padStart(2, '0')}.</span>
-      <span class="activity-body">
-        ${item.title ? `<strong>${item.title}</strong>` : ''}
-        ${item.desc || (typeof item === 'string' ? item : '')}
-      </span>
-    </li>`).join('');
+  const items = (s.items || []).map((item, i) => `<li class="activity-item"><span class="activity-num">${String(i + 1).padStart(2, '0')}.</span><span class="activity-body">${item.title ? `<strong>${item.title}</strong>` : ''}${item.desc || (typeof item === 'string' ? item : '')}</span></li>`).join('');
   return `<h3>Things to Do &amp; Nearby Experiences</h3><ul class="activities-list">${items}</ul>`;
 }
-
 function buildPackages(s) {
   const intro = (s.intro || []).map(p => `<p>${p}</p>`).join('');
   const items = (s.items || []).map(i => `<li><span class="pkg-check">✓</span><span>${i}</span></li>`).join('');
-  return `<h3>Packages &amp; Inclusions</h3>
-    <div class="package-intro">${intro}</div>
-    <div class="package-box">
-      <div class="package-box-title">${s.title || "What's Included"}</div>
-      <ul class="package-list">${items}</ul>
-    </div>`;
+  return `<h3>Packages &amp; Inclusions</h3><div class="package-intro">${intro}</div><div class="package-box"><div class="package-box-title">${s.title || "What's Included"}</div><ul class="package-list">${items}</ul></div>`;
 }
-
 function buildGallery(s) {
   const images = s.images || [];
-  const imageItems = images.map(url => `
-    <div class="gallery-item">
-      <img src="${url}" alt="Gallery image" loading="lazy">
-    </div>`).join('');
-  return `<h3>Photo Gallery</h3>
-    <div class="gallery-grid">${imageItems}</div>
-    <div class="gallery-caption">${currentHotel.name} — ${images.length} exclusive views</div>`;
+  const imageItems = images.map(url => `<div class="gallery-item"><img src="${url}" alt="Gallery image" loading="lazy"></div>`).join('');
+  return `<h3>Photo Gallery</h3><div class="gallery-grid">${imageItems}</div><div class="gallery-caption">${currentHotel.name} — ${images.length} exclusive views</div>`;
 }
-
-// ─────────────────────────────────────────────────────────────────
-//  NAVIGATION & URL HANDLING
-// ─────────────────────────────────────────────────────────────────
 
 document.getElementById('backToListBtn').addEventListener('click', () => showView(listView));
 document.getElementById('backToHomeBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
-window.addEventListener('scroll', () => { 
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); 
-});
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
-/**
- * Check URL for hotel ID parameter and open that hotel
- * Example: hotel.html?hotel=2
- */
 function checkUrlForHotelId() {
   const urlParams = new URLSearchParams(window.location.search);
-  const hotelIdParam = urlParams.get('hotel');
-  
-  if (hotelIdParam !== null) {
-    const id = parseInt(hotelIdParam, 10);
-    const hotel = hotelsDataset.find(h => h.id === id);
-    if (hotel) {
-      openHotel(id);
-    }
+  const id = urlParams.get('hotel');
+  if (id !== null) {
+    const hotel = hotelsDataset.find(h => h._id === id); // Changed to _id
+    if (hotel) openHotel(id);
   }
 }
 
-// ─────────────────────────────────────────────────────────────────
-//  INITIALIZE - FETCH DATA ON PAGE LOAD
-// ─────────────────────────────────────────────────────────────────
-
-// Start loading hotels when page loads
 fetchHotels();
 </script>
 </body>

@@ -540,22 +540,8 @@
     </div>
   </footer>
 
-  <script>
-    // ══════════════════════════════════════════════════════════════════
-//  INDEX.HTML - UPDATED JAVASCRIPT SECTION
-//  Replace the script section in your index.html with this code
-//  This fetches hotel data from the API for the favorites gallery
-// ══════════════════════════════════════════════════════════════════
-
-// ─────────────────────────────────────────────────────────────────
-//  API CONFIGURATION
-// ─────────────────────────────────────────────────────────────────
-
-const API_BASE_URL = 'http://localhost:3000/api';
-
-// ─────────────────────────────────────────────────────────────────
-//  MOBILE MENU TOGGLE
-// ─────────────────────────────────────────────────────────────────
+<script>
+const API_BASE_URL = '/api'; // Changed for Vercel
 
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
@@ -566,39 +552,21 @@ if (mobileMenuBtn && navLinks) {
   });
 }
 
-// ─────────────────────────────────────────────────────────────────
-//  FETCH AND DISPLAY HOTELS IN FAVORITES GALLERY
-// ─────────────────────────────────────────────────────────────────
-
-/**
- * Fetch hotels from API and populate the favorites gallery
- */
 async function loadFavoriteHotels() {
   try {
     const response = await fetch(`${API_BASE_URL}/hotels`);
     const result = await response.json();
-    
     if (result.success && result.data.length > 0) {
-      const hotelsDataset = result.data;
-      populateGallery(hotelsDataset);
-    } else {
-      console.warn('No hotels available to display');
+      populateGallery(result.data);
     }
-  } catch (error) {
-    console.error('Error fetching hotels:', error);
-  }
+  } catch (error) { console.error('Error fetching hotels:', error); }
 }
 
-/**
- * Populate the horizontal scroll gallery with hotel data
- */
 function populateGallery(hotels) {
   const galleryContainer = document.getElementById('scrollGallery');
-  
   if (!galleryContainer) return;
-  
   galleryContainer.innerHTML = hotels.map(hotel => `
-    <div class="gallery-item" data-hotel-id="${hotel.id}">
+    <div class="gallery-item" data-hotel-id="${hotel._id}">
       <div class="img-wrapper">
         <img src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy">
       </div>
@@ -609,7 +577,6 @@ function populateGallery(hotels) {
     </div>
   `).join('');
   
-  // Add click handlers to navigate to hotel detail page
   const galleryItems = galleryContainer.querySelectorAll('.gallery-item');
   galleryItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -619,85 +586,43 @@ function populateGallery(hotels) {
   });
 }
 
-// ─────────────────────────────────────────────────────────────────
-//  GSAP ANIMATIONS (KEEP YOUR EXISTING ANIMATIONS)
-// ─────────────────────────────────────────────────────────────────
-
 gsap.registerPlugin(ScrollTrigger);
 
-// Navbar glassy effect on scroll
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
   if (window.scrollY > 50) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
 });
 
-// Hero text reveal
 const tl = gsap.timeline();
-tl.to('.reveal', {
-  y: 0, opacity: 1, rotation: 0, duration: 1.8, stagger: 0.15, ease: "power4.out", delay: 0.3
-})
-.to('.reveal-fade', {
-  y: 0, opacity: 1, duration: 1, ease: "power2.out", stagger: 0.2
-}, "-=1");
+tl.to('.reveal', { y: 0, opacity: 1, rotation: 0, duration: 1.8, stagger: 0.15, ease: "power4.out", delay: 0.3 })
+  .to('.reveal-fade', { y: 0, opacity: 1, duration: 1, ease: "power2.out", stagger: 0.2 }, "-=1");
 
-gsap.to('.hero-video:not(.parallax-video)', {
-  scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
-  scale: 1.15, y: 100, opacity: 0.3
-});
+gsap.to('.hero-video:not(.parallax-video)', { scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }, scale: 1.15, y: 100, opacity: 0.3 });
+gsap.from('.reveal-box', { scrollTrigger: { trigger: '.split-content', start: "top 80%" }, clipPath: "inset(100% 0 0 0)", duration: 1.5, ease: "power4.inOut" });
+gsap.to('#parallaxImg', { scrollTrigger: { trigger: '.split-content', start: "top bottom", scrub: 1 }, y: -80, scale: 1.05 });
 
-gsap.from('.reveal-box', {
-  scrollTrigger: { trigger: '.split-content', start: "top 80%" },
-  clipPath: "inset(100% 0 0 0)", duration: 1.5, ease: "power4.inOut"
-});
-
-gsap.to('#parallaxImg', {
-  scrollTrigger: { trigger: '.split-content', start: "top bottom", scrub: 1 },
-  y: -80, scale: 1.05
-});
-
-// Dynamic horizontal scroll
 let mm = gsap.matchMedia();
 mm.add("(min-width: 901px)", () => {
   const scrollContainer = document.getElementById("scrollGallery");
   const section = document.getElementById("favorites-section");
-  
   if (scrollContainer && section) {
     gsap.to(scrollContainer, {
       x: () => -(scrollContainer.scrollWidth - window.innerWidth + 100),
       ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        scrub: 1.5,
-        invalidateOnRefresh: true,
-        end: () => "+=" + scrollContainer.scrollWidth
-      }
+      scrollTrigger: { trigger: section, pin: true, scrub: 1.5, invalidateOnRefresh: true, end: () => "+=" + scrollContainer.scrollWidth }
     });
   }
 });
 
 const fadeElements = gsap.utils.toArray('.dest-creative-card, .feature-item-new, .four-col-card');
 fadeElements.forEach((el) => {
-  gsap.from(el, {
-    scrollTrigger: { trigger: el, start: "top 85%" },
-    opacity: 0, y: 60, duration: 1.2, ease: "power3.out"
-  });
+  gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, opacity: 0, y: 60, duration: 1.2, ease: "power3.out" });
 });
 
-gsap.from('.split-text-reveal', {
-  scrollTrigger: { trigger: '.text-block', start: "top 80%" },
-  opacity: 0, y: 30, duration: 1, ease: "power2.out"
-});
+gsap.from('.split-text-reveal', { scrollTrigger: { trigger: '.text-block', start: "top 80%" }, opacity: 0, y: 30, duration: 1, ease: "power2.out" });
 
-// ─────────────────────────────────────────────────────────────────
-//  INITIALIZE - LOAD HOTELS ON PAGE LOAD
-// ─────────────────────────────────────────────────────────────────
-
-// Load favorite hotels when page is ready
-document.addEventListener('DOMContentLoaded', () => {
-  loadFavoriteHotels();
-});
-  </script>
+document.addEventListener('DOMContentLoaded', loadFavoriteHotels);
+</script>
 </body>
 </html>

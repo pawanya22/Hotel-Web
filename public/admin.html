@@ -223,11 +223,11 @@
 </div>
 
 <script>
-  const API_URL = 'http://localhost:3000/api/hotels';
+  // Changed to relative URL for Vercel
+  const API_URL = '/api/hotels';
   const tabKeys = ["Accommodation", "Room Facilities", "Dining", "Wellness & Experiences", "Things to Do & Nearby Experiences", "Packages & Inclusions", "Gallery"];
   let allHotels = [];
 
-  // Initialize Tab Images Inputs
   const tabImgContainer = document.getElementById('tabImagesContainer');
   tabKeys.forEach(key => {
     tabImgContainer.innerHTML += `
@@ -237,8 +237,6 @@
       </div>
     `;
   });
-
-  // --- REPEATER FUNCTIONS ---
 
   function addVilla(name='', size='', desc='') {
     const div = document.createElement('div');
@@ -270,8 +268,8 @@
     div.className = 'repeater-item facility-item';
     div.innerHTML = `
       <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-      <div class="form-group"><label>Group Title (e.g. Bathroom)</label><input type="text" class="f-title" value="${title}"></div>
-      <div class="form-group"><label>Items (One per line)</label><textarea class="f-items">${items}</textarea></div>
+      <div class="form-group"><label>Group Title</label><input type="text" class="f-title" value="${title}"></div>
+      <div class="form-group"><label>Items</label><textarea class="f-items">${items}</textarea></div>
     `;
     document.getElementById('facilities-list').appendChild(div);
   }
@@ -300,8 +298,6 @@
     document.getElementById('activities-list').appendChild(div);
   }
 
-  // --- DATA OPERATIONS ---
-
   async function loadHotels() {
     try {
       const res = await fetch(API_URL);
@@ -315,8 +311,8 @@
             <p>${h.location}</p>
           </div>
           <div class="action-links">
-            <button type="button" onclick="editHotel(${h.id})">Edit</button>
-            <button type="button" class="del-btn" onclick="deleteHotel(${h.id})">Del</button>
+            <button type="button" onclick="editHotel('${h._id}')">Edit</button>
+            <button type="button" class="del-btn" onclick="deleteHotel('${h._id}')">Del</button>
           </div>
         </div>
       `).join('');
@@ -324,53 +320,45 @@
   }
 
   function editHotel(id) {
-    const h = allHotels.find(x => x.id === id);
+    const h = allHotels.find(x => x._id === id); // Changed to _id
     if(!h) return;
 
     resetForm();
-    document.getElementById('hotelId').value = h.id;
+    document.getElementById('hotelId').value = h._id; // Changed to _id
     document.getElementById('name').value = h.name;
     document.getElementById('location').value = h.location;
     document.getElementById('country').value = h.country;
     document.getElementById('mainImage').value = h.mainImage;
     document.getElementById('tagline').value = h.tagline;
-    document.getElementById('description').value = h.description.join('\n');
+    document.getElementById('description').value = (h.description || []).join('\n');
 
-    // Tab Images
     document.querySelectorAll('.tab-img-input').forEach(input => {
-      input.value = h.sectionImages[input.dataset.key] || '';
+      input.value = (h.sectionImages && h.sectionImages[input.dataset.key]) ? h.sectionImages[input.dataset.key] : '';
     });
 
-    // Accommodation
     const acc = h.sections["Accommodation"] || {};
     document.querySelector('.sec-intro[data-sec="Accommodation"]').value = (acc.intro || []).join('\n');
     (acc.villas || []).forEach(v => addVilla(v.name, v.size, v.desc));
 
-    // Dining
     const din = h.sections["Dining"] || {};
     document.querySelector('.sec-intro[data-sec="Dining"]').value = (din.intro || []).join('\n');
     (din.venues || []).forEach(v => addDining(v.name, v.desc));
 
-    // Facilities
     const fac = h.sections["Room Facilities"] || {};
     (fac.groups || []).forEach(g => addFacilityGroup(g.title, g.items.join('\n')));
 
-    // Wellness
     const wel = h.sections["Wellness & Experiences"] || {};
     document.querySelector('.sec-intro[data-sec="Wellness & Experiences"]').value = (wel.intro || []).join('\n');
     (wel.features || []).forEach(f => addWellness(f.icon, f.text));
 
-    // Activities
     const act = h.sections["Things to Do & Nearby Experiences"] || {};
     (act.items || []).forEach(a => addActivity(a.title, a.desc));
 
-    // Packages
     const pkg = h.sections["Packages & Inclusions"] || {};
     document.querySelector('.sec-intro[data-sec="Packages & Inclusions"]').value = (pkg.intro || []).join('\n');
     document.getElementById('pkg-title').value = pkg.title || '';
     document.getElementById('pkg-items').value = (pkg.items || []).join('\n');
 
-    // Gallery
     const gal = h.sections["Gallery"] || {};
     document.getElementById('gallery-urls').value = (gal.images || []).join('\n');
 
@@ -388,7 +376,6 @@
   document.getElementById('hotelForm').onsubmit = async (e) => {
     e.preventDefault();
     
-    // Construct Object
     const hotelData = {
       name: document.getElementById('name').value,
       location: document.getElementById('location').value,
@@ -400,12 +387,10 @@
       sections: {}
     };
 
-    // Tab Images
     document.querySelectorAll('.tab-img-input').forEach(i => {
       hotelData.sectionImages[i.dataset.key] = i.value;
     });
 
-    // Construct Sections
     hotelData.sections["Accommodation"] = {
       type: "accommodation",
       intro: document.querySelector('.sec-intro[data-sec="Accommodation"]').value.split('\n').filter(l => l.trim()),

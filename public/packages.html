@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packages | Luxury Travel Guru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --gold: #c9a84c; --bg-light: #fcfbf9; --text-dark: #121212; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--bg-light); font-family: 'Jost', sans-serif; color: var(--text-dark); padding-top: 150px; }
+    nav { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1400px; padding: 14px 36px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,8,6,0.92); backdrop-filter: blur(24px); border-radius: 100px; z-index: 1000; }
+    .logo { font-family: 'Cormorant Garamond', serif; color: #fff; text-transform: uppercase; letter-spacing: 4px; text-decoration: none; }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: #fff; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-top: 50px; }
+    .package-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; transition: 0.3s; border: 1px solid #eee; }
+    .package-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .wishlist-icons { position: absolute; top: 15px; right: 15px; z-index: 2; display: flex; gap: 10px; cursor: pointer; }
+    .wishlist-icons span { background: rgba(255,255,255,0.8); padding: 8px; border-radius: 50%; color: #aaa; font-size: 1rem; }
+    .package-card img { width: 100%; height: 250px; object-fit: cover; }
+    .card-body { padding: 25px; }
+    .card-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 10px; }
+    .price { font-size: 1.1rem; font-weight: 600; color: var(--gold); margin-bottom: 15px; }
+    .price .old { text-decoration: line-through; color: #ccc; font-weight: 300; font-size: 0.9rem; margin-right: 10px; }
+    .desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; line-height: 1.6; }
+    .route { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px; border-top: 1px solid #eee; padding-top: 15px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">LUXURY TRAVEL GURU</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="hotel.html">HOTELS</a></li>
+    <li><a href="packages.html" style="color:var(--gold)">PACKAGES</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h1>Featured Packages</h1>
+  <div class="packages-grid" id="packagesGrid">
+    <p>Loading luxury experiences...</p>
+  </div>
+</div>
+
+<script>
+async function fetchPackages() {
+  const grid = document.getElementById('packagesGrid');
+  try {
+    const res = await fetch('/api/packages');
+    const result = await res.json();
+    if (!result.data || result.data.length === 0) {
+      grid.innerHTML = "<p>No packages currently available.</p>";
+      return;
+    }
+    grid.innerHTML = result.data.map(p => `
+      <div class="package-card" onclick="window.location.href='package-detail.html?id=${p._id}'" style="cursor:pointer;">
+        <div class="wishlist-icons"><span>♡</span></div>
+        <img src="${p.imageUrl}" alt="${p.title}">
+        <div class="card-body">
+          <h3>${p.title}</h3>
+          <p style="font-size:0.8rem; margin-bottom:10px;">${p.duration}</p>
+          <p class="price"><span class="old">£${p.priceOriginal}</span> £${p.priceDiscounted}</p>
+          <p class="desc">${p.overview ? p.overview.substring(0, 100) + '...' : ''}</p>
+          <div class="route">📍 ${p.locationRoute}</div>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    grid.innerHTML = "<p>Error loading packages. Please try again later.</p>";
+    console.error("Error:", err);
+  }
+}
+fetchPackages();
+</script>
+
+</body>
+</html>

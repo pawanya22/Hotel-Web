@@ -128,7 +128,7 @@
     .hotel-description-detail p { margin-bottom:10px; }
     .hotel-description-detail p:last-child { margin-bottom:0; }
 
-    /* TABS – now wrap without scroll */
+    /* TABS */
     .tab-row {
       display:flex; flex-wrap:wrap; gap:0;
       border-bottom:2px solid var(--border); margin-bottom:40px;
@@ -294,6 +294,128 @@
     .footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; letter-spacing:7px; display:block; margin-bottom:10px; }
     .footer-bottom p { font-size:0.63rem; letter-spacing:3px; text-transform:uppercase; }
 
+    /* ROOM TABS BAR (DETAIL VIEW) */
+    .room-tabs-section {
+      margin-top: 40px;
+      margin-bottom: 50px;
+      background: var(--bg-card);
+      padding: 35px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    /* CREATIVE LIST LAYOUT */
+    .creative-list-item {
+      display: flex;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+    .creative-list-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-gold);
+    }
+    .creative-list-img-wrap {
+      width: 35%;
+      min-width: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+    .creative-list-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s;
+    }
+    .creative-list-item:hover .creative-list-img {
+      transform: scale(1.05);
+    }
+    .creative-list-content {
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .creative-list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .creative-list-title-area h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .creative-list-meta {
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+    .creative-list-price {
+      text-align: right;
+      font-family: 'Jost', sans-serif;
+    }
+    .creative-list-price .discounted {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      display: block;
+    }
+    .creative-list-price .original {
+      text-decoration: line-through;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .creative-list-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 25px;
+    }
+    .creative-list-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    .creative-list-route {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-light);
+    }
+    .creative-list-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .creative-list-item:hover .creative-list-btn {
+      background: var(--gold);
+      color: #fff;
+    }
+
     @media(min-width:900px) {
       .gallery-grid { grid-template-columns:repeat(3,1fr); }
     }
@@ -311,17 +433,23 @@
       .section-wrap { flex-direction:column; }
       .villa-cards,.facility-grid,.wellness-features,.gallery-grid { grid-template-columns:1fr; }
       .detail-hero-img { height:300px; }
+      .creative-list-item { flex-direction: column; }
+      .creative-list-img-wrap { width: 100%; height: 220px; }
+      .creative-list-content { padding: 25px; }
+      .creative-list-header { flex-direction: column; gap: 15px; }
+      .creative-list-price { text-align: left; }
     }
   </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <a href="index.html" class="logo">LUXE WELLNESS CLUB</a>
+  <a href="index.html" class="logo">LUXURY TRAVEL GURU</a>
   <ul class="nav-links">
     <li><a href="index.html">HOME</a></li>
     <li><a href="about.html">ABOUT</a></li>
     <li><a href="hotel.html" class="active">HOTELS</a></li>
+    <li><a href="packages.html">PACKAGES</a></li>
     <li><a href="contact.html">CONTACT</a></li>
   </ul>
   <div class="nav-right"><a href="#">EN</a></div>
@@ -336,7 +464,7 @@
   <div id="hotelsGrid" class="hotels-grid"></div>
   <footer>
     <div class="footer-bottom">
-      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <span class="footer-logo">LUXURY TRAVEL GURU</span>
       <p>Hotel Collection &nbsp;·&nbsp; Timeless Elegance</p>
     </div>
   </footer>
@@ -353,22 +481,52 @@
     <span id="detailHotelLoc" class="hotel-loc-badge"></span>
     <div id="detailHeroImage" class="detail-hero-img"></div>
     <div id="hotelDetailDescription" class="hotel-description-detail"></div>
+    
+    <!-- Room selection tabs on hotel details page -->
+    <div id="roomTabsSection" class="room-tabs-section">
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:500; margin-bottom:20px; text-transform: uppercase; letter-spacing: 2px; color: var(--text);">Exclusive Room Packages</h3>
+      <div id="roomTabButtons" class="tab-row" style="margin-bottom: 0; border-bottom: none;"></div>
+    </div>
+
     <div id="categoryButtons" class="tab-row"></div>
     <div id="detailContentArea"></div>
   </div>
   <footer>
     <div class="footer-bottom">
-      <span class="footer-logo">LUXE WELLNESS CLUB</span>
+      <span class="footer-logo">LUXURY TRAVEL GURU</span>
       <p>Luxury Hotel Experience</p>
     </div>
   </footer>
 </div>
 
+<!-- CREATIVE LIST PACKAGES VIEW -->
+<div id="roomPackagesView" class="view">
+  <div class="detail-container">
+    <div class="back-bar">
+      <button id="backToHotelDetailBtn" class="back-btn">← Back to Hotel Details</button>
+    </div>
+    <h1 id="roomPackagesTitle" class="hotel-name-detail"></h1>
+    <span id="roomPackagesSubtitle" class="hotel-loc-badge"></span>
+    <div id="creativePackagesList" style="margin-top: 45px;"></div>
+  </div>
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-logo">LUXURY TRAVEL GURU</span>
+      <p>Exclusive Room Experiences</p>
+    </div>
+  </footer>
+</div>
+
 <script>
-const API_BASE_URL = '/api'; // Changed for Vercel
+const API_BASE_URL = '/api';
 let hotelsDataset = [];
+let hotelPackages = []; // Local dataset instance for active hotel package loads
+let activeRoomTab = "Room 1"; // Selected room category tracking state
+const ROOM_TABS_LIST = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"];
+
 const listView = document.getElementById('listView');
 const detailView = document.getElementById('detailView');
+const roomPackagesView = document.getElementById('roomPackagesView');
 const SECTION_KEYS = ["Accommodation","Room Facilities","Dining","Wellness & Experiences","Things to Do & Nearby Experiences","Packages & Inclusions","Gallery"];
 let currentHotel = null;
 let activeCategory = 0;
@@ -389,6 +547,22 @@ async function fetchHotels() {
   }
 }
 
+// Fetch packages linked to the selected hotel
+async function fetchHotelPackages(hotelId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/packages?hotelId=${hotelId}`);
+    const result = await res.json();
+    if (result.success) {
+      hotelPackages = result.data;
+    } else {
+      hotelPackages = [];
+    }
+  } catch (err) {
+    console.error("Failed to retrieve associated room packages", err);
+    hotelPackages = [];
+  }
+}
+
 function showError(message) {
   const gridContainer = document.getElementById('hotelsGrid');
   if (gridContainer) {
@@ -404,6 +578,7 @@ function showError(message) {
 function showView(view) {
   listView.classList.remove('active-view');
   detailView.classList.remove('active-view');
+  roomPackagesView.classList.remove('active-view');
   view.classList.add('active-view');
   window.scrollTo(0, 0);
 }
@@ -430,12 +605,92 @@ function renderHotelCards() {
   `).join('');
 }
 
-function openHotel(id) {
-  currentHotel = hotelsDataset.find(h => h._id === id); // Changed to _id
+async function openHotel(id) {
+  currentHotel = hotelsDataset.find(h => h._id === id);
   if (!currentHotel) return;
   activeCategory = 0;
+  activeRoomTab = "Room 1"; 
+  
+  await fetchHotelPackages(id);
+
   showView(detailView);
   renderDetail();
+  renderRoomTabs();
+  
+  window.history.pushState({}, '', `?hotel=${id}`);
+}
+
+// Renders the Room Tab buttons on the Hotel Detail page
+function renderRoomTabs() {
+  const tabBtnContainer = document.getElementById('roomTabButtons');
+  if (!tabBtnContainer) return;
+  tabBtnContainer.innerHTML = '';
+  
+  ROOM_TABS_LIST.forEach(roomName => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.innerText = roomName;
+    btn.addEventListener('click', () => {
+      navigateToRoomPackages(roomName);
+    });
+    tabBtnContainer.appendChild(btn);
+  });
+}
+
+// Navigates directly to the single room creative list packages view
+function navigateToRoomPackages(roomName) {
+  activeRoomTab = roomName;
+  showView(roomPackagesView);
+  
+  document.getElementById('roomPackagesTitle').innerText = `${currentHotel.name} — ${roomName}`;
+  document.getElementById('roomPackagesSubtitle').innerHTML = `📍 ${currentHotel.location.toUpperCase()} &nbsp;·&nbsp; PREMIUM SUITE INCLUSIONS`;
+  
+  renderCreativePackagesList();
+}
+
+// Populates the list creative with full-width split layout package cards
+function renderCreativePackagesList() {
+  const listContainer = document.getElementById('creativePackagesList');
+  if (!listContainer) return;
+  
+  const filtered = hotelPackages.filter(p => p.roomName === activeRoomTab);
+  
+  if (filtered.length === 0) {
+    listContainer.innerHTML = `
+      <div style="text-align:center; padding:60px 20px; background:var(--bg-card); border: 1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);">
+        <p style="color:var(--text-light); font-size:1rem; margin-bottom: 25px;">No dynamic packages currently configured for ${activeRoomTab} at this property.</p>
+        <button onclick="showView(detailView)" class="back-btn" style="padding: 10px 30px; font-size:0.75rem;">Return to Hotel Details</button>
+      </div>
+    `;
+    return;
+  }
+  
+  listContainer.innerHTML = filtered.map(p => `
+    <div class="creative-list-item" onclick="window.location.href='package-detail.html?id=${p._id}'">
+      ${p.imageUrl ? `
+        <div class="creative-list-img-wrap">
+          <img src="${p.imageUrl}" class="creative-list-img" alt="${p.title}" loading="lazy">
+        </div>
+      ` : ''}
+      <div class="creative-list-content">
+        <div class="creative-list-header">
+          <div class="creative-list-title-area">
+            <h3>${p.title}</h3>
+            <div class="creative-list-meta">⏱️ ${p.duration || 'Flexible Duration'}</div>
+          </div>
+          <div class="creative-list-price">
+            ${p.priceOriginal ? `<span class="original">£${p.priceOriginal}</span>` : ''}
+            <span class="discounted">£${p.priceDiscounted}</span>
+          </div>
+        </div>
+        <p class="creative-list-desc">${p.overview ? p.overview.substring(0, 240) + '...' : 'Unlock tailored pricing and bespoke itineraries arranged directly by our on-site concierge team.'}</p>
+        <div class="creative-list-footer">
+          <span class="creative-list-route">📍 ${p.locationRoute || 'On-Property Experience'}</span>
+          <button class="creative-list-btn">Explore Details →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderDetail() {
@@ -521,13 +776,14 @@ function buildGallery(s) {
 
 document.getElementById('backToListBtn').addEventListener('click', () => showView(listView));
 document.getElementById('backToHomeBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
+document.getElementById('backToHotelDetailBtn').addEventListener('click', () => showView(detailView));
 window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
 function checkUrlForHotelId() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('hotel');
   if (id !== null) {
-    const hotel = hotelsDataset.find(h => h._id === id); // Changed to _id
+    const hotel = hotelsDataset.find(h => h._id === id);
     if (hotel) openHotel(id);
   }
 }

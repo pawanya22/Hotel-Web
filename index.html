@@ -237,6 +237,7 @@
       <li><a href="index.html" class="active">HOME</a></li>
       <li><a href="about.html">ABOUT</a></li>
       <li><a href="hotel.html">HOTELS</a></li>
+      <li><a href="packages.html">PACKAGES</a></li>
       <li><a href="contact.html">CONTACT</a></li>
     </ul>
     <div class="nav-right">
@@ -540,89 +541,108 @@
     </div>
   </footer>
 
-<script>
-const API_BASE_URL = '/api'; // Changed for Vercel
-
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
-if (mobileMenuBtn && navLinks) {
-  mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    mobileMenuBtn.innerText = navLinks.classList.contains('active') ? '✕' : '☰';
-  });
-}
-
-async function loadFavoriteHotels() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/hotels`);
-    const result = await response.json();
-    if (result.success && result.data.length > 0) {
-      populateGallery(result.data);
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerText = navLinks.classList.contains('active') ? '✕' : '☰';
+      });
     }
-  } catch (error) { console.error('Error fetching hotels:', error); }
-}
 
-function populateGallery(hotels) {
-  const galleryContainer = document.getElementById('scrollGallery');
-  if (!galleryContainer) return;
-  galleryContainer.innerHTML = hotels.map(hotel => `
-    <div class="gallery-item" data-hotel-id="${hotel._id}">
-      <div class="img-wrapper">
-        <img src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy">
-      </div>
-      <div class="item-text">
-        <h4>${hotel.name}</h4>
-        <p>${hotel.country}</p>
-      </div>
-    </div>
-  `).join('');
-  
-  const galleryItems = galleryContainer.querySelectorAll('.gallery-item');
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const hotelId = item.getAttribute('data-hotel-id');
-      window.location.href = `hotel.html?hotel=${hotelId}`;
+    // Featured Maldives Resorts Dataset
+    const hotelsDataset = [
+      { id:0, name:"Meeru Island Resort", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1540202404-a2f29016b523?w=900" },
+      { id:1, name:"Digufaru Island Resort", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=900" },
+      { id:2, name:"Hurawalhi Island Resort", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=900" },
+      { id:3, name:"Kagi Maldives Spa Island", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=900" },
+      { id:4, name:"Komandoo Island Resort & Spa", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?w=900" },
+      { id:5, name:"Kuredu Island Resort", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=900" },
+      { id:6, name:"Veligandu Island Resort", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900" },
+      { id:7, name:"You & Me Maldives", country:"Maldives", mainImage:"https://images.unsplash.com/photo-1484821582734-6c6c9f99a672?w=900" }
+    ];
+
+    // Populate favorites gallery
+    const galleryContainer = document.getElementById('scrollGallery');
+    if (galleryContainer) {
+      galleryContainer.innerHTML = hotelsDataset.map(hotel => `
+        <div class="gallery-item" data-hotel-id="${hotel.id}">
+          <div class="img-wrapper"><img src="${hotel.mainImage}" alt="${hotel.name}" loading="lazy"></div>
+          <div class="item-text">
+            <h4>${hotel.name}</h4>
+            <p>${hotel.country}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Navbar glassy effect on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
-  });
-}
 
-gsap.registerPlugin(ScrollTrigger);
+    // Hero text reveal
+    const tl = gsap.timeline();
+    tl.to('.reveal', {
+      y: 0, opacity: 1, rotation: 0, duration: 1.8, stagger: 0.15, ease: "power4.out", delay: 0.3
+    })
+    .to('.reveal-fade', {
+      y: 0, opacity: 1, duration: 1, ease: "power2.out", stagger: 0.2
+    }, "-=1");
 
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  if (window.scrollY > 50) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
-
-const tl = gsap.timeline();
-tl.to('.reveal', { y: 0, opacity: 1, rotation: 0, duration: 1.8, stagger: 0.15, ease: "power4.out", delay: 0.3 })
-  .to('.reveal-fade', { y: 0, opacity: 1, duration: 1, ease: "power2.out", stagger: 0.2 }, "-=1");
-
-gsap.to('.hero-video:not(.parallax-video)', { scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }, scale: 1.15, y: 100, opacity: 0.3 });
-gsap.from('.reveal-box', { scrollTrigger: { trigger: '.split-content', start: "top 80%" }, clipPath: "inset(100% 0 0 0)", duration: 1.5, ease: "power4.inOut" });
-gsap.to('#parallaxImg', { scrollTrigger: { trigger: '.split-content', start: "top bottom", scrub: 1 }, y: -80, scale: 1.05 });
-
-let mm = gsap.matchMedia();
-mm.add("(min-width: 901px)", () => {
-  const scrollContainer = document.getElementById("scrollGallery");
-  const section = document.getElementById("favorites-section");
-  if (scrollContainer && section) {
-    gsap.to(scrollContainer, {
-      x: () => -(scrollContainer.scrollWidth - window.innerWidth + 100),
-      ease: "none",
-      scrollTrigger: { trigger: section, pin: true, scrub: 1.5, invalidateOnRefresh: true, end: () => "+=" + scrollContainer.scrollWidth }
+    gsap.to('.hero-video:not(.parallax-video)', {
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+      scale: 1.15, y: 100, opacity: 0.3
     });
-  }
-});
 
-const fadeElements = gsap.utils.toArray('.dest-creative-card, .feature-item-new, .four-col-card');
-fadeElements.forEach((el) => {
-  gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, opacity: 0, y: 60, duration: 1.2, ease: "power3.out" });
-});
+    gsap.from('.reveal-box', {
+      scrollTrigger: { trigger: '.split-content', start: "top 80%" },
+      clipPath: "inset(100% 0 0 0)", duration: 1.5, ease: "power4.inOut"
+    });
 
-gsap.from('.split-text-reveal', { scrollTrigger: { trigger: '.text-block', start: "top 80%" }, opacity: 0, y: 30, duration: 1, ease: "power2.out" });
+    gsap.to('#parallaxImg', {
+      scrollTrigger: { trigger: '.split-content', start: "top bottom", scrub: 1 },
+      y: -80, scale: 1.05
+    });
 
-document.addEventListener('DOMContentLoaded', loadFavoriteHotels);
-</script>
+    // Dynamic horizontal scroll
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 901px)", () => {
+      const scrollContainer = document.getElementById("scrollGallery");
+      const section = document.getElementById("favorites-section");
+      
+      gsap.to(scrollContainer, {
+        // dynamically calculate the exact width minus viewport to show the final card + padding
+        x: () => -(scrollContainer.scrollWidth - window.innerWidth + 100),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+          end: () => "+=" + scrollContainer.scrollWidth
+        }
+      });
+    });
+
+    const fadeElements = gsap.utils.toArray('.dest-creative-card, .feature-item-new, .four-col-card');
+    fadeElements.forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: "top 85%" },
+        opacity: 0, y: 60, duration: 1.2, ease: "power3.out"
+      });
+    });
+
+    gsap.from('.split-text-reveal', {
+      scrollTrigger: { trigger: '.text-block', start: "top 80%" },
+      opacity: 0, y: 30, duration: 1, ease: "power2.out"
+    });
+  </script>
 </body>
 </html>
